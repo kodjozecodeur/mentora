@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { getGreeting, getReadinessMessage, getWeaknessBadgeLabel } from './resultCopy';
+import {
+  getGreeting,
+  getReadinessLevelLabel,
+  getReadinessMessage,
+  getWeaknessBadgeLabel,
+} from './resultCopy';
 
 describe('getGreeting', () => {
   it('includes the trimmed first name when present', () => {
@@ -36,6 +41,23 @@ describe('getReadinessMessage', () => {
     expect(getReadinessMessage(100)).toBe(
       'Tu maîtrises déjà une bonne partie des compétences évaluées.',
     );
+  });
+});
+
+describe('getReadinessLevelLabel', () => {
+  it('labels 0-39 as needing reinforcement', () => {
+    expect(getReadinessLevelLabel(0)).toBe('À renforcer');
+    expect(getReadinessLevelLabel(39)).toBe('À renforcer');
+  });
+
+  it('labels 40-69 as in progress', () => {
+    expect(getReadinessLevelLabel(40)).toBe('En progression');
+    expect(getReadinessLevelLabel(69)).toBe('En progression');
+  });
+
+  it('labels 70-100 as optimal', () => {
+    expect(getReadinessLevelLabel(70)).toBe('Optimal');
+    expect(getReadinessLevelLabel(100)).toBe('Optimal');
   });
 });
 

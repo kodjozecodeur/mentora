@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle2, Clock3, Target } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Clock3, Flag, Target } from 'lucide-react';
 import { ReadinessScoreRing } from '@/components/diagnostic/ReadinessScoreRing';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { ProgressIndicator } from '@/components/ui/ProgressIndicator';
@@ -40,45 +40,46 @@ export function HomeScreen({
 
       <section
         aria-labelledby="home-readiness-title"
-        className="bg-surface border-border flex items-center gap-4 rounded-3xl border-2 p-4"
+        className="bg-surface border-border flex flex-col items-center gap-4 rounded-3xl border-2 p-5 text-center"
       >
+        <h2 id="home-readiness-title" className="text-foreground text-lg font-bold">
+          Niveau actuel
+        </h2>
         <ReadinessScoreRing score={diagnosticResult.readinessScore} />
-        <div className="flex min-w-0 flex-col gap-2">
-          <h2 id="home-readiness-title" className="text-foreground text-base font-bold">
-            Niveau de préparation
-          </h2>
-          <p className="text-muted text-sm font-medium">
-            {getReadinessMessage(diagnosticResult.readinessScore)}
-          </p>
-        </div>
+        <p className="text-muted max-w-[280px] text-sm font-medium">
+          {getReadinessMessage(diagnosticResult.readinessScore)}
+        </p>
       </section>
 
       <section aria-labelledby="daily-goal-title" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between gap-3">
-          <h2 id="daily-goal-title" className="text-foreground text-lg font-bold">
-            Objectif du jour
-          </h2>
-          {hasRemainingSession && (
-            <span className="text-muted text-sm font-semibold">Jour {nextSession.dayNumber}</span>
-          )}
-        </div>
+        <h2 id="daily-goal-title" className="sr-only">
+          Objectif du jour
+        </h2>
 
         {nextSession && nextUnit ? (
-          <article className="border-highlight bg-highlight/10 flex flex-col gap-4 rounded-3xl border-2 p-4">
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex min-w-0 flex-col gap-1">
-                <h3 className="text-foreground text-lg font-bold">{nextSession.competencyLabel}</h3>
-                <p className="text-foreground text-sm font-medium">{nextUnit.objective}</p>
+          <article className="border-primary bg-amber-50 flex flex-col gap-3 rounded-3xl border p-4">
+            <div className="flex items-center justify-between gap-2">
+              <div className="text-amber-800 flex items-center gap-1.5">
+                <Flag className="size-4 fill-current" aria-hidden="true" />
+                <span className="text-sm font-bold">Objectif du jour</span>
               </div>
-              <span className="text-muted flex shrink-0 items-center gap-1 text-sm font-semibold">
-                <Clock3 className="size-4" aria-hidden="true" />
+              <span className="text-muted flex shrink-0 items-center gap-1 text-xs font-semibold">
+                <Clock3 className="size-3.5" aria-hidden="true" />
                 {nextSession.estimatedMinutes} min
               </span>
+            </div>
+            <div className="flex min-w-0 flex-col gap-1">
+              <h3 className="text-foreground min-w-0 text-xl font-extrabold wrap-break-word">
+                {nextSession.competencyLabel}
+              </h3>
+              <p className="text-foreground/70 min-w-0 text-sm font-medium wrap-break-word">
+                {nextUnit.objective}
+              </p>
             </div>
             <button
               type="button"
               onClick={onOpenRevision}
-              className="text-highlight focus-visible:ring-highlight/40 flex min-h-11 w-fit items-center gap-2 rounded-full text-sm font-bold focus-visible:ring-4 focus-visible:outline-none"
+              className="border-border focus-visible:ring-highlight/40 flex min-h-11 w-full items-center justify-center gap-2 rounded-2xl border bg-white text-sm font-bold text-foreground focus-visible:ring-4 focus-visible:outline-none"
             >
               Voir les détails
               <ArrowRight className="size-4" aria-hidden="true" />

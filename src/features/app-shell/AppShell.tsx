@@ -15,6 +15,7 @@ import {
 import { exportStudyPackToPdf } from '@/services/study-pack';
 import type { DiagnosticResult } from '@/types/diagnostic';
 import type { RevisionPlan } from '@/types/revision';
+import { cn } from '@/lib/utils';
 import {
   getNextRevisionSession,
   getRevisionUnitForSession,
@@ -165,7 +166,7 @@ export function AppShell({
 
   return (
     <div className="bg-background min-h-dvh">
-      <ScreenContainer className="pb-28">
+      <ScreenContainer className={cn('pb-28', activeTab === 'home' && 'bg-[#FCF9F8]')}>
         <div className="flex min-h-[calc(100dvh-1.5rem)] flex-col">
           {showShellHeader && (
             <header className="flex items-center gap-3 pb-5">

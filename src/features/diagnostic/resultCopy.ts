@@ -13,6 +13,12 @@ export function getReadinessMessage(score: number): string {
   return 'Tu maîtrises déjà une bonne partie des compétences évaluées.';
 }
 
+export function getReadinessLevelLabel(score: number): string {
+  if (score < 40) return 'À renforcer';
+  if (score < 70) return 'En progression';
+  return 'Optimal';
+}
+
 export function getWeaknessBadgeLabel(level: ReadinessLevel): string {
   return level === 'priority' ? 'Prioritaire' : 'En progression';
 }
