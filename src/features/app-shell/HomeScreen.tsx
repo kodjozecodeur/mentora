@@ -3,7 +3,11 @@ import { ReadinessScoreRing } from '@/components/diagnostic/ReadinessScoreRing';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import type { DiagnosticResult } from '@/types/diagnostic';
 import type { RevisionSession, RevisionUnit } from '@/types/revision';
-import { getReadinessMessage } from '@/features/diagnostic/resultCopy';
+import {
+  getMasteryStatusLabel,
+  getReadinessMessage,
+  PROGRESSION_GLOBALE_LABEL,
+} from '@/features/diagnostic/resultCopy';
 import { getRevisionProgress, hasStartedRevision } from './appShellData';
 
 interface HomeScreenProps {
@@ -37,6 +41,10 @@ export function HomeScreen({
     : hasStartedRevision(revisionPlan)
       ? 'Reprendre ma révision'
       : 'Commencer ma révision';
+  const nextCompetencyStatus =
+    diagnosticResult.competencyMastery.find(
+      (competency) => competency.competencyId === nextSession?.competencyId,
+    )?.readinessLevel ?? 'priority';
 
   return (
     <div className="flex flex-col gap-5 pb-6">
@@ -50,7 +58,7 @@ export function HomeScreen({
         className="bg-surface border-border flex flex-col items-center gap-4 rounded-3xl border-2 p-5 text-center"
       >
         <h2 id="home-readiness-title" className="text-foreground text-lg font-bold">
-          Niveau actuel
+          {PROGRESSION_GLOBALE_LABEL}
         </h2>
         <ReadinessScoreRing score={diagnosticResult.readinessScore} />
         <p className="text-muted max-w-[280px] text-sm font-medium">
@@ -59,8 +67,8 @@ export function HomeScreen({
       </section>
 
       <section aria-labelledby="daily-goal-title" className="flex flex-col gap-3">
-        <h2 id="daily-goal-title" className="sr-only">
-          Objectif du jour
+        <h2 id="daily-goal-title" className="text-foreground text-lg font-bold">
+          Continuer mon apprentissage
         </h2>
 
         {nextSession && nextUnit ? (
@@ -68,7 +76,10 @@ export function HomeScreen({
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-1.5 text-amber-800">
                 <Flag className="size-4 fill-current" aria-hidden="true" />
-                <span className="text-sm font-bold">Objectif du jour</span>
+                <span className="text-sm font-bold">{subjectLabel}</span>
+                <span className="text-xs font-bold">
+                  · {getMasteryStatusLabel(nextCompetencyStatus)}
+                </span>
               </div>
               <span className="text-muted flex shrink-0 items-center gap-1 text-xs font-semibold">
                 <Clock3 className="size-3.5" aria-hidden="true" />
@@ -80,7 +91,7 @@ export function HomeScreen({
                 {nextSession.competencyLabel}
               </h3>
               <p className="text-foreground/70 min-w-0 text-sm font-medium wrap-break-word">
-                {nextUnit.objective}
+                Continue là où tu t&apos;es arrêté.
               </p>
             </div>
             <button
@@ -88,7 +99,7 @@ export function HomeScreen({
               onClick={onOpenRevision}
               className="border-border focus-visible:ring-highlight/40 text-foreground flex min-h-11 w-full items-center justify-center gap-2 rounded-2xl border bg-white text-sm font-bold focus-visible:ring-4 focus-visible:outline-none"
             >
-              Voir les détails
+              Continuer
               <ArrowRight className="size-4" aria-hidden="true" />
             </button>
           </article>
@@ -96,7 +107,7 @@ export function HomeScreen({
           <div className="bg-highlight/10 border-highlight flex items-center gap-3 rounded-3xl border-2 p-4">
             <CheckCircle2 className="text-highlight size-6 shrink-0" aria-hidden="true" />
             <p className="text-foreground text-sm font-semibold">
-              Tu as terminé toutes les sessions de ton plan.
+              Bravo, tu as terminé toutes les sessions de ton parcours actuel.
             </p>
           </div>
         )}
