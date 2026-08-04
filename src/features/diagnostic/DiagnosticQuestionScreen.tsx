@@ -27,7 +27,7 @@ export function DiagnosticQuestionScreen({
     <ScreenContainer className="diagnostic-question-reveal">
       <DiagnosticProgress currentQuestion={questionNumber} totalQuestions={totalQuestions} />
 
-      <div className="flex flex-1 flex-col gap-4 py-6">
+      <div className="flex flex-1 flex-col gap-3 py-3 sm:gap-4 sm:py-6">
         <QuestionCard question={question} />
 
         <div className="grid grid-cols-2 gap-3">

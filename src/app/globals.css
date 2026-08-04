@@ -54,6 +54,14 @@ body {
   margin: 0;
 }
 
+.math-content-container .katex {
+  font-size: clamp(1rem, 5vw, 1.5rem);
+}
+
+.math-content-container[data-display-mode='true'] .katex {
+  font-size: clamp(1.5rem, 8vw, 2.25rem);
+}
+
 .progress-fill::after {
   position: absolute;
   inset: 0;
