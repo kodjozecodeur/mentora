@@ -28,7 +28,6 @@ export function HomeScreen({
   diagnosticResult,
   revisionPlan,
   nextSession,
-  nextUnit,
   subjectLabel,
   onOpenRevision,
   onRestartDiagnostic,
