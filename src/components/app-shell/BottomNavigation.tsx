@@ -9,7 +9,7 @@ interface BottomNavigationProps {
 
 const ITEMS: Array<{ id: AppTab; label: string; icon: typeof House }> = [
   { id: 'home', label: 'Accueil', icon: House },
-  { id: 'diagnostic', label: 'Diagnostic', icon: ClipboardCheck },
+  { id: 'diagnostic', label: 'Préparation BEPC', icon: ClipboardCheck },
   { id: 'revision', label: 'Révision', icon: BookOpenText },
   { id: 'profile', label: 'Profil', icon: UserRound },
 ];

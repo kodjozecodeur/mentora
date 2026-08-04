@@ -294,7 +294,7 @@ export function AppShell({
 
 function getTabTitle(tab: AppTab): string {
   if (tab === 'home') return 'Accueil';
-  if (tab === 'diagnostic') return 'Diagnostic';
+  if (tab === 'diagnostic') return 'Préparation BEPC';
   if (tab === 'revision') return 'Révision';
   return 'Profil';
 }
