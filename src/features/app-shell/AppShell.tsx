@@ -1,5 +1,6 @@
 'use client';
 
+import { Menu } from 'lucide-react';
 import { useState } from 'react';
 import { AppLogo } from '@/components/ui/AppLogo';
 import { BottomNavigation } from '@/components/app-shell/BottomNavigation';
@@ -58,6 +59,7 @@ export function AppShell({
   const [activeRevisionUnitId, setActiveRevisionUnitId] = useState<string | null>(null);
 
   const studentName = getShellStudentName(firstName, revisionPlan);
+  const avatarInitial = studentName.charAt(0).toUpperCase();
   const nextSession = getNextRevisionSession(revisionPlan);
   const nextUnit = getRevisionUnitForSession(nextSession, REVISION_UNITS);
   const activeRevisionContent: RevisionSessionContent | null = activeRevisionUnitId
@@ -113,6 +115,7 @@ export function AppShell({
           revisionPlan={revisionPlan}
           nextSession={nextSession}
           nextUnit={nextUnit}
+          subjectLabel={subjectLabel}
           onOpenRevision={openRevisionOverview}
           onRestartDiagnostic={onRestartDiagnostic}
         />
@@ -168,15 +171,31 @@ export function AppShell({
     <div className="bg-background min-h-dvh">
       <ScreenContainer className={cn('pb-28', activeTab === 'home' && 'bg-[#FCF9F8]')}>
         <div className="flex min-h-[calc(100dvh-1.5rem)] flex-col">
-          {showShellHeader && (
-            <header className="flex items-center gap-3 pb-5">
-              <AppLogo size="sm" className="size-10" />
-              <div className="flex flex-col">
-                <span className="text-foreground text-base font-extrabold">Mentora</span>
-                <span className="text-muted text-xs font-semibold">{getTabTitle(activeTab)}</span>
-              </div>
-            </header>
-          )}
+          {showShellHeader &&
+            (activeTab === 'home' ? (
+              <header
+                className="flex items-center justify-between gap-3 pb-5"
+                style={{ paddingTop: 'env(safe-area-inset-top)' }}
+              >
+                <Menu className="size-6 shrink-0 text-[#705d00]" aria-hidden="true" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/assets/icons/icon-mentora.svg" alt="Mentora" className="h-10 w-auto" />
+                <div
+                  className="border-border bg-surface text-foreground flex size-11 shrink-0 items-center justify-center rounded-full border text-sm font-bold"
+                  aria-label={`Profil de ${studentName}`}
+                >
+                  {avatarInitial}
+                </div>
+              </header>
+            ) : (
+              <header className="flex items-center gap-3 pb-5">
+                <AppLogo size="sm" className="size-10" />
+                <div className="flex flex-col">
+                  <span className="text-foreground text-base font-extrabold">Mentora</span>
+                  <span className="text-muted text-xs font-semibold">{getTabTitle(activeTab)}</span>
+                </div>
+              </header>
+            ))}
           <div className="flex min-h-0 flex-1 flex-col">{renderContent()}</div>
         </div>
       </ScreenContainer>

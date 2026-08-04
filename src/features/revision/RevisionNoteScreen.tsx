@@ -1,9 +1,10 @@
-import { ArrowLeft, BookOpen, Check, Clock3 } from 'lucide-react';
-import type { ReactNode } from 'react';
+import { ArrowLeft, BookOpen, Check, ChevronDown, Clock3 } from 'lucide-react';
+import { useState, type ReactNode } from 'react';
 import { BottomCTA } from '@/components/ui/BottomCTA';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
 import type { RevisionSessionContent } from '@/services/revision/experience';
+import { cn } from '@/lib/utils';
 import { getNoteSummary, getUnderstandingContent, stripInlineMarkdown } from './notePresentation';
 
 interface RevisionNoteScreenProps {
@@ -24,17 +25,22 @@ export function RevisionNoteScreen({
 
   const screenContent = (
     <>
-      <button
-        type="button"
-        onClick={onBack}
-        aria-label="Retourner à mon plan de révision"
-        className="text-highlight focus-visible:ring-highlight/40 -ml-2 flex min-h-11 w-fit items-center gap-2 rounded-full px-2 text-sm font-bold focus-visible:ring-4 focus-visible:outline-none"
+      <header
+        className="relative flex items-center justify-center pb-4"
+        style={{ paddingTop: 'env(safe-area-inset-top)' }}
       >
-        <ArrowLeft className="size-5" aria-hidden="true" />
-        Mon plan
-      </button>
+        <button
+          type="button"
+          onClick={onBack}
+          aria-label="Retourner à mon plan de révision"
+          className="text-[#705d00] focus-visible:ring-highlight/40 absolute left-0 flex size-11 shrink-0 items-center justify-center rounded-full focus-visible:ring-4 focus-visible:outline-none"
+        >
+          <ArrowLeft className="size-5" aria-hidden="true" />
+        </button>
+        <span className="text-[#705d00] text-lg font-bold">Révision</span>
+      </header>
 
-      <header className="flex flex-col gap-3 pt-4 pb-6">
+      <div className="flex flex-col gap-3 pt-4 pb-6">
         <div className="flex flex-wrap items-center gap-2">
           <span className="bg-highlight/10 text-highlight rounded-full px-3 py-1 text-xs font-bold">
             Jour {session.dayNumber}
@@ -46,10 +52,14 @@ export function RevisionNoteScreen({
         </div>
         <h1 className="text-foreground text-2xl font-bold">{note.title}</h1>
         <p className="text-muted text-sm font-medium">Version du contenu : {note.contentVersion}</p>
-      </header>
+      </div>
 
-      <main className="flex flex-col gap-6 pb-8">
-        <NoteSection title="Résumé" icon={<BookOpen className="size-5" aria-hidden="true" />}>
+      <main className="flex flex-col gap-4 pb-8">
+        <NoteSection
+          title="Résumé"
+          icon={<BookOpen className="size-5" aria-hidden="true" />}
+          defaultOpen
+        >
           <p className="text-foreground text-base leading-7 font-medium">{getNoteSummary(note)}</p>
         </NoteSection>
 
@@ -171,21 +181,51 @@ function NoteSection({
   title,
   icon,
   children,
+  defaultOpen = false,
 }: {
   title: string;
   icon?: ReactNode;
   children: ReactNode;
+  defaultOpen?: boolean;
 }) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+  const headingId = `note-section-${title}`;
+  const contentId = `${headingId}-content`;
+
   return (
-    <section aria-labelledby={`note-section-${title}`} className="flex flex-col gap-3">
-      <h2
-        id={`note-section-${title}`}
-        className="text-foreground flex items-center gap-2 text-lg font-bold"
-      >
-        {icon}
-        {title}
+    <section className="bg-surface border-border overflow-hidden rounded-2xl border-2">
+      <h2 className="text-foreground text-lg font-bold">
+        <button
+          type="button"
+          onClick={() => setIsOpen((open) => !open)}
+          aria-expanded={isOpen}
+          aria-controls={contentId}
+          id={headingId}
+          className="focus-visible:ring-highlight/40 flex w-full items-center justify-between gap-2 px-4 py-4 text-left focus-visible:ring-4 focus-visible:outline-none"
+        >
+          <span className="flex items-center gap-2">
+            {icon}
+            {title}
+          </span>
+          <ChevronDown
+            className={cn(
+              'text-muted size-5 shrink-0 transition-transform duration-200',
+              isOpen && 'rotate-180',
+            )}
+            aria-hidden="true"
+          />
+        </button>
       </h2>
-      {children}
+      <div
+        id={contentId}
+        role="region"
+        aria-labelledby={headingId}
+        className={cn('note-accordion-content', isOpen && 'is-open')}
+      >
+        <div className="note-accordion-content-inner flex flex-col gap-3 px-4 pb-4">
+          {children}
+        </div>
+      </div>
     </section>
   );
 }

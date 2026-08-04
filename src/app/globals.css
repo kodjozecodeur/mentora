@@ -23,7 +23,7 @@
   --color-surface: var(--surface);
   --color-muted: var(--muted);
   --color-border: var(--border);
-  --font-sans: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Lexend', ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
@@ -113,6 +113,21 @@ body {
   animation: diagnostic-question-reveal 360ms ease-out both;
 }
 
+.note-accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 220ms ease-out;
+}
+
+.note-accordion-content.is-open {
+  grid-template-rows: 1fr;
+}
+
+.note-accordion-content-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
 @keyframes progress-shimmer {
   to {
     transform: translateX(100%);
@@ -179,6 +194,10 @@ body {
   }
 
   .math-content {
+    transition: none;
+  }
+
+  .note-accordion-content {
     transition: none;
   }
 }

@@ -39,6 +39,10 @@ export function getRevisionProgress(plan: Pick<RevisionPlan, 'sessions'>): Revis
   };
 }
 
+export function hasStartedRevision(plan: Pick<RevisionPlan, 'sessions'>): boolean {
+  return plan.sessions.some((session) => session.status !== 'not-started');
+}
+
 export function getShellStudentName(
   currentName: string | undefined,
   plan: Pick<RevisionPlan, 'studentName'>,

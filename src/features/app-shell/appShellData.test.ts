@@ -5,6 +5,7 @@ import {
   getRevisionProgress,
   getRevisionUnitForSession,
   getShellStudentName,
+  hasStartedRevision,
 } from './appShellData';
 
 const plan: RevisionPlan = {
@@ -98,6 +99,23 @@ describe('app shell data selectors', () => {
       completionPercent: 33,
       remainingMinutes: 40,
     });
+  });
+
+  it('reports a fresh plan as not started', () => {
+    expect(
+      hasStartedRevision({
+        sessions: plan.sessions.map((session) => ({ ...session, status: 'not-started' })),
+      }),
+    ).toBe(false);
+  });
+
+  it('reports a plan as started after an in-progress or completed session', () => {
+    expect(hasStartedRevision(plan)).toBe(true);
+    expect(
+      hasStartedRevision({
+        sessions: plan.sessions.map((session) => ({ ...session, status: 'completed' })),
+      }),
+    ).toBe(true);
   });
 
   it('prefers the current name and falls back to the plan snapshot', () => {

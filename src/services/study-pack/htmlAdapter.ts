@@ -4,7 +4,7 @@ const PRINT_STYLES = `
 * { box-sizing: border-box; }
 @page { size: A4; margin: 20mm 16mm; }
 body {
-  font-family: 'Satoshi', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-family: 'Lexend', ui-sans-serif, system-ui, -apple-system, sans-serif;
   color: #24152A;
   background: #FFFFFF;
   margin: 0;
