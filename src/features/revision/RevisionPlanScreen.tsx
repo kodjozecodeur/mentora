@@ -42,7 +42,7 @@ export function RevisionPlanScreen({
       <header className="flex flex-col items-center gap-3 pb-6 text-center">
         <AppLogo size="sm" />
         <div className="flex flex-col gap-2">
-          <h1 className="text-foreground text-2xl font-bold">Mon plan personnalisé</h1>
+          <h1 className="text-foreground text-2xl font-bold">Mon parcours</h1>
           <p className="text-muted text-base font-medium">
             Voici le programme recommandé pour améliorer ton niveau.
           </p>
@@ -56,10 +56,7 @@ export function RevisionPlanScreen({
       </section>
 
       <div className="pb-7">
-        <SecondaryButton
-          onClick={onDownloadStudyPack}
-          className="w-auto px-4 py-2 text-sm"
-        >
+        <SecondaryButton onClick={onDownloadStudyPack} className="w-auto px-4 py-2 text-sm">
           <span className="inline-flex items-center justify-center gap-2">
             <Download className="size-4" aria-hidden="true" />
             Télécharger mon Study Pack
