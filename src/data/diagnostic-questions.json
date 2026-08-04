@@ -1,0 +1,242 @@
+[
+  {
+    "id": "calcul-litteral-01",
+    "competencyId": "calcul-litteral",
+    "competencyLabel": "Calcul littéral",
+    "instruction": "Développe et réduis",
+    "content": "3(2x-1)-4(x+2)",
+    "contentFormat": "latex",
+    "type": "single-choice",
+    "options": [
+      { "id": "calcul-litteral-01-a", "content": "2x-11", "contentFormat": "latex" },
+      { "id": "calcul-litteral-01-b", "content": "2x+5", "contentFormat": "latex" },
+      { "id": "calcul-litteral-01-c", "content": "10x-11", "contentFormat": "latex" },
+      { "id": "calcul-litteral-01-d", "content": "10x+5", "contentFormat": "latex" }
+    ],
+    "correctOptionId": "calcul-litteral-01-a",
+    "points": 1,
+    "difficulty": "easy",
+    "explanation": "3(2x-1)-4(x+2) = 6x-3-4x-8 = 2x-11. On distribue chaque terme puis on réduit les termes semblables.",
+    "revisionExample": "Exemple : 2(x+1)-3(x-2) = 2x+2-3x+6 = -x+8."
+  },
+  {
+    "id": "calcul-litteral-02",
+    "competencyId": "calcul-litteral",
+    "competencyLabel": "Calcul littéral",
+    "instruction": "Développe et réduis",
+    "content": "2(x+3)-3(x-1)",
+    "contentFormat": "latex",
+    "type": "single-choice",
+    "options": [
+      { "id": "calcul-litteral-02-a", "content": "-x+3", "contentFormat": "latex" },
+      { "id": "calcul-litteral-02-b", "content": "-x+9", "contentFormat": "latex" },
+      { "id": "calcul-litteral-02-c", "content": "5x+3", "contentFormat": "latex" },
+      { "id": "calcul-litteral-02-d", "content": "5x+9", "contentFormat": "latex" }
+    ],
+    "correctOptionId": "calcul-litteral-02-b",
+    "points": 1,
+    "difficulty": "easy",
+    "explanation": "2(x+3)-3(x-1) = 2x+6-3x+3 = -x+9. Attention au signe moins devant la deuxième parenthèse : il change le signe de chaque terme.",
+    "revisionExample": "Exemple : 4(x-2)-2(x-1) = 4x-8-2x+2 = 2x-6."
+  },
+  {
+    "id": "equations-01",
+    "competencyId": "equations",
+    "competencyLabel": "Équations",
+    "instruction": "Résous l'équation",
+    "content": "2x+5=11",
+    "contentFormat": "latex",
+    "type": "single-choice",
+    "options": [
+      { "id": "equations-01-a", "content": "x=8", "contentFormat": "latex" },
+      { "id": "equations-01-b", "content": "x=16", "contentFormat": "latex" },
+      { "id": "equations-01-c", "content": "x=3", "contentFormat": "latex" },
+      { "id": "equations-01-d", "content": "x=-3", "contentFormat": "latex" }
+    ],
+    "correctOptionId": "equations-01-c",
+    "points": 1,
+    "difficulty": "easy",
+    "explanation": "2x+5=11 donne 2x=11-5=6, donc x=3. On isole le terme en x en passant les nombres de l'autre côté.",
+    "revisionExample": "Exemple : 3x-2=10 -> 3x=12 -> x=4."
+  },
+  {
+    "id": "equations-02",
+    "competencyId": "equations",
+    "competencyLabel": "Équations",
+    "instruction": "Résous l'équation",
+    "content": "3x-7=2x+5",
+    "contentFormat": "latex",
+    "type": "single-choice",
+    "options": [
+      { "id": "equations-02-a", "content": "x=2", "contentFormat": "latex" },
+      { "id": "equations-02-b", "content": "x=-12", "contentFormat": "latex" },
+      { "id": "equations-02-c", "content": "x=-2", "contentFormat": "latex" },
+      { "id": "equations-02-d", "content": "x=12", "contentFormat": "latex" }
+    ],
+    "correctOptionId": "equations-02-d",
+    "points": 1,
+    "difficulty": "medium",
+    "explanation": "3x-7=2x+5 donne 3x-2x=5+7, donc x=12. On regroupe les termes en x d'un côté et les nombres de l'autre.",
+    "revisionExample": "Exemple : 5x-3=3x+7 -> 2x=10 -> x=5."
+  },
+  {
+    "id": "fonctions-lineaires-01",
+    "competencyId": "fonctions-lineaires",
+    "competencyLabel": "Fonctions linéaires",
+    "instruction": "f(x) = 3x. Calcule f(4).",
+    "content": "f(4)",
+    "contentFormat": "latex",
+    "type": "single-choice",
+    "options": [
+      { "id": "fonctions-lineaires-01-a", "content": "12", "contentFormat": "text" },
+      { "id": "fonctions-lineaires-01-b", "content": "7", "contentFormat": "text" },
+      { "id": "fonctions-lineaires-01-c", "content": "1", "contentFormat": "text" },
+      { "id": "fonctions-lineaires-01-d", "content": "64", "contentFormat": "text" }
+    ],
+    "correctOptionId": "fonctions-lineaires-01-a",
+    "points": 1,
+    "difficulty": "easy",
+    "explanation": "f(x)=3x, donc f(4)=3×4=12. Pour une fonction linéaire f(x)=ax, l'image de 4 est a×4.",
+    "revisionExample": "Exemple : g(x)=5x, alors g(2)=5×2=10."
+  },
+  {
+    "id": "fonctions-lineaires-02",
+    "competencyId": "fonctions-lineaires",
+    "competencyLabel": "Fonctions linéaires",
+    "instruction": "g(x) = -2x+1. Calcule g(3).",
+    "content": "g(3)",
+    "contentFormat": "latex",
+    "type": "single-choice",
+    "options": [
+      { "id": "fonctions-lineaires-02-a", "content": "5", "contentFormat": "text" },
+      { "id": "fonctions-lineaires-02-b", "content": "-5", "contentFormat": "text" },
+      { "id": "fonctions-lineaires-02-c", "content": "-7", "contentFormat": "text" },
+      { "id": "fonctions-lineaires-02-d", "content": "7", "contentFormat": "text" }
+    ],
+    "correctOptionId": "fonctions-lineaires-02-b",
+    "points": 1,
+    "difficulty": "medium",
+    "explanation": "g(3) = -2×3+1 = -6+1 = -5. On remplace x par 3 puis on calcule dans l'ordre : multiplication d'abord, puis addition.",
+    "revisionExample": "Exemple : h(x)=-x+4, alors h(2)=-2+4=2."
+  },
+  {
+    "id": "theoreme-pythagore-01",
+    "competencyId": "theoreme-pythagore",
+    "competencyLabel": "Théorème de Pythagore",
+    "instruction": "Calcule BC (hypoténuse).",
+    "content": "ABC rectangle en A. AB = 3 cm, AC = 4 cm.",
+    "contentFormat": "text",
+    "type": "single-choice",
+    "options": [
+      { "id": "theoreme-pythagore-01-a", "content": "7 cm", "contentFormat": "text" },
+      { "id": "theoreme-pythagore-01-b", "content": "1 cm", "contentFormat": "text" },
+      { "id": "theoreme-pythagore-01-c", "content": "5 cm", "contentFormat": "text" },
+      { "id": "theoreme-pythagore-01-d", "content": "25 cm", "contentFormat": "text" }
+    ],
+    "correctOptionId": "theoreme-pythagore-01-c",
+    "points": 1,
+    "difficulty": "easy",
+    "explanation": "BC² = AB² + AC² = 3² + 4² = 9 + 16 = 25, donc BC = 5 cm. Le théorème de Pythagore relie l'hypoténuse aux deux autres côtés d'un triangle rectangle.",
+    "revisionExample": "Exemple : AB = 6 cm, AC = 8 cm -> BC² = 36+64 = 100 -> BC = 10 cm."
+  },
+  {
+    "id": "theoreme-pythagore-02",
+    "competencyId": "theoreme-pythagore",
+    "competencyLabel": "Théorème de Pythagore",
+    "instruction": "Calcule AC.",
+    "content": "ABC rectangle en A. AB = 6 cm, BC = 10 cm (hypoténuse).",
+    "contentFormat": "text",
+    "type": "single-choice",
+    "options": [
+      { "id": "theoreme-pythagore-02-a", "content": "4 cm", "contentFormat": "text" },
+      { "id": "theoreme-pythagore-02-b", "content": "64 cm", "contentFormat": "text" },
+      { "id": "theoreme-pythagore-02-c", "content": "14 cm", "contentFormat": "text" },
+      { "id": "theoreme-pythagore-02-d", "content": "8 cm", "contentFormat": "text" }
+    ],
+    "correctOptionId": "theoreme-pythagore-02-d",
+    "points": 1,
+    "difficulty": "medium",
+    "explanation": "AC² = BC² - AB² = 10² - 6² = 100-36 = 64, donc AC = 8 cm. Quand on cherche un côté de l'angle droit, on soustrait au lieu d'additionner.",
+    "revisionExample": "Exemple : BC = 13 cm, AB = 5 cm -> AC² = 169-25 = 144 -> AC = 12 cm."
+  },
+  {
+    "id": "theoreme-thales-01",
+    "competencyId": "theoreme-thales",
+    "competencyLabel": "Théorème de Thalès",
+    "instruction": "Calcule AE.",
+    "content": "(DE) // (BC), D sur [AB], E sur [AC]. AD = 2 cm, AB = 5 cm, AC = 7,5 cm.",
+    "contentFormat": "text",
+    "type": "single-choice",
+    "options": [
+      { "id": "theoreme-thales-01-a", "content": "3 cm", "contentFormat": "text" },
+      { "id": "theoreme-thales-01-b", "content": "1,875 cm", "contentFormat": "text" },
+      { "id": "theoreme-thales-01-c", "content": "18,75 cm", "contentFormat": "text" },
+      { "id": "theoreme-thales-01-d", "content": "0,3 cm", "contentFormat": "text" }
+    ],
+    "correctOptionId": "theoreme-thales-01-a",
+    "points": 1,
+    "difficulty": "medium",
+    "explanation": "AD/AB = AE/AC, donc AE = AC×AD/AB = 7,5×2/5 = 3 cm. Les côtés des deux triangles sont proportionnels.",
+    "revisionExample": "Exemple : AD=3, AB=6, AC=10 -> AE = 10×3/6 = 5 cm."
+  },
+  {
+    "id": "theoreme-thales-02",
+    "competencyId": "theoreme-thales",
+    "competencyLabel": "Théorème de Thalès",
+    "instruction": "Calcule BC.",
+    "content": "(DE) // (BC), D sur [AB], E sur [AC]. AD = 3 cm, AB = 4 cm, DE = 6 cm.",
+    "contentFormat": "text",
+    "type": "single-choice",
+    "options": [
+      { "id": "theoreme-thales-02-a", "content": "4,5 cm", "contentFormat": "text" },
+      { "id": "theoreme-thales-02-b", "content": "8 cm", "contentFormat": "text" },
+      { "id": "theoreme-thales-02-c", "content": "2 cm", "contentFormat": "text" },
+      { "id": "theoreme-thales-02-d", "content": "18 cm", "contentFormat": "text" }
+    ],
+    "correctOptionId": "theoreme-thales-02-b",
+    "points": 1,
+    "difficulty": "medium",
+    "explanation": "AD/AB = DE/BC, donc BC = DE×AB/AD = 6×4/3 = 8 cm.",
+    "revisionExample": "Exemple : AD=2, AB=5, DE=4 -> BC = 4×5/2 = 10 cm."
+  },
+  {
+    "id": "statistiques-01",
+    "competencyId": "statistiques",
+    "competencyLabel": "Statistiques",
+    "instruction": "Calcule la moyenne de cette série.",
+    "content": "Notes : 8 ; 10 ; 12 ; 14 ; 16",
+    "contentFormat": "text",
+    "type": "single-choice",
+    "options": [
+      { "id": "statistiques-01-a", "content": "10", "contentFormat": "text" },
+      { "id": "statistiques-01-b", "content": "60", "contentFormat": "text" },
+      { "id": "statistiques-01-c", "content": "12", "contentFormat": "text" },
+      { "id": "statistiques-01-d", "content": "14", "contentFormat": "text" }
+    ],
+    "correctOptionId": "statistiques-01-c",
+    "points": 1,
+    "difficulty": "easy",
+    "explanation": "Moyenne = (8+10+12+14+16)/5 = 60/5 = 12. On additionne toutes les valeurs puis on divise par leur nombre.",
+    "revisionExample": "Exemple : 5 ; 7 ; 9 -> moyenne = 21/3 = 7."
+  },
+  {
+    "id": "statistiques-02",
+    "competencyId": "statistiques",
+    "competencyLabel": "Statistiques",
+    "instruction": "Calcule la moyenne de cette série.",
+    "content": "Valeur 5 avec effectif 3 ; valeur 10 avec effectif 2.",
+    "contentFormat": "text",
+    "type": "single-choice",
+    "options": [
+      { "id": "statistiques-02-a", "content": "7,5", "contentFormat": "text" },
+      { "id": "statistiques-02-b", "content": "15", "contentFormat": "text" },
+      { "id": "statistiques-02-c", "content": "35", "contentFormat": "text" },
+      { "id": "statistiques-02-d", "content": "7", "contentFormat": "text" }
+    ],
+    "correctOptionId": "statistiques-02-d",
+    "points": 1,
+    "difficulty": "medium",
+    "explanation": "Moyenne = (5×3 + 10×2) / (3+2) = (15+20)/5 = 35/5 = 7. Avec des effectifs, on pondère chaque valeur par son effectif avant de diviser par l'effectif total.",
+    "revisionExample": "Exemple : valeur 4 (effectif 1), valeur 8 (effectif 3) -> moyenne = (4+24)/4 = 7."
+  }
+]

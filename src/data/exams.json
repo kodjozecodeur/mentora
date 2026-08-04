@@ -1,0 +1,14 @@
+[
+  {
+    "id": "bepc",
+    "label": "Brevet d'études du premier cycle (BEPC)"
+  },
+  {
+    "id": "bac1",
+    "label": "Baccalauréat première partie (BAC 1)"
+  },
+  {
+    "id": "bac2",
+    "label": "Baccalauréat deuxième partie (BAC 2)"
+  }
+]

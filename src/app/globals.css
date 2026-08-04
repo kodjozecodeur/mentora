@@ -1,26 +1,176 @@
 @import 'tailwindcss';
+@import 'katex/dist/katex.min.css';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fdf2ff;
+  --foreground: #24152a;
+  --primary: #f4ce1a;
+  --primary-foreground: #24152a;
+  --highlight: #873694;
+  --highlight-foreground: #ffffff;
+  --surface: #ffffff;
+  --muted: #6f6273;
+  --border: #ebddec;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --font-sans: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+.math-content-container {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.math-content {
+  display: inline-block;
+  flex: 0 0 auto;
+  max-width: none;
+  white-space: nowrap;
+  transform-origin: center;
+  transition: transform 300ms ease-out;
+}
+
+.math-content .katex-display {
+  margin: 0;
+}
+
+.progress-fill::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgb(255 255 255 / 0.35) 50%,
+    transparent 80%
+  );
+  content: '';
+  transform: translateX(-100%);
+  animation: progress-shimmer 700ms ease-out 150ms 1;
+}
+
+.skeleton-shimmer::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgb(255 255 255 / 0.55) 50%,
+    transparent 80%
+  );
+  content: '';
+  transform: translateX(-100%);
+  animation: skeleton-shimmer 2.2s ease-in-out infinite;
+}
+
+.preparation-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  animation: preparation-pulse 1.2s ease-in-out infinite;
+}
+
+.preparation-dot:nth-child(2) {
+  animation-delay: 160ms;
+}
+
+.preparation-dot:nth-child(3) {
+  animation-delay: 320ms;
+}
+
+.onboarding-reveal {
+  animation: onboarding-reveal 420ms ease-out both;
+}
+
+.diagnostic-question-reveal {
+  animation: diagnostic-question-reveal 360ms ease-out both;
+}
+
+@keyframes progress-shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes skeleton-shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes preparation-pulse {
+  0%,
+  60%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.75);
+  }
+
+  30% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes onboarding-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes diagnostic-question-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-fill::after {
+    animation: none;
+  }
+
+  .skeleton-shimmer::after {
+    animation: none;
+  }
+
+  .preparation-dot,
+  .onboarding-reveal,
+  .diagnostic-question-reveal {
+    animation: none;
+  }
+
+  .math-content {
+    transition: none;
+  }
 }

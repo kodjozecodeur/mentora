@@ -1,0 +1,18 @@
+[
+  {
+    "id": "francais",
+    "label": "Français"
+  },
+  {
+    "id": "anglais",
+    "label": "Anglais"
+  },
+  {
+    "id": "mathematiques",
+    "label": "Mathématiques"
+  },
+  {
+    "id": "sciences",
+    "label": "Sciences"
+  }
+]
