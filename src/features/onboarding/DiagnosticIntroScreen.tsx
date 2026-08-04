@@ -24,10 +24,10 @@ export function DiagnosticIntroScreen({ subjectLabel, onContinue }: DiagnosticIn
             className="size-full object-contain"
           />
         </div>
-        <h1 className="text-foreground text-2xl font-bold">{subjectLabel}</h1>
+        <h1 className="text-foreground text-2xl font-bold">Vérifions ensemble</h1>
         <p className="text-muted text-base font-medium">
-          Nous allons commencer par un diagnostic pour comprendre ton niveau actuel en{' '}
-          {subjectLabel.toLowerCase()}.
+          Réponds à quelques questions sur {subjectLabel.toLowerCase()} pour permettre à Mentora
+          d&apos;identifier ce que tu maîtrises déjà et ce que tu dois encore renforcer.
         </p>
       </div>
 

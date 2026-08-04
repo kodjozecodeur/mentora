@@ -37,7 +37,14 @@ export function WelcomeScreen({ name, onNameChange, onContinue }: WelcomeScreenP
 
       <div className="flex flex-1 flex-col items-center justify-center gap-8 py-12">
         <AppLogo size="lg" />
-        <h1 className="text-center text-2xl font-bold text-foreground">Quel est ton nom ?</h1>
+        <div className="flex flex-col items-center gap-2 text-center">
+          <p className="text-muted text-sm font-bold">Continue d&apos;apprendre après les cours.</p>
+          <p className="text-muted max-w-[280px] text-sm font-medium">
+            Retrouve les notions vues en classe, comprends-les à ton rythme et progresse avec
+            Mentora AI.
+          </p>
+        </div>
+        <h1 className="text-foreground text-center text-2xl font-bold">Quel est ton nom ?</h1>
         <TextField
           type="text"
           value={name}
