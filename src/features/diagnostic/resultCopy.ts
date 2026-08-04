@@ -1,4 +1,4 @@
-import type { ReadinessLevel } from '@/types/diagnostic';
+import type { CompetencyMastery, ReadinessLevel } from '@/types/diagnostic';
 
 export function getGreeting(firstName?: string, score = 100): string {
   const trimmed = firstName?.trim();
@@ -25,4 +25,34 @@ export function getReadinessLevelLabel(score: number): string {
 
 export function getWeaknessBadgeLabel(level: ReadinessLevel): string {
   return level === 'priority' ? 'Prioritaire' : 'En progression';
+}
+
+export const PROGRESSION_GLOBALE_LABEL = 'Progression globale';
+export const PREPARATION_BEPC_LABEL = 'Préparation au BEPC';
+
+export function getMasteryStatusLabel(level: ReadinessLevel): string {
+  if (level === 'mastered') return 'Maîtrisé';
+  if (level === 'in-progress') return 'En apprentissage';
+  return 'À renforcer';
+}
+
+function byMasteryPercent(order: 'asc' | 'desc') {
+  return (a: CompetencyMastery, b: CompetencyMastery) =>
+    order === 'asc'
+      ? a.masteryPercent - b.masteryPercent || a.competencyId.localeCompare(b.competencyId)
+      : b.masteryPercent - a.masteryPercent || a.competencyId.localeCompare(b.competencyId);
+}
+
+export function partitionByReadinessLevel(mastery: CompetencyMastery[]): {
+  mastered: CompetencyMastery[];
+  inProgress: CompetencyMastery[];
+  priority: CompetencyMastery[];
+} {
+  return {
+    mastered: mastery.filter((m) => m.readinessLevel === 'mastered').sort(byMasteryPercent('desc')),
+    inProgress: mastery
+      .filter((m) => m.readinessLevel === 'in-progress')
+      .sort(byMasteryPercent('asc')),
+    priority: mastery.filter((m) => m.readinessLevel === 'priority').sort(byMasteryPercent('asc')),
+  };
 }

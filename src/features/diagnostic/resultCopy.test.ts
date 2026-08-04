@@ -1,10 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import {
   getGreeting,
+  getMasteryStatusLabel,
   getReadinessLevelLabel,
   getReadinessMessage,
   getWeaknessBadgeLabel,
+  partitionByReadinessLevel,
+  PREPARATION_BEPC_LABEL,
+  PROGRESSION_GLOBALE_LABEL,
 } from './resultCopy';
+import type { CompetencyMastery } from '@/types/diagnostic';
 
 describe('getGreeting', () => {
   it('includes the trimmed first name when present', () => {
@@ -74,5 +79,72 @@ describe('getWeaknessBadgeLabel', () => {
 
   it('labels an in-progress competency', () => {
     expect(getWeaknessBadgeLabel('in-progress')).toBe('En progression');
+  });
+});
+
+function mastery(overrides: Partial<CompetencyMastery>): CompetencyMastery {
+  return {
+    competencyId: 'c1',
+    competencyLabel: 'Compétence',
+    pointsEarned: 0,
+    pointsPossible: 10,
+    masteryPercent: 0,
+    readinessLevel: 'priority',
+    ...overrides,
+  };
+}
+
+describe('partitionByReadinessLevel', () => {
+  it('splits competencies into mastered, in-progress and priority buckets', () => {
+    const input = [
+      mastery({ competencyId: 'a', readinessLevel: 'mastered', masteryPercent: 80 }),
+      mastery({ competencyId: 'b', readinessLevel: 'in-progress', masteryPercent: 50 }),
+      mastery({ competencyId: 'c', readinessLevel: 'priority', masteryPercent: 20 }),
+    ];
+
+    const result = partitionByReadinessLevel(input);
+
+    expect(result.mastered.map((m) => m.competencyId)).toEqual(['a']);
+    expect(result.inProgress.map((m) => m.competencyId)).toEqual(['b']);
+    expect(result.priority.map((m) => m.competencyId)).toEqual(['c']);
+  });
+
+  it('orders mastered competencies strongest-first', () => {
+    const input = [
+      mastery({ competencyId: 'a', readinessLevel: 'mastered', masteryPercent: 75 }),
+      mastery({ competencyId: 'b', readinessLevel: 'mastered', masteryPercent: 95 }),
+    ];
+
+    expect(partitionByReadinessLevel(input).mastered.map((m) => m.competencyId)).toEqual([
+      'b',
+      'a',
+    ]);
+  });
+
+  it('orders in-progress and priority competencies weakest-first', () => {
+    const input = [
+      mastery({ competencyId: 'a', readinessLevel: 'priority', masteryPercent: 30 }),
+      mastery({ competencyId: 'b', readinessLevel: 'priority', masteryPercent: 10 }),
+    ];
+
+    expect(partitionByReadinessLevel(input).priority.map((m) => m.competencyId)).toEqual([
+      'b',
+      'a',
+    ]);
+  });
+});
+
+describe('getMasteryStatusLabel', () => {
+  it('labels each readiness level', () => {
+    expect(getMasteryStatusLabel('mastered')).toBe('Maîtrisé');
+    expect(getMasteryStatusLabel('in-progress')).toBe('En apprentissage');
+    expect(getMasteryStatusLabel('priority')).toBe('À renforcer');
+  });
+});
+
+describe('progression labels', () => {
+  it('exposes the repositioned score labels', () => {
+    expect(PROGRESSION_GLOBALE_LABEL).toBe('Progression globale');
+    expect(PREPARATION_BEPC_LABEL).toBe('Préparation au BEPC');
   });
 });
