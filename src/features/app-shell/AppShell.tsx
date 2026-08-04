@@ -4,14 +4,15 @@ import { useState } from 'react';
 import { AppLogo } from '@/components/ui/AppLogo';
 import { BottomNavigation } from '@/components/app-shell/BottomNavigation';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
+import { REVISION_UNITS } from '@/data/revision-units';
 import { RevisionNoteScreen } from '@/features/revision/RevisionNoteScreen';
 import { RevisionPlanScreen } from '@/features/revision/RevisionPlanScreen';
-import { REVISION_UNITS } from '@/data/revision-units';
 import { bundledRevisionNotesEngine } from '@/services/revision-notes/bundled-source';
 import {
   resolveRevisionSessionContent,
   type RevisionSessionContent,
 } from '@/services/revision/experience';
+import { exportStudyPackToPdf } from '@/services/study-pack';
 import type { DiagnosticResult } from '@/types/diagnostic';
 import type { RevisionPlan } from '@/types/revision';
 import {
@@ -34,8 +35,11 @@ interface AppShellProps {
   onRestartDiagnostic: () => void;
   onStartRevisionSession: (revisionUnitId: string) => void;
   onCompleteRevisionSession: (revisionUnitId: string) => void;
-  onDownloadStudyPack: () => void;
+  onDownloadStudyPack?: () => void;
 }
+
+const STUDY_PACK_EXPORT_ERROR_MESSAGE =
+  "Le Study Pack n'a pas pu s'ouvrir. Autorise les fenêtres pop-up dans ton navigateur, puis réessaie.";
 
 export function AppShell({
   diagnosticResult,
@@ -81,6 +85,22 @@ export function AppShell({
     if (!activeRevisionContent) return;
     onCompleteRevisionSession(activeRevisionContent.session.revisionUnitId);
     setRevisionView('plan');
+  }
+
+  function downloadStudyPack() {
+    try {
+      exportStudyPackToPdf({
+        diagnosticResult,
+        revisionPlan,
+        revisionUnits: REVISION_UNITS,
+        allRevisionNotes: bundledRevisionNotesEngine.getRevisionNotes(),
+        studentName: firstName,
+        subjectLabel,
+        examLabel,
+      });
+    } catch {
+      window.alert(STUDY_PACK_EXPORT_ERROR_MESSAGE);
+    }
   }
 
   function renderContent() {
@@ -138,7 +158,7 @@ export function AppShell({
       <RevisionOverviewScreen
         plan={revisionPlan}
         onContinue={openRevisionPlan}
-        onDownloadStudyPack={onDownloadStudyPack}
+        onDownloadStudyPack={onDownloadStudyPack ?? downloadStudyPack}
       />
     );
   }

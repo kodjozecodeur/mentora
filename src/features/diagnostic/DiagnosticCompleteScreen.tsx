@@ -119,7 +119,7 @@ export function DiagnosticCompleteScreen({
       </section>
 
       <BottomCTA>
-        <PrimaryButton onClick={onContinue}>Commencer mon plan de révision</PrimaryButton>
+        <PrimaryButton onClick={onContinue}>Accéder à mon espace</PrimaryButton>
       </BottomCTA>
     </ScreenContainer>
   );

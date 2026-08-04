@@ -7,6 +7,7 @@ import { SelectionCard } from '@/components/ui/SelectionCard';
 import { SpeechBubble } from '@/components/ui/SpeechBubble';
 import subjects from '@/data/subjects.json';
 import type { SubjectOption } from '@/types/onboarding';
+import { isMvpSubjectAvailable, MVP_UNAVAILABLE_SUBJECT_MESSAGE } from './subjectAvailability';
 
 interface SubjectSelectionScreenProps {
   selectedSubjectId: string | null;
@@ -19,6 +20,9 @@ export function SubjectSelectionScreen({
   onSelectSubject,
   onContinue,
 }: SubjectSelectionScreenProps) {
+  const hasUnavailableSubject =
+    selectedSubjectId !== null && !isMvpSubjectAvailable(selectedSubjectId);
+
   return (
     <ScreenContainer>
       <ProgressIndicator step={3} totalSteps={4} />
@@ -40,8 +44,17 @@ export function SubjectSelectionScreen({
         ))}
       </div>
 
+      {hasUnavailableSubject && (
+        <p
+          role="alert"
+          className="border-highlight bg-highlight/10 text-foreground mt-4 rounded-2xl border-2 px-4 py-3 text-sm font-semibold"
+        >
+          {MVP_UNAVAILABLE_SUBJECT_MESSAGE}
+        </p>
+      )}
+
       <BottomCTA>
-        <PrimaryButton disabled={!selectedSubjectId} onClick={onContinue}>
+        <PrimaryButton disabled={!selectedSubjectId || hasUnavailableSubject} onClick={onContinue}>
           Continuer
         </PrimaryButton>
       </BottomCTA>

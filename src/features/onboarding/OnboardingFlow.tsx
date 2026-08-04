@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import diagnosticQuestions from '@/data/diagnostic-questions.json';
 import exams from '@/data/exams.json';
 import subjects from '@/data/subjects.json';
+import { ConfirmationDialog } from '@/components/ui/ConfirmationDialog';
 import { AppShell } from '@/features/app-shell/AppShell';
 import { DiagnosticAnalysisScreen } from '@/features/diagnostic/DiagnosticAnalysisScreen';
 import { DiagnosticCompleteScreen } from '@/features/diagnostic/DiagnosticCompleteScreen';
@@ -17,6 +18,7 @@ import { ExamSelectionScreen } from './ExamSelectionScreen';
 import { SubjectSelectionScreen } from './SubjectSelectionScreen';
 import { DiagnosticIntroScreen } from './DiagnosticIntroScreen';
 import { PreparingScreen } from './PreparingScreen';
+import { isMvpSubjectAvailable } from './subjectAvailability';
 
 type Step =
   | 'welcome'
@@ -35,11 +37,12 @@ interface OnboardingFlowProps {
   onDownloadStudyPack?: () => void;
 }
 
-export function OnboardingFlow({ onDownloadStudyPack = () => undefined }: OnboardingFlowProps) {
+export function OnboardingFlow({ onDownloadStudyPack }: OnboardingFlowProps) {
   const [step, setStep] = useState<Step>('welcome');
   const [name, setName] = useState('');
   const [examId, setExamId] = useState<string | null>(null);
   const [subjectId, setSubjectId] = useState<string | null>(null);
+  const [isRestartDialogOpen, setIsRestartDialogOpen] = useState(false);
   const diagnostic = useDiagnosticSession(DIAGNOSTIC_QUESTIONS);
   const revision = useRevisionPlan(diagnostic.result, name);
 
@@ -51,6 +54,15 @@ export function OnboardingFlow({ onDownloadStudyPack = () => undefined }: Onboar
     revision.clearPlan();
     diagnostic.restart();
     setStep('welcome');
+  }
+
+  function requestRestartDiagnostic() {
+    setIsRestartDialogOpen(true);
+  }
+
+  function confirmRestartDiagnostic() {
+    setIsRestartDialogOpen(false);
+    restartDiagnostic();
   }
 
   // Result just got saved by the 12th validate() call -> hand off to the analysis transition.
@@ -95,9 +107,10 @@ export function OnboardingFlow({ onDownloadStudyPack = () => undefined }: Onboar
         <SubjectSelectionScreen
           selectedSubjectId={subjectId}
           onSelectSubject={setSubjectId}
-          onContinue={() =>
-            setStep(subjectId === 'mathematiques' ? 'preparing' : 'diagnostic-intro')
-          }
+          onContinue={() => {
+            if (!isMvpSubjectAvailable(subjectId)) return;
+            setStep('preparing');
+          }}
         />
       );
     case 'preparing':
@@ -149,17 +162,24 @@ export function OnboardingFlow({ onDownloadStudyPack = () => undefined }: Onboar
       if (!diagnostic.result || !revision.plan) return null;
 
       return (
-        <AppShell
-          diagnosticResult={diagnostic.result}
-          revisionPlan={revision.plan}
-          firstName={name}
-          examLabel={examLabel || 'BEPC'}
-          subjectLabel={subjectLabel || 'Mathématiques'}
-          onRestartDiagnostic={restartDiagnostic}
-          onStartRevisionSession={revision.startSession}
-          onCompleteRevisionSession={revision.completeSession}
-          onDownloadStudyPack={onDownloadStudyPack}
-        />
+        <>
+          <AppShell
+            diagnosticResult={diagnostic.result}
+            revisionPlan={revision.plan}
+            firstName={name}
+            examLabel={examLabel || 'BEPC'}
+            subjectLabel={subjectLabel || 'Mathématiques'}
+            onRestartDiagnostic={requestRestartDiagnostic}
+            onStartRevisionSession={revision.startSession}
+            onCompleteRevisionSession={revision.completeSession}
+            onDownloadStudyPack={onDownloadStudyPack}
+          />
+          <ConfirmationDialog
+            open={isRestartDialogOpen}
+            onCancel={() => setIsRestartDialogOpen(false)}
+            onConfirm={confirmRestartDiagnostic}
+          />
+        </>
       );
     }
   }
