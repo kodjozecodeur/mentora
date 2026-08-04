@@ -33,11 +33,11 @@ export function RevisionNoteScreen({
           type="button"
           onClick={onBack}
           aria-label="Retourner à mon plan de révision"
-          className="text-[#705d00] focus-visible:ring-highlight/40 absolute left-0 flex size-11 shrink-0 items-center justify-center rounded-full focus-visible:ring-4 focus-visible:outline-none"
+          className="focus-visible:ring-highlight/40 absolute left-0 flex size-11 shrink-0 items-center justify-center rounded-full text-[#705d00] focus-visible:ring-4 focus-visible:outline-none"
         >
           <ArrowLeft className="size-5" aria-hidden="true" />
         </button>
-        <span className="text-[#705d00] text-lg font-bold">Révision</span>
+        <span className="text-lg font-bold text-[#705d00]">Révision</span>
       </header>
 
       <div className="flex flex-col gap-3 pt-4 pb-6">
@@ -164,7 +164,7 @@ export function RevisionNoteScreen({
           onClick={onComplete}
           className="focus-visible:ring-highlight/40 focus-visible:ring-4 focus-visible:outline-none"
         >
-          Terminer cette session
+          Valider la compétence
         </PrimaryButton>
       </BottomCTA>
     </>
@@ -222,9 +222,7 @@ function NoteSection({
         aria-labelledby={headingId}
         className={cn('note-accordion-content', isOpen && 'is-open')}
       >
-        <div className="note-accordion-content-inner flex flex-col gap-3 px-4 pb-4">
-          {children}
-        </div>
+        <div className="note-accordion-content-inner flex flex-col gap-3 px-4 pb-4">{children}</div>
       </div>
     </section>
   );

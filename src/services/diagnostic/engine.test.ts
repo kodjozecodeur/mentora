@@ -74,4 +74,12 @@ describe('runDiagnosticEngine', () => {
     expect(typeof result.completedAt).toBe('string');
     expect(Number.isNaN(Date.parse(result.completedAt))).toBe(false);
   });
+
+  it('defaults to the initial phase and accepts an explicit final phase', () => {
+    const questions: DiagnosticQuestion[] = [question('q1', 'equations', 'Équations')];
+    const responses: DiagnosticResponse[] = [response('q1', 'equations', true)];
+
+    expect(runDiagnosticEngine(questions, responses).phase).toBe('initial');
+    expect(runDiagnosticEngine(questions, responses, 'final').phase).toBe('final');
+  });
 });

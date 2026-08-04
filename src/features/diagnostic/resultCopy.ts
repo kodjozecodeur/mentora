@@ -1,7 +1,11 @@
 import type { ReadinessLevel } from '@/types/diagnostic';
 
-export function getGreeting(firstName?: string): string {
+export function getGreeting(firstName?: string, score = 100): string {
   const trimmed = firstName?.trim();
+  if (score < 40) return trimmed ? `Courage ${trimmed} !` : 'Courage !';
+  if (score < 70) {
+    return trimmed ? `Tu es en progression, ${trimmed} !` : 'Tu es en progression !';
+  }
   return trimmed ? `Bravo ${trimmed} !` : 'Bravo !';
 }
 

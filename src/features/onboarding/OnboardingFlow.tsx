@@ -6,9 +6,11 @@ import exams from '@/data/exams.json';
 import subjects from '@/data/subjects.json';
 import { ConfirmationDialog } from '@/components/ui/ConfirmationDialog';
 import { AppShell } from '@/features/app-shell/AppShell';
+import { ComparisonScreen } from '@/features/diagnostic/ComparisonScreen';
 import { DiagnosticAnalysisScreen } from '@/features/diagnostic/DiagnosticAnalysisScreen';
 import { DiagnosticCompleteScreen } from '@/features/diagnostic/DiagnosticCompleteScreen';
 import { DiagnosticQuestionScreen } from '@/features/diagnostic/DiagnosticQuestionScreen';
+import { FinalDiagnosticResultScreen } from '@/features/diagnostic/FinalDiagnosticResultScreen';
 import { useDiagnosticSession } from '@/hooks/useDiagnosticSession';
 import { useRevisionPlan } from '@/services/revision/useRevisionPlan';
 import type { DiagnosticQuestion } from '@/types/diagnostic';
@@ -18,6 +20,7 @@ import { ExamSelectionScreen } from './ExamSelectionScreen';
 import { SubjectSelectionScreen } from './SubjectSelectionScreen';
 import { DiagnosticIntroScreen } from './DiagnosticIntroScreen';
 import { PreparingScreen } from './PreparingScreen';
+import { ReadyForExamScreen } from './ReadyForExamScreen';
 import { isMvpSubjectAvailable } from './subjectAvailability';
 
 type Step =
@@ -29,21 +32,35 @@ type Step =
   | 'diagnostic-question'
   | 'diagnostic-analysis'
   | 'diagnostic-result'
-  | 'app-shell';
+  | 'app-shell'
+  | 'ready-for-exam'
+  | 'final-diagnostic-question'
+  | 'final-diagnostic-analysis'
+  | 'final-diagnostic-result'
+  | 'comparison';
 
 const DIAGNOSTIC_QUESTIONS = diagnosticQuestions as DiagnosticQuestion[];
 
-interface OnboardingFlowProps {
-  onDownloadStudyPack?: () => void;
-}
+/** Steps reachable only once the initial diagnostic has produced a result (spec §12 deep-link fallback). */
+const STEPS_REQUIRING_INITIAL_RESULT: Step[] = [
+  'diagnostic-analysis',
+  'diagnostic-result',
+  'app-shell',
+  'ready-for-exam',
+  'final-diagnostic-question',
+  'final-diagnostic-analysis',
+  'final-diagnostic-result',
+  'comparison',
+];
 
-export function OnboardingFlow({ onDownloadStudyPack }: OnboardingFlowProps) {
+export function OnboardingFlow() {
   const [step, setStep] = useState<Step>('welcome');
   const [name, setName] = useState('');
   const [examId, setExamId] = useState<string | null>(null);
   const [subjectId, setSubjectId] = useState<string | null>(null);
   const [isRestartDialogOpen, setIsRestartDialogOpen] = useState(false);
-  const diagnostic = useDiagnosticSession(DIAGNOSTIC_QUESTIONS);
+  const diagnostic = useDiagnosticSession(DIAGNOSTIC_QUESTIONS, 'initial');
+  const finalDiagnostic = useDiagnosticSession(DIAGNOSTIC_QUESTIONS, 'final');
   const revision = useRevisionPlan(diagnostic.result, name);
 
   const subjectLabel =
@@ -79,15 +96,32 @@ export function OnboardingFlow({ onDownloadStudyPack }: OnboardingFlowProps) {
     }
   }, [step, diagnostic.result]);
 
-  // Defensive fallback: analysis/result steps require a saved result (e.g. direct access, stale state).
+  // Defensive fallback: every post-diagnostic step requires a saved initial result (e.g. direct
+  // access, stale state) — spec §12 deep-link fallback.
   useEffect(() => {
-    if (
-      (step === 'diagnostic-analysis' || step === 'diagnostic-result' || step === 'app-shell') &&
-      !diagnostic.result
-    ) {
+    if (STEPS_REQUIRING_INITIAL_RESULT.includes(step) && !diagnostic.result) {
       setStep('diagnostic-question');
     }
   }, [step, diagnostic.result]);
+
+  // Final diagnostic's 12th validate() call -> hand off to the analysis transition, same as initial.
+  useEffect(() => {
+    if (step === 'final-diagnostic-question' && finalDiagnostic.result) {
+      setStep('final-diagnostic-analysis');
+    }
+  }, [step, finalDiagnostic.result]);
+
+  // Defensive fallback: the final-diagnostic result steps require a saved final result.
+  useEffect(() => {
+    if (
+      (step === 'final-diagnostic-analysis' ||
+        step === 'final-diagnostic-result' ||
+        step === 'comparison') &&
+      !finalDiagnostic.result
+    ) {
+      setStep('final-diagnostic-question');
+    }
+  }, [step, finalDiagnostic.result]);
 
   switch (step) {
     case 'welcome':
@@ -166,13 +200,20 @@ export function OnboardingFlow({ onDownloadStudyPack }: OnboardingFlowProps) {
           <AppShell
             diagnosticResult={diagnostic.result}
             revisionPlan={revision.plan}
+            diagnosticQuestions={DIAGNOSTIC_QUESTIONS}
             firstName={name}
             examLabel={examLabel || 'BEPC'}
             subjectLabel={subjectLabel || 'Mathématiques'}
             onRestartDiagnostic={requestRestartDiagnostic}
             onStartRevisionSession={revision.startSession}
-            onCompleteRevisionSession={revision.completeSession}
-            onDownloadStudyPack={onDownloadStudyPack}
+            onSubmitValidationAttempt={revision.submitValidationAttempt}
+            onReadyForExam={() => {
+              // A final result already exists (this journey, or a stale one from before a restart —
+              // spec §12) -> the checkpoint has already been crossed, don't re-show it every time
+              // AppShell remounts and re-derives isReadyForExam() as true.
+              if (finalDiagnostic.result) return;
+              setStep('ready-for-exam');
+            }}
           />
           <ConfirmationDialog
             open={isRestartDialogOpen}
@@ -180,6 +221,60 @@ export function OnboardingFlow({ onDownloadStudyPack }: OnboardingFlowProps) {
             onConfirm={confirmRestartDiagnostic}
           />
         </>
+      );
+    }
+    case 'ready-for-exam':
+      return (
+        <ReadyForExamScreen
+          firstName={name}
+          onStartFinalDiagnostic={() => setStep('final-diagnostic-question')}
+        />
+      );
+    case 'final-diagnostic-question': {
+      if (!finalDiagnostic.currentQuestion) return null;
+
+      return (
+        <DiagnosticQuestionScreen
+          key={finalDiagnostic.currentQuestion.id}
+          question={finalDiagnostic.currentQuestion}
+          questionNumber={finalDiagnostic.questionNumber}
+          totalQuestions={finalDiagnostic.totalQuestions}
+          selectedOptionId={finalDiagnostic.selectedOptionId}
+          onSelectOption={finalDiagnostic.selectOption}
+          onValidate={finalDiagnostic.validate}
+        />
+      );
+    }
+    case 'final-diagnostic-analysis': {
+      if (!finalDiagnostic.result) return null;
+
+      return (
+        <DiagnosticAnalysisScreen
+          result={finalDiagnostic.result}
+          onComplete={() => setStep('final-diagnostic-result')}
+        />
+      );
+    }
+    case 'final-diagnostic-result': {
+      if (!finalDiagnostic.result) return null;
+
+      return (
+        <FinalDiagnosticResultScreen
+          result={finalDiagnostic.result}
+          firstName={name}
+          onContinue={() => setStep('comparison')}
+        />
+      );
+    }
+    case 'comparison': {
+      if (!diagnostic.result || !finalDiagnostic.result) return null;
+
+      return (
+        <ComparisonScreen
+          initialResult={diagnostic.result}
+          finalResult={finalDiagnostic.result}
+          onContinue={() => setStep('app-shell')}
+        />
       );
     }
   }

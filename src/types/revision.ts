@@ -1,4 +1,9 @@
-import type { DiagnosticConfidence, DiagnosticResult } from './diagnostic';
+import type {
+  DiagnosticConfidence,
+  DiagnosticContentFormat,
+  DiagnosticQuestionOption,
+  DiagnosticResult,
+} from './diagnostic';
 
 export type RevisionPriorityLevel = 'critical' | 'high' | 'medium' | 'low';
 
@@ -53,7 +58,42 @@ export type RevisionSession = {
   confidence: DiagnosticConfidence;
   revisionUnitId: string;
   exitCriteria: ExitCriterion[];
+  /** 'completed' means the latest validation attempt passed (>= 70%), not just that the lesson was read. */
   status: 'not-started' | 'in-progress' | 'completed';
+  /** Append-only history of targeted-validation attempts for this competency. */
+  validationAttempts: ValidationAttempt[];
+};
+
+/** A single-choice question scoped to exactly one competency, used by the targeted validation loop. */
+export type ValidationQuestion = {
+  id: string;
+  competencyId: string;
+  competencyLabel: string;
+  instruction: string;
+  content: string;
+  contentFormat: DiagnosticContentFormat;
+  options: DiagnosticQuestionOption[];
+  correctOptionId: string;
+  /** Powers the inline "Voir le corrigé" reveal on the validation result screen. */
+  correction: string;
+};
+
+export type ValidationResponse = {
+  questionId: string;
+  optionId: string;
+  isCorrect: boolean;
+};
+
+export type ValidationAttempt = {
+  id: string;
+  competencyId: string;
+  revisionUnitId: string;
+  attemptNumber: number;
+  responses: ValidationResponse[];
+  scorePercent: number;
+  passed: boolean;
+  startedAt: string;
+  completedAt: string;
 };
 
 export type RevisionPlan = {

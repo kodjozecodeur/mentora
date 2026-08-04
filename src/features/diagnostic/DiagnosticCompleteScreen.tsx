@@ -32,7 +32,9 @@ export function DiagnosticCompleteScreen({
       </div>
 
       <div className="flex flex-col items-center gap-1 pb-6 text-center">
-        <h1 className="text-foreground text-2xl font-bold">{getGreeting(firstName)}</h1>
+        <h1 className="text-foreground text-2xl font-bold">
+          {getGreeting(firstName, result.readinessScore)}
+        </h1>
         <p className="text-muted text-base font-medium">
           Voici ton niveau de préparation au BEPC en mathématiques.
         </p>

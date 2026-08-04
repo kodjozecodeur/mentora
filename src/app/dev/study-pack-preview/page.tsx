@@ -94,6 +94,7 @@ const SAMPLE_DIAGNOSTIC_RESULT: DiagnosticResult = {
   totalEarnedPoints: 6,
   totalMaxPoints: 9,
   completedAt: '2026-08-04T09:00:00.000Z',
+  phase: 'initial',
 };
 
 export default function StudyPackPreviewPage() {

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mentora - Préparation Examen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#722180",
+                        "surface-container-high": "#eae7e7",
+                        "on-primary-fixed-variant": "#544600",
+                        "secondary-fixed-dim": "#f9acff",
+                        "on-error-container": "#93000a",
+                        "on-background": "#1c1b1b",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f6f3f2",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e5e2e1",
+                        "on-surface-variant": "#4d4632",
+                        "on-tertiary-fixed": "#1d1c11",
+                        "tertiary-fixed": "#e6e3d1",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#d4d1c0",
+                        "secondary": "#8d3c9a",
+                        "primary-fixed": "#ffe16f",
+                        "primary": "#705d00",
+                        "secondary-fixed": "#ffd6fe",
+                        "inverse-primary": "#e9c403",
+                        "surface-dim": "#dcd9d9",
+                        "primary-container": "#f4ce1a",
+                        "on-secondary-fixed": "#35003f",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#48473a",
+                        "inverse-on-surface": "#f3f0ef",
+                        "tertiary-fixed-dim": "#cac7b6",
+                        "on-secondary-container": "#772685",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-container": "#f0eded",
+                        "primary-fixed-dim": "#e9c403",
+                        "outline-variant": "#d0c6ac",
+                        "outline": "#7e7760",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#fcf9f8",
+                        "background": "#fcf9f8",
+                        "secondary-container": "#f59aff",
+                        "on-primary-fixed": "#221b00",
+                        "on-secondary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "inverse-surface": "#313030",
+                        "on-tertiary-container": "#5b5a4c",
+                        "on-primary-container": "#6a5800",
+                        "tertiary": "#605f51",
+                        "surface-tint": "#705d00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "container-padding": "20px",
+                        "xl": "64px",
+                        "stack-gap": "16px",
+                        "lg": "40px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Lexend"],
+                        "headline-xl": ["Lexend"],
+                        "body-lg": ["Lexend"],
+                        "headline-lg-mobile": ["Lexend"],
+                        "label-sm": ["Lexend"],
+                        "headline-lg": ["Lexend"],
+                        "label-lg": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Lexend', sans-serif; }
+        .tactile-button-primary {
+            background-color: #F4CE1A;
+            color: #1A1A1A;
+            border-bottom: 4px solid #C2A415;
+            transition: all 0.1s ease;
+        }
+        .tactile-button-primary:active {
+            border-bottom: 0px solid #C2A415;
+            transform: translateY(4px);
+        }
+        .tactile-button-secondary {
+            border: 2px solid #873694;
+            color: #873694;
+            background-color: transparent;
+            border-bottom: 4px solid #873694;
+            transition: all 0.1s ease;
+        }
+        .tactile-button-secondary:active {
+            border-bottom: 2px solid #873694;
+            transform: translateY(2px);
+        }
+        .card-tactile {
+            border: 2px solid #e5e2e1;
+            box-shadow: 0 4px 0 #e5e2e1;
+            transition: all 0.1s ease;
+        }
+        .card-tactile:active {
+            box-shadow: 0 0px 0 #e5e2e1;
+            transform: translateY(4px);
+        }
+        .speech-bubble {
+            background-color: #FDF9E7;
+            border: 2px solid #F4CE1A;
+            position: relative;
+        }
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            border-width: 10px 10px 0;
+            border-style: solid;
+            border-color: #F4CE1A transparent transparent transparent;
+            display: block;
+            width: 0;
+        }
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -7px;
+            left: 22px;
+            border-width: 8px 8px 0;
+            border-style: solid;
+            border-color: #FDF9E7 transparent transparent transparent;
+            display: block;
+            width: 0;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-background flex justify-between items-center px-container-padding py-base max-w-[720px] mx-auto z-40">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border-2 border-outline-variant flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A friendly, expressive robot assistant avatar with a modern, clean design style. Bright yellow and purple accents on a light background. 3D rendered style with soft lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjvjJmyHNFDFO2lQmGqm_R0hnbwfoO3lECo_mpKv5Hjd4ulUMocq54dAXFP55luktKsClKUZ2wX9SA-34W40HrMkpTw08sAJxltywVgFyKSmi1XcL9A-L7E3EuAewdE6RT5iIB8ugX1-4CnjrBM1M8x5ay55DkFZwu8Qee9QtaXDAi5v2MqrmA2_eWNs0TmT-g9KsXOVRclvwv_27RoSq8CiNsK7pvHECzVp8J9K4vWe1sHhCIyZw"/>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold">Mentora</h1>
+</div>
+<button class="p-2 text-primary hover:opacity-80 transition-all duration-200 active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+</header>
+<main class="max-w-[720px] mx-auto px-container-padding mt-md flex flex-col gap-lg">
+<!-- Header Section -->
+<section class="text-center flex flex-col gap-stack-gap items-center mt-md">
+<h2 class="font-headline-xl text-headline-xl text-on-surface">Prêt pour le Grand Jour ?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-sm">Le BAC approche à grands pas. C'est le moment de consolider tes acquis.</p>
+</section>
+<!-- Countdown Card -->
+<section class="card-tactile bg-surface-container-lowest rounded-xl p-md flex flex-col items-center justify-center gap-sm text-center">
+<span class="font-label-lg text-label-lg text-secondary uppercase tracking-widest">Compte à rebours BAC</span>
+<div class="flex items-baseline gap-xs text-primary-container">
+<span class="text-6xl font-extrabold font-headline-xl tracking-tighter" style="color: #705d00;">12</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface-variant">Jours</span>
+</div>
+<div class="w-full h-3 bg-surface-container-high rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-primary-container rounded-full w-[85%]"></div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Dernière ligne droite, tu peux le faire !</p>
+</section>
+<!-- Mascot & Speech Bubble -->
+<section class="flex flex-col md:flex-row items-center md:items-end gap-md justify-center mt-sm">
+<div class="speech-bubble rounded-2xl p-sm px-md shadow-sm max-w-xs text-center md:text-left mb-4 md:mb-0 md:order-2">
+<p class="font-body-lg text-body-lg text-on-surface">"Je suis là pour t'aider à cibler tes révisions. On commence par quoi aujourd'hui ?"</p>
+</div>
+<div class="w-32 h-32 md:w-40 md:h-40 md:order-1 flex-shrink-0">
+<img class="w-full h-full object-contain drop-shadow-lg" data-alt="A 3D render of a cheerful, encouraging robot mascot pointing upwards. The robot has a smooth white body with vibrant yellow and purple details, standing against a clean, light background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwN4QWbLKTMeIGRM0g3SV8TyzgzmQLNFu0MY6yXUQPIgXkYTCJO6uUJCu18ejrNo6mzyXy7FaTosVVsKE_PdW_UkuvLsTlyUGwMwbsYIewT9wxN6uPRPxvErE8_GR13cCOHoIkG4AQxGDECLroL_MnD-SDk3FIELuPyjuwsLT_MC5psaUgDV3IIMvFKs-fCI8aYbrLxuZB5mHJy9-S9tKLVdAn6Cod8CmREPy0ypbBxOwz5fRQDwE"/>
+</div>
+</section>
+<!-- Action Cards -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-stack-gap mt-sm">
+<button class="tactile-button-primary rounded-xl p-md flex flex-col items-center justify-center gap-sm text-center w-full group">
+<div class="w-12 h-12 rounded-full bg-surface-container-lowest bg-opacity-30 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">edit_document</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold">Lancer un Examen Blanc</span>
+<span class="font-body-md text-body-md opacity-80">Conditions réelles, 3 heures.</span>
+</div>
+</button>
+<button class="tactile-button-secondary rounded-xl p-md flex flex-col items-center justify-center gap-sm text-center w-full group">
+<div class="w-12 h-12 rounded-full bg-secondary bg-opacity-10 flex items-center justify-center group-hover:scale-110 transition-transform text-secondary">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">troubleshoot</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold">Revoir mes Points Faibles</span>
+<span class="font-body-md text-body-md opacity-80">Focus sur tes erreurs récentes.</span>
+</div>
+</button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface shadow-lg z-50">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-low transition-transform duration-200 active:translate-y-0.5 rounded-xl">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1 hover:bg-surface-container-low transition-transform duration-200 active:translate-y-0.5">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-sm text-label-sm mt-1">Diagnostic</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-low transition-transform duration-200 active:translate-y-0.5 rounded-xl">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">history_edu</span>
+<span class="font-label-sm text-label-sm mt-1">Revision</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-low transition-transform duration-200 active:translate-y-0.5 rounded-xl">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-sm text-label-sm mt-1">Profile</span>
+</button>
+</nav>
+</body></html>

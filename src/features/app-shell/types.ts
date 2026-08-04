@@ -1,3 +1,4 @@
 export type AppTab = 'home' | 'diagnostic' | 'revision' | 'profile';
 
-export type RevisionShellView = 'overview' | 'plan' | 'note';
+export type RevisionShellView =
+  'plan' | 'note' | 'validation-question' | 'validation-result';

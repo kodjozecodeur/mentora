@@ -1,8 +1,13 @@
 import { MathContent } from './MathContent';
-import type { DiagnosticQuestion } from '@/types/diagnostic';
+import type { DiagnosticContentFormat } from '@/types/diagnostic';
 
 interface QuestionCardProps {
-  question: DiagnosticQuestion;
+  question: {
+    competencyLabel: string;
+    instruction: string;
+    content: string;
+    contentFormat: DiagnosticContentFormat;
+  };
 }
 
 export function QuestionCard({ question }: QuestionCardProps) {

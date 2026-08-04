@@ -8,14 +8,20 @@ import {
 
 describe('getGreeting', () => {
   it('includes the trimmed first name when present', () => {
-    expect(getGreeting('Awa')).toBe('Bravo Awa !');
-    expect(getGreeting('  Awa  ')).toBe('Bravo Awa !');
+    expect(getGreeting('Awa', 70)).toBe('Bravo Awa !');
+    expect(getGreeting('  Awa  ', 70)).toBe('Bravo Awa !');
   });
 
   it('falls back to a plain greeting when no usable name is given', () => {
-    expect(getGreeting(undefined)).toBe('Bravo !');
-    expect(getGreeting('')).toBe('Bravo !');
-    expect(getGreeting('   ')).toBe('Bravo !');
+    expect(getGreeting(undefined, 70)).toBe('Bravo !');
+    expect(getGreeting('', 70)).toBe('Bravo !');
+    expect(getGreeting('   ', 70)).toBe('Bravo !');
+  });
+
+  it('matches the greeting to the readiness score', () => {
+    expect(getGreeting('Awa', 39)).toBe('Courage Awa !');
+    expect(getGreeting('Awa', 69)).toBe('Tu es en progression, Awa !');
+    expect(getGreeting('Awa', 70)).toBe('Bravo Awa !');
   });
 });
 

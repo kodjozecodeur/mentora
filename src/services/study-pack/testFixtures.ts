@@ -45,6 +45,7 @@ export const fixtureDiagnosticResult: DiagnosticResult = {
   totalEarnedPoints: 4,
   totalMaxPoints: 6,
   completedAt: '2026-08-04T10:00:00.000Z',
+  phase: 'initial',
 };
 
 const revisionUnitCalculLitteral: RevisionUnit = {
@@ -119,6 +120,7 @@ export const fixtureRevisionPlan: RevisionPlan = {
         },
       ],
       status: 'not-started',
+      validationAttempts: [],
     },
   ],
 };
@@ -146,6 +148,7 @@ const revisionSessionEquations: RevisionPlan['sessions'][number] = {
     },
   ],
   status: 'not-started',
+  validationAttempts: [],
 };
 
 export const fixtureRevisionPlanWithTwoSessions: RevisionPlan = {

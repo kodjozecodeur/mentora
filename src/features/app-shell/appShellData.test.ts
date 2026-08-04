@@ -33,6 +33,7 @@ const plan: RevisionPlan = {
       revisionUnitId: 'revision-unit:calcul-litteral',
       exitCriteria: [],
       status: 'completed',
+      validationAttempts: [],
     },
     {
       id: 'session-2',
@@ -49,6 +50,7 @@ const plan: RevisionPlan = {
       revisionUnitId: 'revision-unit:equations',
       exitCriteria: [],
       status: 'in-progress',
+      validationAttempts: [],
     },
     {
       id: 'session-3',
@@ -65,6 +67,7 @@ const plan: RevisionPlan = {
       revisionUnitId: 'revision-unit:statistiques',
       exitCriteria: [],
       status: 'not-started',
+      validationAttempts: [],
     },
   ],
 };

@@ -1,6 +1,6 @@
 import type { RevisionPlan } from '@/types/revision';
 
-const STORAGE_KEY = 'mentora.revision-plan.bepc-mathematiques.v1';
+const STORAGE_KEY = 'mentora.revision-plan.bepc-mathematiques.v2';
 
 function hasLocalStorage(): boolean {
   return typeof localStorage !== 'undefined';
@@ -19,10 +19,21 @@ export function loadRevisionPlan(): RevisionPlan | null {
 
   try {
     const parsed: unknown = JSON.parse(raw);
-    return isRevisionPlan(parsed) ? parsed : null;
+    return isRevisionPlan(parsed) ? withValidationAttemptDefaults(parsed) : null;
   } catch {
     return null;
   }
+}
+
+/** Defensive: tolerates a plan persisted before validationAttempts existed on RevisionSession. */
+function withValidationAttemptDefaults(plan: RevisionPlan): RevisionPlan {
+  return {
+    ...plan,
+    sessions: plan.sessions.map((session) => ({
+      ...session,
+      validationAttempts: session.validationAttempts ?? [],
+    })),
+  };
 }
 
 export function clearRevisionPlan(): void {

@@ -2,6 +2,8 @@ export type DiagnosticContentFormat = 'text' | 'latex';
 
 export type DiagnosticConfidence = 'low' | 'medium' | 'high';
 
+export type DiagnosticPhase = 'initial' | 'final';
+
 export interface DiagnosticQuestionOption {
   id: string;
   content: string;
@@ -67,10 +69,12 @@ export interface DiagnosticResult {
   totalEarnedPoints: number;
   totalMaxPoints: number;
   completedAt: string;
+  phase: DiagnosticPhase;
 }
 
 export interface DiagnosticSessionState {
   questionIndex: number;
   responses: Record<string, DiagnosticResponse>;
   result: DiagnosticResult | null;
+  phase: DiagnosticPhase;
 }

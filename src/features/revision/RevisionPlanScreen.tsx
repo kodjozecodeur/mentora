@@ -1,11 +1,17 @@
-import { ArrowRight, Check, Clock3, Target } from 'lucide-react';
+import { ArrowRight, Check, Clock3, Download, Lock, Target } from 'lucide-react';
 import { AppLogo } from '@/components/ui/AppLogo';
 import { BottomCTA } from '@/components/ui/BottomCTA';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
+import { SecondaryButton } from '@/components/ui/SecondaryButton';
 import { cn } from '@/lib/utils';
 import type { RevisionPlan, RevisionSession, RevisionUnit } from '@/types/revision';
-import { getCompletedSessionCount, isRevisionPlanComplete } from '@/services/revision/progress';
+import {
+  type CompetencyStatus,
+  getCompetencyStatuses,
+  getCompletedSessionCount,
+  isRevisionPlanComplete,
+} from '@/services/revision/progress';
 
 interface RevisionPlanScreenProps {
   plan: RevisionPlan;
@@ -13,6 +19,7 @@ interface RevisionPlanScreenProps {
   units: readonly RevisionUnit[];
   onStartSession: (revisionUnitId: string) => void;
   onRestartDiagnostic: () => void;
+  onDownloadStudyPack: () => void;
   embedded?: boolean;
 }
 
@@ -22,10 +29,13 @@ export function RevisionPlanScreen({
   units,
   onStartSession,
   onRestartDiagnostic,
+  onDownloadStudyPack,
   embedded = false,
 }: RevisionPlanScreenProps) {
   const isComplete = isRevisionPlanComplete(plan);
   const completedCount = getCompletedSessionCount(plan);
+  const orderedSessions = [...plan.sessions].sort((left, right) => left.order - right.order);
+  const statuses = getCompetencyStatuses(plan);
 
   const content = (
     <>
@@ -39,11 +49,23 @@ export function RevisionPlanScreen({
         </div>
       </header>
 
-      <section aria-label="Résumé du plan" className="grid grid-cols-3 gap-2 pb-7">
+      <section aria-label="Résumé du plan" className="grid grid-cols-3 gap-2 pb-4">
         <SummaryMetric label="Niveau" value={`${readinessScore}%`} />
         <SummaryMetric label="Jours" value={`${plan.estimatedDays}`} />
         <SummaryMetric label="Temps" value={`${plan.estimatedTotalMinutes} min`} />
       </section>
+
+      <div className="pb-7">
+        <SecondaryButton
+          onClick={onDownloadStudyPack}
+          className="w-auto px-4 py-2 text-sm"
+        >
+          <span className="inline-flex items-center justify-center gap-2">
+            <Download className="size-4" aria-hidden="true" />
+            Télécharger mon Study Pack
+          </span>
+        </SecondaryButton>
+      </div>
 
       {isComplete ? (
         <CompletedPlanState onRestartDiagnostic={onRestartDiagnostic} />
@@ -59,12 +81,14 @@ export function RevisionPlanScreen({
           </div>
 
           <ol className="flex flex-col gap-3">
-            {plan.sessions.map((session) => {
+            {orderedSessions.map((session, index) => {
               const unit = units.find((candidate) => candidate.id === session.revisionUnitId);
+              const status = statuses[index];
               return (
                 <RevisionSessionCard
                   key={session.id}
                   session={session}
+                  status={status}
                   objective={unit?.objective ?? 'Objectif de la session'}
                   onStart={() => onStartSession(session.revisionUnitId)}
                 />
@@ -94,18 +118,25 @@ function SummaryMetric({ label, value }: { label: string; value: string }) {
 
 interface RevisionSessionCardProps {
   session: RevisionSession;
+  status: CompetencyStatus;
   objective: string;
   onStart: () => void;
 }
 
-function RevisionSessionCard({ session, objective, onStart }: RevisionSessionCardProps) {
-  const isCompleted = session.status === 'completed';
+function RevisionSessionCard({ session, status, objective, onStart }: RevisionSessionCardProps) {
+  const isLocked = status === 'locked';
+  const isCompleted = status === 'validated';
 
   return (
-    <li className="bg-surface border-border flex flex-col gap-4 rounded-3xl border-2 p-4">
+    <li
+      className={cn(
+        'bg-surface border-border flex flex-col gap-4 rounded-3xl border-2 p-4',
+        isLocked && 'opacity-60',
+      )}
+    >
       <div className="flex items-center justify-between gap-3">
         <span className="text-muted text-sm font-bold">Jour {session.dayNumber}</span>
-        <StatusBadge status={session.status} />
+        <StatusBadge status={status} />
       </div>
 
       <div className="flex flex-col gap-3">
@@ -151,11 +182,23 @@ function RevisionSessionCard({ session, objective, onStart }: RevisionSessionCar
         <button
           type="button"
           onClick={onStart}
-          aria-label={`${isCompleted ? 'Revoir' : 'Commencer'} la session ${session.competencyLabel}`}
-          className="text-highlight focus-visible:ring-highlight/40 flex min-h-11 items-center gap-1 rounded-full px-3 py-2 text-sm font-bold underline-offset-4 transition hover:underline focus-visible:ring-4 focus-visible:outline-none"
+          disabled={isLocked}
+          aria-disabled={isLocked}
+          aria-label={
+            isLocked
+              ? `Compétence verrouillée : ${session.competencyLabel}`
+              : `${isCompleted ? 'Revoir' : 'Commencer'} la session ${session.competencyLabel}`
+          }
+          className="text-highlight focus-visible:ring-highlight/40 flex min-h-11 items-center gap-1 rounded-full px-3 py-2 text-sm font-bold underline-offset-4 transition hover:underline focus-visible:ring-4 focus-visible:outline-none disabled:cursor-not-allowed disabled:no-underline disabled:opacity-60"
         >
-          {isCompleted ? 'Revoir' : 'Commencer'}
-          <ArrowRight className="size-4" aria-hidden="true" />
+          {isLocked ? (
+            <Lock className="size-4" aria-hidden="true" />
+          ) : (
+            <>
+              {isCompleted ? 'Revoir' : 'Commencer'}
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </>
+          )}
         </button>
       </div>
     </li>
@@ -169,17 +212,24 @@ function getPriorityLabel(level: RevisionSession['priorityLevel']): string {
   return 'faible';
 }
 
-function StatusBadge({ status }: { status: RevisionSession['status'] }) {
+function StatusBadge({ status }: { status: CompetencyStatus }) {
   const label =
-    status === 'completed' ? 'Terminée' : status === 'in-progress' ? 'En cours' : 'À commencer';
+    status === 'validated'
+      ? 'Terminée'
+      : status === 'in-progress'
+        ? 'En cours'
+        : status === 'locked'
+          ? 'Verrouillée'
+          : 'À commencer';
 
   return (
     <span
       className={cn(
         'rounded-full px-2.5 py-1 text-xs font-bold',
-        status === 'completed' && 'bg-highlight/10 text-highlight',
+        status === 'validated' && 'bg-highlight/10 text-highlight',
         status === 'in-progress' && 'bg-primary/25 text-foreground',
-        status === 'not-started' && 'bg-border text-muted',
+        status === 'available' && 'bg-border text-muted',
+        status === 'locked' && 'bg-border text-muted',
       )}
     >
       {label}

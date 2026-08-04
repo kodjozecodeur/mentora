@@ -35,14 +35,44 @@ describe('revision plan storage', () => {
 
   it('returns null for corrupted or invalid data', () => {
     const storage = stubLocalStorage();
-    storage.setItem('mentora.revision-plan.bepc-mathematiques.v1', '{bad json');
+    storage.setItem('mentora.revision-plan.bepc-mathematiques.v2', '{bad json');
     expect(loadRevisionPlan()).toBeNull();
 
     storage.setItem(
-      'mentora.revision-plan.bepc-mathematiques.v1',
+      'mentora.revision-plan.bepc-mathematiques.v2',
       JSON.stringify({ sessions: [] }),
     );
     expect(loadRevisionPlan()).toBeNull();
+  });
+
+  it('defaults validationAttempts to an empty array for sessions persisted before it existed', () => {
+    const storage = stubLocalStorage();
+    storage.setItem(
+      'mentora.revision-plan.bepc-mathematiques.v2',
+      JSON.stringify({
+        ...plan,
+        sessions: [
+          {
+            id: 'session-1',
+            dayNumber: 1,
+            order: 1,
+            competencyId: 'calcul-litteral',
+            competencyLabel: 'Calcul littéral',
+            priorityLevel: 'critical',
+            priorityReason: 'Priorité',
+            estimatedMinutes: 20,
+            masteryBefore: 0,
+            targetMastery: 70,
+            confidence: 'low',
+            revisionUnitId: 'revision-unit:calcul-litteral',
+            exitCriteria: [],
+            status: 'not-started',
+          },
+        ],
+      }),
+    );
+
+    expect(loadRevisionPlan()?.sessions[0].validationAttempts).toEqual([]);
   });
 
   it('clears the current plan', () => {

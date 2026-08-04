@@ -6,13 +6,29 @@ import { getReadinessMessage, getWeaknessBadgeLabel } from '@/features/diagnosti
 
 interface DiagnosticScreenProps {
   result: DiagnosticResult;
+  subjectLabel: string;
   onRestartDiagnostic: () => void;
 }
 
-export function DiagnosticScreen({ result, onRestartDiagnostic }: DiagnosticScreenProps) {
+export function DiagnosticScreen({
+  result,
+  subjectLabel,
+  onRestartDiagnostic,
+}: DiagnosticScreenProps) {
   return (
     <div className="flex flex-col gap-5 pb-6">
-      <header className="flex flex-col gap-1">
+      <header className="flex flex-col items-center gap-1 text-center">
+        <div className="flex size-16 shrink-0 items-center justify-center" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo/logo-math.svg"
+            alt=""
+            width={64}
+            height={64}
+            className="size-full object-contain"
+          />
+        </div>
+        <p className="text-muted text-sm font-bold">{subjectLabel}</p>
         <h1 className="text-foreground text-2xl font-bold">Mon diagnostic</h1>
         <p className="text-muted text-base font-medium">
           Voici les données de ton dernier diagnostic.

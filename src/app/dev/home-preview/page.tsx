@@ -16,6 +16,7 @@ const DIAGNOSTIC: DiagnosticResult = {
   totalEarnedPoints: 0,
   totalMaxPoints: 0,
   completedAt: '2026-08-04T10:00:00.000Z',
+  phase: 'initial',
 };
 
 function session(id: string, status: RevisionSession['status']): RevisionSession {
@@ -34,6 +35,7 @@ function session(id: string, status: RevisionSession['status']): RevisionSession
     revisionUnitId: 'revision-unit:calcul-litteral',
     exitCriteria: [],
     status,
+    validationAttempts: [],
   };
 }
 
@@ -45,7 +47,13 @@ const CASES = [
   },
   {
     label: 'partielle',
-    sessions: [session('s1', 'completed'), session('s2', 'not-started'), session('s3', 'not-started'), session('s4', 'not-started'), session('s5', 'not-started')],
+    sessions: [
+      session('s1', 'completed'),
+      session('s2', 'not-started'),
+      session('s3', 'not-started'),
+      session('s4', 'not-started'),
+      session('s5', 'not-started'),
+    ],
   },
   {
     label: '100%',

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Félicitations, Champion !</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#722180",
+                      "surface-container-high": "#eae7e7",
+                      "on-primary-fixed-variant": "#544600",
+                      "secondary-fixed-dim": "#f9acff",
+                      "on-error-container": "#93000a",
+                      "on-background": "#1c1b1b",
+                      "error": "#ba1a1a",
+                      "surface-container-low": "#f6f3f2",
+                      "error-container": "#ffdad6",
+                      "surface-variant": "#e5e2e1",
+                      "on-surface-variant": "#4d4632",
+                      "on-tertiary-fixed": "#1d1c11",
+                      "tertiary-fixed": "#e6e3d1",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-container": "#d4d1c0",
+                      "secondary": "#8d3c9a",
+                      "primary-fixed": "#ffe16f",
+                      "primary": "#705d00",
+                      "secondary-fixed": "#ffd6fe",
+                      "inverse-primary": "#e9c403",
+                      "surface-dim": "#dcd9d9",
+                      "primary-container": "#f4ce1a",
+                      "on-secondary-fixed": "#35003f",
+                      "on-primary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface": "#1c1b1b",
+                      "on-tertiary-fixed-variant": "#48473a",
+                      "inverse-on-surface": "#f3f0ef",
+                      "tertiary-fixed-dim": "#cac7b6",
+                      "on-secondary-container": "#772685",
+                      "surface-container-highest": "#e5e2e1",
+                      "surface-container": "#f0eded",
+                      "primary-fixed-dim": "#e9c403",
+                      "outline-variant": "#d0c6ac",
+                      "outline": "#7e7760",
+                      "on-error": "#ffffff",
+                      "surface-bright": "#fcf9f8",
+                      "background": "#fcf9f8",
+                      "secondary-container": "#f59aff",
+                      "on-primary-fixed": "#221b00",
+                      "on-secondary": "#ffffff",
+                      "surface": "#fcf9f8",
+                      "inverse-surface": "#313030",
+                      "on-tertiary-container": "#5b5a4c",
+                      "on-primary-container": "#6a5800",
+                      "tertiary": "#605f51",
+                      "surface-tint": "#705d00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "24px",
+                      "container-padding": "20px",
+                      "xl": "64px",
+                      "stack-gap": "16px",
+                      "lg": "40px",
+                      "base": "8px",
+                      "xs": "4px",
+                      "sm": "12px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Lexend"
+                      ],
+                      "headline-xl": [
+                              "Lexend"
+                      ],
+                      "body-lg": [
+                              "Lexend"
+                      ],
+                      "headline-lg-mobile": [
+                              "Lexend"
+                      ],
+                      "label-sm": [
+                              "Lexend"
+                      ],
+                      "headline-lg": [
+                              "Lexend"
+                      ],
+                      "label-lg": [
+                              "Lexend"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-xl": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-lg": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Progress Circle Animation */
+        .progress-ring__circle {
+            transition: stroke-dashoffset 1.5s ease-in-out;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        
+        /* Tactical Card Press Effect */
+        .tactile-btn:active {
+            transform: translateY(2px);
+            border-bottom-width: 0px !important;
+            margin-bottom: 4px;
+        }
+        
+        .tactile-card {
+            border: 2px solid theme('colors.surface-dim');
+            box-shadow: 0 4px 0 0 theme('colors.surface-dim');
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        
+        .tactile-card:active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0 0 theme('colors.surface-dim');
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24 selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Container -->
+<header class="w-full top-0 sticky bg-background dark:bg-background z-40 transition-all duration-200">
+<div class="flex justify-between items-center px-container-padding py-base max-w-[720px] mx-auto w-full">
+<div class="flex items-center gap-sm cursor-pointer hover:opacity-80 active:scale-95 transition-all duration-200">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-dim shadow-sm flex-shrink-0 relative bg-surface-container-low">
+<img alt="Friendly Robot Assistant Avatar" class="w-full h-full object-cover absolute inset-0" data-alt="A friendly, encouraging robot assistant character avatar, styled in a minimalist and tactile modern illustration style with vibrant yellow and deep purple accents on a clean white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8Y9-ll-ruZMSWeLsjBpVsVdzzGWFwjDsKJ71wx1SHXH6g2wGLd3qpQFcS5GIYnJVhmCryHm64itBompJV2IWUG1XiEjj4_IaHRAbax86R_1m6MOYTHjKhX4cbdlXNflsjlfvUn-SCnE-yIzwgL9dNWoJrxGei7qX_udRBdcZHCuzXXUloARFlYfHrhxnrsEap8G6mT7YGbeKalwcUp39rqy1DN9kFDvgQ4Txye5oBKGEQg_KfZD8"/>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed font-bold tracking-tight">Mentora</h1>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors duration-200 active:scale-95 text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="w-full max-w-[720px] mx-auto px-container-padding pt-stack-gap pb-xl flex flex-col gap-lg">
+<!-- Hero Section: Celebration -->
+<section class="flex flex-col items-center text-center gap-stack-gap animate-fade-in-up pt-md">
+<!-- Confetti/Celebration Icon -->
+<div class="relative w-24 h-24 mb-2 flex items-center justify-center">
+<div class="absolute inset-0 bg-primary-container rounded-full opacity-20 animate-ping"></div>
+<div class="w-20 h-20 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container border-4 border-white shadow-md z-10">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<h2 class="font-headline-xl text-headline-xl text-on-background">Félicitations, Champion !</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-sm mx-auto">Tu as terminé tout ton programme de révision.</p>
+</div>
+</section>
+<!-- Progress Section -->
+<section class="bg-surface rounded-xl p-md tactile-card flex flex-col items-center gap-md">
+<div class="relative w-48 h-48 flex items-center justify-center">
+<svg class="w-full h-full" viewbox="0 0 120 120">
+<!-- Background circle -->
+<circle cx="60" cy="60" fill="none" r="54" stroke="#e5e2e1" stroke-width="12"></circle>
+<!-- Progress circle -->
+<circle class="progress-ring__circle" cx="60" cy="60" fill="none" r="54" stroke="#F4CE1A" stroke-dasharray="339.292" stroke-dashoffset="0" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<div class="absolute flex flex-col items-center justify-center text-center">
+<span class="font-headline-xl text-headline-xl text-primary font-bold">100%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Complété</span>
+</div>
+</div>
+<!-- Stats Bento Grid -->
+<div class="grid grid-cols-3 gap-sm w-full">
+<div class="bg-surface-container-low rounded-lg p-sm flex flex-col items-center justify-center text-center border border-surface-dim">
+<span class="material-symbols-outlined text-secondary mb-1">schedule</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-background">42h</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Temps Total</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-sm flex flex-col items-center justify-center text-center border border-surface-dim">
+<span class="material-symbols-outlined text-secondary mb-1">auto_stories</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-background">128</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Leçons</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-sm flex flex-col items-center justify-center text-center border border-surface-dim">
+<span class="material-symbols-outlined text-secondary mb-1">military_tech</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-background">94%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Maîtrise</span>
+</div>
+</div>
+</section>
+<!-- Call to Action Section -->
+<section class="flex flex-col gap-stack-gap">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-background px-xs">Prépare-toi pour l'Examen</h3>
+<div class="flex flex-col gap-sm">
+<!-- Exam Simulator Card -->
+<button class="w-full bg-primary-container text-on-primary-container font-label-lg text-label-lg py-md px-container-padding rounded-xl flex items-center justify-between border-b-[4px] border-[#c2a315] tactile-btn transition-all group hover:bg-[#ebd559]">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-white/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container text-2xl" style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+</div>
+<div class="flex flex-col text-left">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary-container font-bold">Simulateur d'Examen</span>
+<span class="font-label-sm text-label-sm text-on-primary-container/80 font-normal">Test en conditions réelles</span>
+</div>
+</div>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<!-- View Final Report Card -->
+<button class="w-full bg-surface text-secondary font-label-lg text-label-lg py-md px-container-padding rounded-xl flex items-center justify-between border-2 border-secondary/30 tactile-card group">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-2xl">analytics</span>
+</div>
+<div class="flex flex-col text-left">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-background">Voir mon Bilan Final</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Analyse détaillée des forces</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-surface dark:bg-surface-container border-t border-outline-variant dark:border-outline shadow-lg z-50">
+<!-- Home (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-transform duration-200 active:translate-y-0.5 rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<!-- Diagnostic (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-transform duration-200 active:translate-y-0.5 rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">analytics</span>
+<span class="font-label-sm text-label-sm">Diagnostic</span>
+</a>
+<!-- Revision (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-xl px-4 py-1 hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-transform duration-200 active:translate-y-0.5" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+<span class="font-label-sm text-label-sm font-semibold">Revision</span>
+</a>
+<!-- Profile (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-4 py-1 hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-transform duration-200 active:translate-y-0.5 rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<!-- Desktop Navigation Side Panel (Hidden on Mobile) -->
+<aside class="hidden md:flex flex-col fixed top-24 left-4 w-64 bg-surface rounded-xl border-2 border-surface-dim shadow-sm p-4 gap-2">
+<a class="flex items-center gap-3 text-on-surface-variant p-3 rounded-lg hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-lg text-label-lg">Home</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant p-3 rounded-lg hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-lg text-label-lg">Diagnostic</span>
+</a>
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container p-3 rounded-lg hover:opacity-90 transition-colors font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+<span class="font-label-lg text-label-lg">Revision</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant p-3 rounded-lg hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-lg text-label-lg">Profile</span>
+</a>
+</aside>
+<script>
+        // Simple entry animation for elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const circle = document.querySelector('.progress-ring__circle');
+            if(circle) {
+                // Trigger the CSS transition by slightly delaying the offset reset
+                setTimeout(() => {
+                    circle.style.strokeDashoffset = '0';
+                }, 100);
+            }
+        });
+    </script>
+</body></html>

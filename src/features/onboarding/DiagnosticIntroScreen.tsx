@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { BottomCTA } from '@/components/ui/BottomCTA';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { ProgressIndicator } from '@/components/ui/ProgressIndicator';
@@ -16,7 +15,8 @@ export function DiagnosticIntroScreen({ subjectLabel, onContinue }: DiagnosticIn
 
       <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
         <div className="flex size-24 shrink-0 items-center justify-center" aria-hidden="true">
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/logo/logo-math.svg"
             alt=""
             width={96}
@@ -24,7 +24,7 @@ export function DiagnosticIntroScreen({ subjectLabel, onContinue }: DiagnosticIn
             className="size-full object-contain"
           />
         </div>
-        <h1 className="text-foreground text-2xl font-bold">{subjectLabel} !!</h1>
+        <h1 className="text-foreground text-2xl font-bold">{subjectLabel}</h1>
         <p className="text-muted text-base font-medium">
           Nous allons commencer par un diagnostic pour comprendre ton niveau actuel en{' '}
           {subjectLabel.toLowerCase()}.
