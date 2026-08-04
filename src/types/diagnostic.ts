@@ -1,5 +1,7 @@
 export type DiagnosticContentFormat = 'text' | 'latex';
 
+export type DiagnosticConfidence = 'low' | 'medium' | 'high';
+
 export interface DiagnosticQuestionOption {
   id: string;
   content: string;
@@ -40,6 +42,8 @@ export interface CompetencyMastery {
   pointsPossible: number;
   masteryPercent: number;
   readinessLevel: ReadinessLevel;
+  /** Optional until the diagnostic scoring contract emits calibrated confidence. */
+  confidence?: DiagnosticConfidence;
 }
 
 export interface RevisionRecommendation {
@@ -49,6 +53,7 @@ export interface RevisionRecommendation {
   readinessLevel: ReadinessLevel;
   explanation: string;
   revisionExample: string;
+  confidence?: DiagnosticConfidence;
 }
 
 export interface DiagnosticResult {

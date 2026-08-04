@@ -12,6 +12,14 @@ const withPWA = withPWAInit({
   },
 });
 
-const nextConfig: NextConfig = {/* config options here */};
+const nextConfig: NextConfig = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.md$/,
+      type: 'asset/source',
+    });
+    return config;
+  },
+};
 
 export default withPWA(nextConfig);
