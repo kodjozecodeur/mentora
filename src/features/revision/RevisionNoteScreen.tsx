@@ -10,14 +10,20 @@ interface RevisionNoteScreenProps {
   content: RevisionSessionContent;
   onBack: () => void;
   onComplete: () => void;
+  embedded?: boolean;
 }
 
-export function RevisionNoteScreen({ content, onBack, onComplete }: RevisionNoteScreenProps) {
+export function RevisionNoteScreen({
+  content,
+  onBack,
+  onComplete,
+  embedded = false,
+}: RevisionNoteScreenProps) {
   const { note, session } = content;
   const understanding = getUnderstandingContent(note);
 
-  return (
-    <ScreenContainer className="diagnostic-question-reveal">
+  const screenContent = (
+    <>
       <button
         type="button"
         onClick={onBack}
@@ -151,7 +157,13 @@ export function RevisionNoteScreen({ content, onBack, onComplete }: RevisionNote
           Terminer cette session
         </PrimaryButton>
       </BottomCTA>
-    </ScreenContainer>
+    </>
+  );
+
+  return embedded ? (
+    screenContent
+  ) : (
+    <ScreenContainer className="diagnostic-question-reveal">{screenContent}</ScreenContainer>
   );
 }
 

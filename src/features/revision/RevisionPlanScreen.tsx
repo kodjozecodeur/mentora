@@ -13,6 +13,7 @@ interface RevisionPlanScreenProps {
   units: readonly RevisionUnit[];
   onStartSession: (revisionUnitId: string) => void;
   onRestartDiagnostic: () => void;
+  embedded?: boolean;
 }
 
 export function RevisionPlanScreen({
@@ -21,12 +22,13 @@ export function RevisionPlanScreen({
   units,
   onStartSession,
   onRestartDiagnostic,
+  embedded = false,
 }: RevisionPlanScreenProps) {
   const isComplete = isRevisionPlanComplete(plan);
   const completedCount = getCompletedSessionCount(plan);
 
-  return (
-    <ScreenContainer className="diagnostic-question-reveal">
+  const content = (
+    <>
       <header className="flex flex-col items-center gap-3 pb-6 text-center">
         <AppLogo size="sm" />
         <div className="flex flex-col gap-2">
@@ -71,7 +73,13 @@ export function RevisionPlanScreen({
           </ol>
         </section>
       )}
-    </ScreenContainer>
+    </>
+  );
+
+  return embedded ? (
+    content
+  ) : (
+    <ScreenContainer className="diagnostic-question-reveal">{content}</ScreenContainer>
   );
 }
 

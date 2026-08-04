@@ -1,9 +1,9 @@
-import calculLitteral from '@/content/revision-notes/bepc-mathematics/calcul-litteral.md';
-import equations from '@/content/revision-notes/bepc-mathematics/equations.md';
-import fonctionsLineaires from '@/content/revision-notes/bepc-mathematics/fonctions-lineaires.md';
-import statistiques from '@/content/revision-notes/bepc-mathematics/statistiques.md';
-import theoremePythagore from '@/content/revision-notes/bepc-mathematics/theoreme-pythagore.md';
-import theoremeThales from '@/content/revision-notes/bepc-mathematics/theoreme-thales.md';
+import calculLitteral from '@/content/revision-notes/bepc-mathematics/calcul-litteral.md?raw';
+import equations from '@/content/revision-notes/bepc-mathematics/equations.md?raw';
+import fonctionsLineaires from '@/content/revision-notes/bepc-mathematics/fonctions-lineaires.md?raw';
+import statistiques from '@/content/revision-notes/bepc-mathematics/statistiques.md?raw';
+import theoremePythagore from '@/content/revision-notes/bepc-mathematics/theoreme-pythagore.md?raw';
+import theoremeThales from '@/content/revision-notes/bepc-mathematics/theoreme-thales.md?raw';
 import { createRevisionNotesEngine } from './notes-engine';
 import type { RevisionNoteSourceAdapter } from './types';
 
