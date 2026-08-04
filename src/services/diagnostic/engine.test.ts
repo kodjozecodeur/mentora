@@ -67,6 +67,9 @@ describe('runDiagnosticEngine', () => {
       },
     ]);
 
+    expect(result.totalEarnedPoints).toBe(2); // q1 correct (1pt) + q3 correct (1pt)
+    expect(result.totalMaxPoints).toBe(3); // 3 questions, 1 point each
+
     expect(result.responses).toEqual(responses);
     expect(typeof result.completedAt).toBe('string');
     expect(Number.isNaN(Date.parse(result.completedAt))).toBe(false);

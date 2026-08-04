@@ -69,11 +69,14 @@ local to `DiagnosticCompleteScreen.tsx` since they're not reused elsewhere yet (
    otherwise `Bravo !`; fixed subtext `Voici ton niveau de préparation au BEPC en
    mathématiques.`
 3. **Readiness score** — CSS `conic-gradient` ring (brand `--highlight` color only, no
-   red/green semantics), `{score}%` centered. Ring `div` is `aria-hidden="true"`; the
-   score number, label (`Niveau de préparation`), bucketed message, and points line are
-   all real text nodes next to it, so screen readers get full info without a duplicate
-   `aria-label`. Message bucketed by `readinessScore` value only (display branching on
-   an already-given number, not a recompute):
+   red/green semantics), `{score}%` centered. The ring `div` is a pure CSS `background`
+   with no accessible content of its own, so it does not need `aria-hidden` — and must
+   NOT carry it, since the score number lives inside that same div: hiding the wrapper
+   would hide the number from screen readers too. The score number, label (`Niveau de
+   préparation`), bucketed message, and points line are all real, unhidden text nodes,
+   so screen readers get full info without a duplicate `aria-label`. Message bucketed by
+   `readinessScore` value only (display branching on an already-given number, not a
+   recompute):
    - 0–39: `Tu as encore plusieurs notions importantes à renforcer.`
    - 40–69: `Tu progresses bien, mais certaines notions doivent encore être
      consolidées.`
@@ -114,7 +117,10 @@ local to `DiagnosticCompleteScreen.tsx` since they're not reused elsewhere yet (
 ## Accessibility
 
 - Score conveyed via real text (number + label + message), not color/ring alone.
-- Decorative ring and any icons: `aria-hidden="true"`.
+- `aria-hidden="true"` only goes on elements with no real content of their own (e.g. a
+  purely decorative icon). Never on a wrapper that also contains real text — the score
+  ring's CSS background needs no `aria-hidden` since it has no accessible content to
+  begin with, and hiding the wrapper would wrongly hide the score number inside it too.
 - Badges use text labels ("Maîtrisée"/"Prioritaire"/"En progression"), not color-only
   signaling.
 - Buttons are native `<button>` elements (via existing `PrimaryButton`), keyboard

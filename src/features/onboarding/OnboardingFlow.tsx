@@ -114,6 +114,7 @@ export function OnboardingFlow() {
       return (
         <DiagnosticCompleteScreen
           result={diagnostic.result}
+          firstName={name}
           onContinue={() => {
             diagnostic.restart();
             setStep('welcome');

@@ -1,6 +1,6 @@
 import type { DiagnosticSessionState } from '@/types/diagnostic';
 
-const STORAGE_KEY = 'mentora.diagnostic.bepc-mathematiques.v1';
+const STORAGE_KEY = 'mentora.diagnostic.bepc-mathematiques.v2';
 
 function hasLocalStorage(): boolean {
   return typeof localStorage !== 'undefined';

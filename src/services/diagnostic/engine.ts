@@ -42,6 +42,9 @@ export function runDiagnosticEngine(
     };
   });
 
+  const totalEarnedPoints = competencyMastery.reduce((sum, m) => sum + m.pointsEarned, 0);
+  const totalMaxPoints = competencyMastery.reduce((sum, m) => sum + m.pointsPossible, 0);
+
   return {
     responses,
     competencyMastery,
@@ -50,6 +53,8 @@ export function runDiagnosticEngine(
     strengths,
     weaknesses,
     revisionPriorities,
+    totalEarnedPoints,
+    totalMaxPoints,
     completedAt: new Date().toISOString(),
   };
 }

@@ -27,7 +27,13 @@ describe('diagnostic storage', () => {
     const state: DiagnosticSessionState = {
       questionIndex: 2,
       responses: {
-        q1: { questionId: 'q1', competencyId: 'calcul-litteral', optionId: 'q1-a', isCorrect: true, points: 1 },
+        q1: {
+          questionId: 'q1',
+          competencyId: 'calcul-litteral',
+          optionId: 'q1-a',
+          isCorrect: true,
+          points: 1,
+        },
       },
       result: null,
     };
@@ -44,7 +50,7 @@ describe('diagnostic storage', () => {
 
   it('returns null when the stored value is corrupted JSON', () => {
     const stub = stubLocalStorage();
-    stub.setItem('mentora.diagnostic.bepc-mathematiques.v1', '{not json');
+    stub.setItem('mentora.diagnostic.bepc-mathematiques.v2', '{not json');
     expect(loadDiagnosticProgress()).toBeNull();
   });
 
@@ -52,6 +58,15 @@ describe('diagnostic storage', () => {
     stubLocalStorage();
     saveDiagnosticProgress({ questionIndex: 0, responses: {}, result: null });
     clearDiagnosticProgress();
+    expect(loadDiagnosticProgress()).toBeNull();
+  });
+
+  it('ignores progress saved under a previous storage version', () => {
+    const stub = stubLocalStorage();
+    stub.setItem(
+      'mentora.diagnostic.bepc-mathematiques.v1',
+      JSON.stringify({ questionIndex: 5, responses: {}, result: null }),
+    );
     expect(loadDiagnosticProgress()).toBeNull();
   });
 });

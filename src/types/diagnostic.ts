@@ -59,6 +59,8 @@ export interface DiagnosticResult {
   strengths: CompetencyMastery[];
   weaknesses: CompetencyMastery[];
   revisionPriorities: RevisionRecommendation[];
+  totalEarnedPoints: number;
+  totalMaxPoints: number;
   completedAt: string;
 }
 
