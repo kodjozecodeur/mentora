@@ -6,10 +6,10 @@ import { ProgressIndicator } from '@/components/ui/ProgressIndicator';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
 
 const PREPARATION_MESSAGES = [
-  'Analyse du programme de mathématiques…',
-  'Sélection des compétences à évaluer…',
+  'Nous préparons ton parcours…',
+  'Sélection des compétences à vérifier…',
   'Préparation de tes exercices…',
-  'Ton évaluation est presque prête.',
+  'Ton accompagnement personnalisé arrive.',
 ];
 
 const MESSAGE_INTERVAL = 1000;
@@ -81,7 +81,7 @@ export function PreparingScreen({ onComplete }: PreparingScreenProps) {
         </div>
 
         <div className="flex flex-col gap-2" role="status" aria-live="polite">
-          <h1 className="text-foreground text-2xl font-bold">Nous préparons ton évaluation…</h1>
+          <h1 className="text-foreground text-2xl font-bold">Nous préparons ton parcours…</h1>
           <p className="text-muted text-base font-medium">Veuillez patienter quelques instants.</p>
           <p
             className={`text-highlight min-h-6 text-sm font-bold transition-opacity duration-300 ease-in-out motion-reduce:transition-none ${isMessageVisible ? 'opacity-100' : 'opacity-0'}`}
