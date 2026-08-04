@@ -2,22 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import diagnosticQuestions from '@/data/diagnostic-questions.json';
+import exams from '@/data/exams.json';
 import subjects from '@/data/subjects.json';
+import { AppShell } from '@/features/app-shell/AppShell';
 import { DiagnosticAnalysisScreen } from '@/features/diagnostic/DiagnosticAnalysisScreen';
 import { DiagnosticCompleteScreen } from '@/features/diagnostic/DiagnosticCompleteScreen';
 import { DiagnosticQuestionScreen } from '@/features/diagnostic/DiagnosticQuestionScreen';
-import { RevisionNoteScreen } from '@/features/revision/RevisionNoteScreen';
-import { RevisionPlanScreen } from '@/features/revision/RevisionPlanScreen';
-import { REVISION_UNITS } from '@/data/revision-units';
 import { useDiagnosticSession } from '@/hooks/useDiagnosticSession';
-import { bundledRevisionNotesEngine } from '@/services/revision-notes/bundled-source';
-import {
-  resolveRevisionSessionContent,
-  type RevisionSessionContent,
-} from '@/services/revision/experience';
 import { useRevisionPlan } from '@/services/revision/useRevisionPlan';
 import type { DiagnosticQuestion } from '@/types/diagnostic';
-import type { SubjectOption } from '@/types/onboarding';
+import type { ExamOption, SubjectOption } from '@/types/onboarding';
 import { WelcomeScreen } from './WelcomeScreen';
 import { ExamSelectionScreen } from './ExamSelectionScreen';
 import { SubjectSelectionScreen } from './SubjectSelectionScreen';
@@ -33,22 +27,31 @@ type Step =
   | 'diagnostic-question'
   | 'diagnostic-analysis'
   | 'diagnostic-result'
-  | 'revision-plan'
-  | 'revision-note';
+  | 'app-shell';
 
 const DIAGNOSTIC_QUESTIONS = diagnosticQuestions as DiagnosticQuestion[];
 
-export function OnboardingFlow() {
+interface OnboardingFlowProps {
+  onDownloadStudyPack?: () => void;
+}
+
+export function OnboardingFlow({ onDownloadStudyPack = () => undefined }: OnboardingFlowProps) {
   const [step, setStep] = useState<Step>('welcome');
   const [name, setName] = useState('');
   const [examId, setExamId] = useState<string | null>(null);
   const [subjectId, setSubjectId] = useState<string | null>(null);
-  const [activeRevisionUnitId, setActiveRevisionUnitId] = useState<string | null>(null);
   const diagnostic = useDiagnosticSession(DIAGNOSTIC_QUESTIONS);
   const revision = useRevisionPlan(diagnostic.result, name);
 
   const subjectLabel =
     (subjects as SubjectOption[]).find((subject) => subject.id === subjectId)?.label ?? '';
+  const examLabel = (exams as ExamOption[]).find((exam) => exam.id === examId)?.label ?? '';
+
+  function restartDiagnostic() {
+    revision.clearPlan();
+    diagnostic.restart();
+    setStep('welcome');
+  }
 
   // Result just got saved by the 12th validate() call -> hand off to the analysis transition.
   useEffect(() => {
@@ -57,26 +60,22 @@ export function OnboardingFlow() {
     }
   }, [step, diagnostic.result]);
 
+  // A restored diagnostic result resumes in the post-diagnostic app shell.
+  useEffect(() => {
+    if (step === 'welcome' && diagnostic.result) {
+      setStep('app-shell');
+    }
+  }, [step, diagnostic.result]);
+
   // Defensive fallback: analysis/result steps require a saved result (e.g. direct access, stale state).
   useEffect(() => {
     if (
-      (step === 'diagnostic-analysis' ||
-        step === 'diagnostic-result' ||
-        step === 'revision-plan') &&
+      (step === 'diagnostic-analysis' || step === 'diagnostic-result' || step === 'app-shell') &&
       !diagnostic.result
     ) {
       setStep('diagnostic-question');
     }
   }, [step, diagnostic.result]);
-
-  const activeRevisionContent: RevisionSessionContent | null =
-    revision.plan && activeRevisionUnitId
-      ? resolveRevisionSessionContent(
-          revision.plan,
-          activeRevisionUnitId,
-          bundledRevisionNotesEngine,
-        )
-      : null;
 
   switch (step) {
     case 'welcome':
@@ -142,50 +141,24 @@ export function OnboardingFlow() {
         <DiagnosticCompleteScreen
           result={diagnostic.result}
           firstName={name}
-          onContinue={() => setStep('revision-plan')}
+          onContinue={() => setStep('app-shell')}
         />
       );
     }
-    case 'revision-plan': {
+    case 'app-shell': {
       if (!diagnostic.result || !revision.plan) return null;
 
       return (
-        <RevisionPlanScreen
-          plan={revision.plan}
-          readinessScore={diagnostic.result.readinessScore}
-          units={REVISION_UNITS}
-          onStartSession={(revisionUnitId) => {
-            const session = revision.plan?.sessions.find(
-              (candidate) => candidate.revisionUnitId === revisionUnitId,
-            );
-            if (!session) return;
-
-            if (session.status !== 'completed') {
-              revision.startSession(revisionUnitId);
-            }
-            setActiveRevisionUnitId(revisionUnitId);
-            setStep('revision-note');
-          }}
-          onRestartDiagnostic={() => {
-            revision.clearPlan();
-            setActiveRevisionUnitId(null);
-            diagnostic.restart();
-            setStep('welcome');
-          }}
-        />
-      );
-    }
-    case 'revision-note': {
-      if (!activeRevisionContent) return null;
-
-      return (
-        <RevisionNoteScreen
-          content={activeRevisionContent}
-          onBack={() => setStep('revision-plan')}
-          onComplete={() => {
-            revision.completeSession(activeRevisionContent.session.revisionUnitId);
-            setStep('revision-plan');
-          }}
+        <AppShell
+          diagnosticResult={diagnostic.result}
+          revisionPlan={revision.plan}
+          firstName={name}
+          examLabel={examLabel || 'BEPC'}
+          subjectLabel={subjectLabel || 'Mathématiques'}
+          onRestartDiagnostic={restartDiagnostic}
+          onStartRevisionSession={revision.startSession}
+          onCompleteRevisionSession={revision.completeSession}
+          onDownloadStudyPack={onDownloadStudyPack}
         />
       );
     }

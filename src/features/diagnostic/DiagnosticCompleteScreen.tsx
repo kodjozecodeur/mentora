@@ -2,6 +2,7 @@ import { AppLogo } from '@/components/ui/AppLogo';
 import { BottomCTA } from '@/components/ui/BottomCTA';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
+import { ReadinessScoreRing } from '@/components/diagnostic/ReadinessScoreRing';
 import { cn } from '@/lib/utils';
 import type { DiagnosticResult } from '@/types/diagnostic';
 import { getGreeting, getReadinessMessage, getWeaknessBadgeLabel } from './resultCopy';
@@ -17,7 +18,6 @@ export function DiagnosticCompleteScreen({
   firstName,
   onContinue,
 }: DiagnosticCompleteScreenProps) {
-  const scoreDegrees = Math.min(360, Math.max(0, (result.readinessScore / 100) * 360));
   const topStrengths = result.strengths.slice(0, 3);
   const topWeaknesses = result.weaknesses.slice(0, 3);
   const topPriority = result.revisionPriorities[0];
@@ -39,18 +39,7 @@ export function DiagnosticCompleteScreen({
       </div>
 
       <div className="flex flex-col items-center gap-3 pb-8 text-center">
-        <div
-          className="relative flex size-36 items-center justify-center rounded-full"
-          style={{
-            background: `conic-gradient(var(--highlight) ${scoreDegrees}deg, var(--border) ${scoreDegrees}deg 360deg)`,
-          }}
-        >
-          <div className="bg-surface absolute inset-3 flex items-center justify-center rounded-full">
-            <span className="text-foreground text-4xl font-extrabold">
-              {result.readinessScore}%
-            </span>
-          </div>
-        </div>
+        <ReadinessScoreRing score={result.readinessScore} />
         <p className="text-foreground text-sm font-bold">Niveau de préparation</p>
         <p className="text-muted max-w-[280px] text-sm font-medium">
           {getReadinessMessage(result.readinessScore)}
