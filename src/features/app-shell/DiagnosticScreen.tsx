@@ -2,7 +2,12 @@ import { CalendarDays, RotateCcw } from 'lucide-react';
 import { ReadinessScoreRing } from '@/components/diagnostic/ReadinessScoreRing';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import type { DiagnosticResult } from '@/types/diagnostic';
-import { getReadinessMessage, getWeaknessBadgeLabel } from '@/features/diagnostic/resultCopy';
+import {
+  getReadinessMessage,
+  getWeaknessBadgeLabel,
+  PREPARATION_BEPC_LABEL,
+  PROGRESSION_GLOBALE_LABEL,
+} from '@/features/diagnostic/resultCopy';
 
 interface DiagnosticScreenProps {
   result: DiagnosticResult;
@@ -29,7 +34,7 @@ export function DiagnosticScreen({
           />
         </div>
         <p className="text-muted text-sm font-bold">{subjectLabel}</p>
-        <h1 className="text-foreground text-2xl font-bold">Mon diagnostic</h1>
+        <h1 className="text-foreground text-2xl font-bold">{PREPARATION_BEPC_LABEL}</h1>
         <p className="text-muted text-base font-medium">
           Voici les données de ton dernier diagnostic.
         </p>
@@ -41,8 +46,9 @@ export function DiagnosticScreen({
       >
         <ReadinessScoreRing score={result.readinessScore} />
         <h2 id="diagnostic-score-title" className="text-foreground text-base font-bold">
-          Dernier score
+          {PROGRESSION_GLOBALE_LABEL}
         </h2>
+        <p className="text-muted text-xs font-semibold">{PREPARATION_BEPC_LABEL}</p>
         <p className="text-muted max-w-[300px] text-sm font-medium">
           {getReadinessMessage(result.readinessScore)}
         </p>
