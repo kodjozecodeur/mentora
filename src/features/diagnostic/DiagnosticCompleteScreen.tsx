@@ -5,7 +5,7 @@ import { ScreenContainer } from '@/components/ui/ScreenContainer';
 import { ReadinessScoreRing } from '@/components/diagnostic/ReadinessScoreRing';
 import { cn } from '@/lib/utils';
 import type { DiagnosticResult } from '@/types/diagnostic';
-import { getGreeting, getReadinessMessage, getWeaknessBadgeLabel } from './resultCopy';
+import { getGreeting, PROGRESSION_GLOBALE_LABEL, partitionByReadinessLevel } from './resultCopy';
 
 interface DiagnosticCompleteScreenProps {
   result: DiagnosticResult;
@@ -18,9 +18,11 @@ export function DiagnosticCompleteScreen({
   firstName,
   onContinue,
 }: DiagnosticCompleteScreenProps) {
-  const topStrengths = result.strengths.slice(0, 3);
-  const topWeaknesses = result.weaknesses.slice(0, 3);
-  const topPriority = result.revisionPriorities[0];
+  const { mastered, inProgress, priority } = partitionByReadinessLevel(result.competencyMastery);
+  const topMastered = mastered.slice(0, 3);
+  const topInProgress = inProgress.slice(0, 3);
+  const topPriority = priority.slice(0, 3);
+  const nextRecommendation = result.revisionPriorities[0];
 
   return (
     <ScreenContainer className="diagnostic-question-reveal">
@@ -36,77 +38,84 @@ export function DiagnosticCompleteScreen({
           {getGreeting(firstName, result.readinessScore)}
         </h1>
         <p className="text-muted text-base font-medium">
-          Voici ton niveau de préparation au BEPC en mathématiques.
-        </p>
-      </div>
-
-      <div className="flex flex-col items-center gap-3 pb-8 text-center">
-        <ReadinessScoreRing score={result.readinessScore} />
-        <p className="text-foreground text-sm font-bold">Niveau de préparation</p>
-        <p className="text-muted max-w-[280px] text-sm font-medium">
-          {getReadinessMessage(result.readinessScore)}
-        </p>
-        <p className="text-muted text-sm font-semibold">
-          {result.totalEarnedPoints} points sur {result.totalMaxPoints}
+          Chaque notion renforcée te rapproche de la maîtrise et de la réussite au BEPC.
         </p>
       </div>
 
       <section className="flex flex-col gap-3 pb-6">
-        <h2 className="text-foreground text-lg font-bold">Tes points forts</h2>
-        {topStrengths.length > 0 ? (
+        <h2 className="text-foreground text-lg font-bold">Tu maîtrises déjà</h2>
+        {topMastered.length > 0 ? (
           <ul className="flex flex-col gap-2">
-            {topStrengths.map((strength) => (
+            {topMastered.map((competency) => (
               <CompetencyRow
-                key={strength.competencyId}
-                label={strength.competencyLabel}
-                percent={strength.masteryPercent}
-                badgeLabel="Maîtrisée"
+                key={competency.competencyId}
+                label={competency.competencyLabel}
+                percent={competency.masteryPercent}
+                badgeLabel="Maîtrisé"
                 badgeTone="mastered"
               />
             ))}
           </ul>
         ) : (
           <p className="text-muted border-border bg-surface rounded-2xl border-2 px-4 py-3 text-sm font-medium">
-            Aucune compétence n&apos;est encore totalement maîtrisée, mais ton plan va t&apos;aider
-            à progresser.
+            Aucune compétence n&apos;est encore totalement maîtrisée, mais ton parcours va
+            t&apos;aider à progresser.
+          </p>
+        )}
+      </section>
+
+      <section className="flex flex-col gap-3 pb-6">
+        <h2 className="text-foreground text-lg font-bold">En cours d&apos;apprentissage</h2>
+        {topInProgress.length > 0 ? (
+          <ul className="flex flex-col gap-2">
+            {topInProgress.map((competency) => (
+              <CompetencyRow
+                key={competency.competencyId}
+                label={competency.competencyLabel}
+                percent={competency.masteryPercent}
+                badgeLabel="En apprentissage"
+                badgeTone="in-progress"
+              />
+            ))}
+          </ul>
+        ) : (
+          <p className="text-muted border-border bg-surface rounded-2xl border-2 px-4 py-3 text-sm font-medium">
+            Rien en cours d&apos;apprentissage pour l&apos;instant.
           </p>
         )}
       </section>
 
       <section className="flex flex-col gap-3 pb-6">
         <h2 className="text-foreground text-lg font-bold">À renforcer</h2>
-        {topWeaknesses.length > 0 ? (
+        {topPriority.length > 0 ? (
           <ul className="flex flex-col gap-2">
-            {topWeaknesses.map((weakness) => {
-              const badgeLabel = getWeaknessBadgeLabel(weakness.readinessLevel);
-              return (
-                <CompetencyRow
-                  key={weakness.competencyId}
-                  label={weakness.competencyLabel}
-                  percent={weakness.masteryPercent}
-                  badgeLabel={badgeLabel}
-                  badgeTone={badgeLabel === 'Prioritaire' ? 'priority' : 'in-progress'}
-                />
-              );
-            })}
+            {topPriority.map((competency) => (
+              <CompetencyRow
+                key={competency.competencyId}
+                label={competency.competencyLabel}
+                percent={competency.masteryPercent}
+                badgeLabel="À renforcer"
+                badgeTone="priority"
+              />
+            ))}
           </ul>
         ) : (
           <p className="text-muted border-border bg-surface rounded-2xl border-2 px-4 py-3 text-sm font-medium">
-            Bravo, aucune faiblesse identifiée pour l&apos;instant.
+            Bravo, aucune notion prioritaire à renforcer pour l&apos;instant.
           </p>
         )}
       </section>
 
-      <section className="flex flex-col gap-3 pb-8">
-        <h2 className="text-foreground text-lg font-bold">Ta priorité</h2>
-        {topPriority ? (
+      <section className="flex flex-col gap-3 pb-6">
+        <h2 className="text-foreground text-lg font-bold">Prochaine étape recommandée</h2>
+        {nextRecommendation ? (
           <div className="border-highlight bg-highlight/10 flex flex-col gap-1 rounded-2xl border-2 px-4 py-4">
             <div className="flex items-center justify-between gap-3">
               <span className="text-foreground text-base font-bold">
-                {topPriority.competencyLabel}
+                {nextRecommendation.competencyLabel}
               </span>
               <span className="text-highlight text-sm font-bold">
-                {topPriority.masteryPercent}%
+                {nextRecommendation.masteryPercent}%
               </span>
             </div>
             <p className="text-foreground text-sm font-medium">
@@ -118,6 +127,14 @@ export function DiagnosticCompleteScreen({
             Tu as maîtrisé toutes les compétences évaluées.
           </p>
         )}
+      </section>
+
+      <section className="flex flex-col items-center gap-2 pb-8 text-center">
+        <ReadinessScoreRing score={result.readinessScore} />
+        <p className="text-foreground text-sm font-bold">{PROGRESSION_GLOBALE_LABEL}</p>
+        <p className="text-muted text-xs font-semibold">
+          Préparation au BEPC — {result.totalEarnedPoints} points sur {result.totalMaxPoints}
+        </p>
       </section>
 
       <BottomCTA>
