@@ -3,8 +3,8 @@ import { ReadinessScoreRing } from '@/components/diagnostic/ReadinessScoreRing';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import type { DiagnosticResult } from '@/types/diagnostic';
 import {
+  getMasteryStatusLabel,
   getReadinessMessage,
-  getWeaknessBadgeLabel,
   PREPARATION_BEPC_LABEL,
   PROGRESSION_GLOBALE_LABEL,
 } from '@/features/diagnostic/resultCopy';
@@ -48,7 +48,6 @@ export function DiagnosticScreen({
         <h2 id="diagnostic-score-title" className="text-foreground text-base font-bold">
           {PROGRESSION_GLOBALE_LABEL}
         </h2>
-        <p className="text-muted text-xs font-semibold">{PREPARATION_BEPC_LABEL}</p>
         <p className="text-muted max-w-[300px] text-sm font-medium">
           {getReadinessMessage(result.readinessScore)}
         </p>
@@ -81,7 +80,7 @@ export function DiagnosticScreen({
 
       <section aria-labelledby="diagnostic-weaknesses-title" className="flex flex-col gap-3">
         <h2 id="diagnostic-weaknesses-title" className="text-foreground text-lg font-bold">
-          Faiblesses identifiées
+          À renforcer
         </h2>
         {result.weaknesses.length > 0 ? (
           <ul className="flex flex-col gap-2">
@@ -94,14 +93,14 @@ export function DiagnosticScreen({
                   {weakness.competencyLabel}
                 </span>
                 <span className="bg-primary/20 text-foreground shrink-0 rounded-full px-2.5 py-1 text-xs font-bold whitespace-nowrap">
-                  {getWeaknessBadgeLabel(weakness.readinessLevel)}
+                  {getMasteryStatusLabel(weakness.readinessLevel)}
                 </span>
               </li>
             ))}
           </ul>
         ) : (
           <p className="text-muted bg-surface border-border rounded-2xl border-2 px-4 py-3 text-sm font-medium">
-            Aucune faiblesse identifiée lors de ce diagnostic.
+            Bravo, aucune notion prioritaire à renforcer pour l&apos;instant.
           </p>
         )}
       </section>

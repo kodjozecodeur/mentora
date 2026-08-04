@@ -71,7 +71,7 @@ export function HomeScreen({
           Continuer mon apprentissage
         </h2>
 
-        {nextSession && nextUnit ? (
+        {nextSession ? (
           <article className="border-primary flex flex-col gap-3 rounded-3xl border bg-amber-50 p-4">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-1.5 text-amber-800">
