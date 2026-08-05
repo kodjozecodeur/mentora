@@ -7,7 +7,7 @@ import { SelectionCard } from '@/components/ui/SelectionCard';
 import { SpeechBubble } from '@/components/ui/SpeechBubble';
 import classes from '@/data/classes.json';
 import type { ClassOption } from '@/types/onboarding';
-import { isMvpClassAvailable, MVP_UNAVAILABLE_CLASS_MESSAGE } from './classAvailability';
+import { isMvpClassAvailable } from './classAvailability';
 
 interface ClassSelectionScreenProps {
   selectedClassId: string | null;
@@ -20,15 +20,18 @@ export function ClassSelectionScreen({
   onSelectClass,
   onContinue,
 }: ClassSelectionScreenProps) {
-  const hasUnavailableClass = selectedClassId !== null && !isMvpClassAvailable(selectedClassId);
-
   return (
     <ScreenContainer>
       <ProgressIndicator step={2} totalSteps={5} />
 
       <div className="flex items-start gap-3 py-8">
         <AppLogo size="sm" />
-        <SpeechBubble>Parfait ! Dans quelle classe es-tu ?</SpeechBubble>
+        <SpeechBubble>
+          <p>Dans quelle classe es-tu ?</p>
+          <p className="text-muted text-sm font-medium">
+            Choisis ton niveau pour que je prépare un parcours adapté.
+          </p>
+        </SpeechBubble>
       </div>
 
       <div className="flex flex-col gap-4">
@@ -36,24 +39,17 @@ export function ClassSelectionScreen({
           <SelectionCard
             key={classOption.id}
             label={classOption.label}
+            sublabel={classOption.category}
             selected={selectedClassId === classOption.id}
             showIcon
+            disabled={!isMvpClassAvailable(classOption.id)}
             onClick={() => onSelectClass(classOption.id)}
           />
         ))}
       </div>
 
-      {hasUnavailableClass && (
-        <p
-          role="alert"
-          className="border-highlight bg-highlight/10 text-foreground mt-4 rounded-2xl border-2 px-4 py-3 text-sm font-semibold"
-        >
-          {MVP_UNAVAILABLE_CLASS_MESSAGE}
-        </p>
-      )}
-
       <BottomCTA>
-        <PrimaryButton disabled={!selectedClassId || hasUnavailableClass} onClick={onContinue}>
+        <PrimaryButton disabled={!selectedClassId} onClick={onContinue}>
           Continuer
         </PrimaryButton>
       </BottomCTA>

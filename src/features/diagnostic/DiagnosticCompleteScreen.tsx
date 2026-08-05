@@ -1,15 +1,23 @@
-import { AppLogo } from '@/components/ui/AppLogo';
+import {
+  CheckCircle2,
+  GraduationCap,
+  Menu,
+  MinusCircle,
+  Sigma,
+  Trophy,
+  XCircle,
+} from 'lucide-react';
+import type { ComponentType } from 'react';
 import { BottomCTA } from '@/components/ui/BottomCTA';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
+import { ProgressIndicator } from '@/components/ui/ProgressIndicator';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
-import { ReadinessScoreRing } from '@/components/diagnostic/ReadinessScoreRing';
 import { cn } from '@/lib/utils';
-import type { DiagnosticResult } from '@/types/diagnostic';
+import type { CompetencyMastery, DiagnosticResult } from '@/types/diagnostic';
 import {
-  getGreeting,
+  getMasteryStatusLabel,
+  getReadinessMessage,
   getResultsContinueLabel,
-  partitionByReadinessLevel,
-  PROGRESSION_GLOBALE_LABEL,
   resolveResultsBranch,
 } from './resultCopy';
 
@@ -20,131 +28,92 @@ interface DiagnosticCompleteScreenProps {
   onContinue: () => void;
 }
 
+const STATUS_STYLES: Record<
+  string,
+  { icon: ComponentType<{ className?: string }>; colorClass: string }
+> = {
+  Maîtrisé: { icon: CheckCircle2, colorClass: 'text-emerald-600' },
+  'À renforcer': { icon: MinusCircle, colorClass: 'text-amber-600' },
+  'En apprentissage': { icon: XCircle, colorClass: 'text-red-600' },
+};
+
 export function DiagnosticCompleteScreen({
   result,
   chapterLabel,
   firstName,
   onContinue,
 }: DiagnosticCompleteScreenProps) {
-  const { mastered, inProgress, priority } = partitionByReadinessLevel(result.competencyMastery);
-  const topMastered = mastered.slice(0, 3);
-  const topInProgress = inProgress.slice(0, 3);
-  const topPriority = priority.slice(0, 3);
-  const nextRecommendation = result.revisionPriorities[0];
+  const studentName = firstName?.trim() || 'élève';
+  const avatarInitial = studentName.charAt(0).toUpperCase();
   const branch = resolveResultsBranch(result.competencyMastery);
 
   return (
     <ScreenContainer className="diagnostic-question-reveal">
-      <div className="flex flex-col items-center gap-2 pb-4 text-center">
-        <AppLogo size="sm" />
-        <p className="text-muted text-xs font-bold tracking-wide uppercase">
-          Diagnostic du chapitre terminé
-        </p>
-        <p className="text-foreground text-sm font-bold">{chapterLabel}</p>
-      </div>
+      <header
+        className="flex items-center justify-between gap-3 pb-5"
+        style={{ paddingTop: 'env(safe-area-inset-top)' }}
+      >
+        <Menu className="text-primary-border size-6 shrink-0" aria-hidden="true" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/icons/icon-mentora.svg" alt="Mentora" className="h-10 w-auto" />
+        <div
+          className="border-border bg-surface text-foreground flex size-11 shrink-0 items-center justify-center rounded-full border text-sm font-bold"
+          aria-label={`Profil de ${studentName}`}
+        >
+          {avatarInitial}
+        </div>
+      </header>
 
-      <div className="flex flex-col items-center gap-1 pb-6 text-center">
-        <h1 className="text-foreground text-2xl font-bold">
-          {getGreeting(firstName, result.readinessScore)}
-        </h1>
+      <div className="flex flex-col items-center gap-2 pb-6 text-center">
+        <div className="border-primary bg-speech-bubble mx-auto inline-flex items-center gap-2 rounded-full border px-4 py-2">
+          <Trophy className="text-primary-border size-4" aria-hidden="true" />
+          <span className="text-primary-border text-xs font-bold tracking-wide uppercase">
+            Diagnostic terminé
+          </span>
+        </div>
+        <p className="text-muted text-xs font-bold tracking-wide uppercase">{chapterLabel}</p>
+        <h1 className="text-foreground pt-2 text-3xl font-bold">Bilan de compétences</h1>
         <p className="text-muted text-base font-medium">
-          Chaque notion renforcée te rapproche de la maîtrise de ce chapitre.
+          Voici ce que tu maîtrises déjà et les notions que nous allons travailler ensemble.
         </p>
       </div>
 
-      <section className="flex flex-col gap-3 pb-6">
-        <h2 className="text-foreground text-lg font-bold">Tu maîtrises déjà</h2>
-        {topMastered.length > 0 ? (
-          <ul className="flex flex-col gap-2">
-            {topMastered.map((competency) => (
-              <CompetencyRow
-                key={competency.competencyId}
-                label={competency.competencyLabel}
-                percent={competency.masteryPercent}
-                badgeLabel="Maîtrisé"
-                badgeTone="mastered"
-              />
-            ))}
-          </ul>
-        ) : (
-          <p className="text-muted border-border bg-surface rounded-2xl border-2 px-4 py-3 text-sm font-medium">
-            Aucune compétence n&apos;est encore totalement maîtrisée, mais ton parcours va
-            t&apos;aider à progresser.
-          </p>
-        )}
-      </section>
-
-      <section className="flex flex-col gap-3 pb-6">
-        <h2 className="text-foreground text-lg font-bold">En cours d&apos;apprentissage</h2>
-        {topInProgress.length > 0 ? (
-          <ul className="flex flex-col gap-2">
-            {topInProgress.map((competency) => (
-              <CompetencyRow
-                key={competency.competencyId}
-                label={competency.competencyLabel}
-                percent={competency.masteryPercent}
-                badgeLabel="En apprentissage"
-                badgeTone="in-progress"
-              />
-            ))}
-          </ul>
-        ) : (
-          <p className="text-muted border-border bg-surface rounded-2xl border-2 px-4 py-3 text-sm font-medium">
-            Rien en cours d&apos;apprentissage pour l&apos;instant.
-          </p>
-        )}
-      </section>
-
-      <section className="flex flex-col gap-3 pb-6">
-        <h2 className="text-foreground text-lg font-bold">À renforcer</h2>
-        {topPriority.length > 0 ? (
-          <ul className="flex flex-col gap-2">
-            {topPriority.map((competency) => (
-              <CompetencyRow
-                key={competency.competencyId}
-                label={competency.competencyLabel}
-                percent={competency.masteryPercent}
-                badgeLabel="À renforcer"
-                badgeTone="priority"
-              />
-            ))}
-          </ul>
-        ) : (
-          <p className="text-muted border-border bg-surface rounded-2xl border-2 px-4 py-3 text-sm font-medium">
-            Bravo, aucune notion prioritaire à renforcer pour l&apos;instant.
-          </p>
-        )}
-      </section>
-
-      <section className="flex flex-col gap-3 pb-6">
-        <h2 className="text-foreground text-lg font-bold">Prochaine étape recommandée</h2>
-        {nextRecommendation ? (
-          <div className="border-highlight bg-highlight/10 flex flex-col gap-1 rounded-2xl border-2 px-4 py-4">
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-foreground text-base font-bold">
-                {nextRecommendation.competencyLabel}
-              </span>
-              <span className="text-highlight text-sm font-bold">
-                {nextRecommendation.masteryPercent}%
-              </span>
-            </div>
-            <p className="text-foreground text-sm font-medium">
-              Commence par cette compétence pour progresser plus rapidement.
-            </p>
+      <section className="bg-surface border-border mb-6 flex flex-col gap-4 rounded-3xl border-2 px-5 py-5 shadow-[0_4px_0_var(--border)]">
+        <div className="flex items-end justify-between">
+          <div className="flex flex-col">
+            <span className="text-muted text-xs font-bold tracking-wide uppercase">
+              Score global
+            </span>
+            <span className="text-primary-border text-4xl font-extrabold">
+              {result.readinessScore}%
+            </span>
           </div>
-        ) : (
-          <p className="text-muted border-border bg-surface rounded-2xl border-2 px-4 py-3 text-sm font-medium">
-            Tu as maîtrisé toutes les compétences évaluées.
-          </p>
-        )}
+          <div className="border-primary bg-speech-bubble flex size-12 shrink-0 items-center justify-center rounded-full border-2">
+            <GraduationCap className="text-primary-border size-6" aria-hidden="true" />
+          </div>
+        </div>
+        <ProgressIndicator step={result.readinessScore} totalSteps={100} />
+        <p className="text-muted text-sm font-medium">
+          {getReadinessMessage(result.readinessScore)}
+        </p>
       </section>
 
-      <section className="flex flex-col items-center gap-2 pb-8 text-center">
-        <ReadinessScoreRing score={result.readinessScore} />
-        <p className="text-foreground text-sm font-bold">{PROGRESSION_GLOBALE_LABEL}</p>
-        <p className="text-muted text-xs font-semibold">
-          {chapterLabel} — {result.totalEarnedPoints} points sur {result.totalMaxPoints}
-        </p>
+      <section className="mb-6 flex flex-col gap-3">
+        <h2 className="text-foreground text-lg font-bold">Par compétence</h2>
+        <ul className="flex flex-col gap-3">
+          {result.competencyMastery.map((competency) => (
+            <CompetencyCard key={competency.competencyId} competency={competency} />
+          ))}
+        </ul>
+      </section>
+
+      <section className="border-border mb-6 flex flex-wrap justify-center gap-4 rounded-2xl border px-4 py-4">
+        {Object.entries(STATUS_STYLES).map(([label, { icon: Icon, colorClass }]) => (
+          <div key={label} className="flex items-center gap-2">
+            <Icon className={cn('size-5', colorClass)} aria-hidden="true" />
+            <span className="text-muted text-xs font-semibold">{label}</span>
+          </div>
+        ))}
       </section>
 
       <BottomCTA>
@@ -154,30 +123,31 @@ export function DiagnosticCompleteScreen({
   );
 }
 
-interface CompetencyRowProps {
-  label: string;
-  percent: number;
-  badgeLabel: string;
-  badgeTone: 'mastered' | 'priority' | 'in-progress';
+interface CompetencyCardProps {
+  competency: CompetencyMastery;
 }
 
-function CompetencyRow({ label, percent, badgeLabel, badgeTone }: CompetencyRowProps) {
+function CompetencyCard({ competency }: CompetencyCardProps) {
+  const statusLabel = getMasteryStatusLabel(competency.readinessLevel);
+  const { icon: StatusIcon, colorClass } = STATUS_STYLES[statusLabel];
+
   return (
-    <li className="bg-surface border-border flex items-center justify-between gap-3 rounded-2xl border-2 px-4 py-3">
-      <span className="text-foreground text-sm font-bold">{label}</span>
-      <span className="flex shrink-0 items-center gap-2">
-        <span className="text-muted text-sm font-semibold">{percent}%</span>
-        <span
-          className={cn(
-            'rounded-full px-2.5 py-1 text-xs font-bold whitespace-nowrap',
-            badgeTone === 'mastered' && 'bg-highlight/10 text-highlight',
-            badgeTone === 'priority' && 'bg-primary/20 text-foreground',
-            badgeTone === 'in-progress' && 'bg-border text-foreground',
-          )}
-        >
-          {badgeLabel}
+    <li className="bg-surface border-border rounded-2xl border-2 px-5 py-4 shadow-[0_4px_0_var(--border)]">
+      <div className="flex items-center gap-3">
+        <span className="border-primary/50 bg-speech-bubble flex size-10 shrink-0 items-center justify-center rounded-xl border">
+          <Sigma className="text-primary-border size-5" aria-hidden="true" />
         </span>
-      </span>
+        <span className="text-foreground flex-1 text-base font-bold">
+          {competency.competencyLabel}
+        </span>
+        <span className="text-muted shrink-0 text-sm font-semibold">
+          {competency.masteryPercent}%
+        </span>
+      </div>
+      <div className="mt-3 flex items-center gap-2">
+        <StatusIcon className={cn('size-[18px] shrink-0', colorClass)} aria-hidden="true" />
+        <span className={cn('text-sm font-semibold', colorClass)}>{statusLabel}</span>
+      </div>
     </li>
   );
 }

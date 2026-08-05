@@ -1,6 +1,7 @@
 export interface ClassOption {
   id: string;
   label: string;
+  category: string;
 }
 
 export interface SubjectOption {

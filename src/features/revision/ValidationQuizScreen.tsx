@@ -60,20 +60,19 @@ export function ValidationQuizScreen({
 
   const content = (
     <>
-      <DiagnosticProgress
-        label={`Valider : ${competencyLabel}`}
-        currentQuestion={questionIndex + 1}
-        totalQuestions={questions.length}
-      />
+      <DiagnosticProgress currentQuestion={questionIndex + 1} totalQuestions={questions.length} />
+
+      <p className="text-muted pt-3 text-sm font-bold">Valider : {competencyLabel}</p>
 
       <div className="flex flex-1 flex-col gap-3 py-3 sm:gap-4 sm:py-6">
         <QuestionCard question={currentQuestion} />
 
         <div className="grid grid-cols-2 gap-3">
-          {currentQuestion.options.map((option) => (
+          {currentQuestion.options.map((option, index) => (
             <AnswerOption
               key={option.id}
               option={option}
+              index={index}
               selected={selectedOptionId === option.id}
               onSelect={() => setSelectedOptionId(option.id)}
             />

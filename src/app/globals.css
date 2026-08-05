@@ -3,14 +3,17 @@
 
 :root {
   --background: #fcf9f8;
-  --foreground: #24152a;
+  --foreground: #1c1b1b;
   --primary: #f4ce1a;
-  --primary-foreground: #24152a;
+  --primary-foreground: #1c1b1b;
+  --primary-border: #705d00;
   --highlight: #873694;
   --highlight-foreground: #ffffff;
   --surface: #ffffff;
-  --muted: #6f6273;
-  --border: #ebddec;
+  --muted: #4d4632;
+  --border: #e5e2e1;
+  --selected-surface: #ffd6fe;
+  --speech-bubble: #fdf9e7;
 }
 
 @theme inline {
@@ -18,11 +21,14 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-border: var(--primary-border);
   --color-highlight: var(--highlight);
   --color-highlight-foreground: var(--highlight-foreground);
   --color-surface: var(--surface);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-selected-surface: var(--selected-surface);
+  --color-speech-bubble: var(--speech-bubble);
   --font-sans: 'Lexend', ui-sans-serif, system-ui, sans-serif;
 }
 

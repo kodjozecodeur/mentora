@@ -2,43 +2,41 @@ import { cn } from '@/lib/utils';
 import type { DiagnosticQuestionOption } from '@/types/diagnostic';
 import { MathContent } from './MathContent';
 
+const OPTION_LETTERS = ['A', 'B', 'C', 'D'] as const;
+
 interface AnswerOptionProps {
   option: DiagnosticQuestionOption;
+  index: number;
   selected: boolean;
   onSelect: () => void;
 }
 
-export function AnswerOption({ option, selected, onSelect }: AnswerOptionProps) {
+export function AnswerOption({ option, index, selected, onSelect }: AnswerOptionProps) {
   return (
     <button
       type="button"
       aria-pressed={selected}
       onClick={onSelect}
       className={cn(
-        'focus-visible:ring-primary/40 relative flex min-h-[clamp(4rem,11vh,8rem)] items-center justify-center rounded-3xl border-2 px-4 py-3 text-center transition-[background-color,border-color,box-shadow,transform] duration-300 ease-out focus-visible:ring-4 focus-visible:outline-none motion-reduce:transition-none sm:min-h-32 sm:py-6',
+        'focus-visible:ring-primary/40 flex w-full items-center gap-4 rounded-3xl border-2 px-5 py-4 text-left transition-all focus-visible:ring-4 focus-visible:outline-none motion-reduce:transition-none',
         selected
-          ? 'border-primary bg-highlight/15 text-highlight shadow-[inset_0_-4px_0_var(--primary)]'
-          : 'bg-highlight/10 text-highlight hover:border-primary/50 border-transparent',
+          ? 'border-highlight bg-selected-surface translate-y-1'
+          : 'bg-surface border-transparent shadow-[0_4px_0_var(--border)]',
       )}
     >
-      <MathContent
-        content={option.content}
-        contentFormat={option.contentFormat}
-        className="text-2xl font-bold"
-      />
       <span
         aria-hidden="true"
         className={cn(
-          'absolute top-3 right-3 flex size-7 items-center justify-center rounded-full border-2 transition-colors motion-reduce:transition-none',
-          selected ? 'border-primary bg-primary' : 'border-highlight/40 bg-background/60',
+          'flex size-10 shrink-0 items-center justify-center rounded-full border-2 text-sm font-bold transition-colors motion-reduce:transition-none',
+          selected
+            ? 'border-highlight bg-highlight text-highlight-foreground'
+            : 'border-border bg-background text-muted',
         )}
       >
-        <span
-          className={cn(
-            'size-2 rounded-full transition-colors motion-reduce:transition-none',
-            selected ? 'bg-background' : 'bg-transparent',
-          )}
-        />
+        {OPTION_LETTERS[index]}
+      </span>
+      <span className="text-foreground flex-1 text-center text-base font-bold">
+        <MathContent content={option.content} contentFormat={option.contentFormat} />
       </span>
     </button>
   );
