@@ -86,6 +86,7 @@ export function AppShell({
     ? getValidationQuestions(activeRevisionContent.session.competencyId, diagnosticQuestions)
     : [];
   const showShellHeader = activeTab !== 'revision';
+  const showBottomNav = !(activeTab === 'revision' && revisionView === 'note');
 
   function openRevisionPlan() {
     setActiveTab('revision');
@@ -208,8 +209,9 @@ export function AppShell({
     if (revisionView === 'note' && activeRevisionContent) {
       return (
         <RevisionNoteScreen
-          embedded
           content={activeRevisionContent}
+          subjectLabel={subjectLabel}
+          chapterLabel={STUDY_PACK_CHAPTER_LABEL}
           onBack={openRevisionPlan}
           onComplete={startValidation}
         />
@@ -255,7 +257,9 @@ export function AppShell({
 
   return (
     <div className="bg-background min-h-dvh">
-      <ScreenContainer className={cn('pb-28', activeTab === 'home' && 'bg-[#FCF9F8]')}>
+      <ScreenContainer
+        className={cn(showBottomNav && 'pb-28', activeTab === 'home' && 'bg-[#FCF9F8]')}
+      >
         <div className="flex min-h-[calc(100dvh-1.5rem)] flex-col">
           {showShellHeader &&
             (activeTab === 'home' ? (
@@ -285,7 +289,7 @@ export function AppShell({
           <div className="flex min-h-0 flex-1 flex-col">{renderContent()}</div>
         </div>
       </ScreenContainer>
-      <BottomNavigation activeTab={activeTab} onChange={setActiveTab} />
+      {showBottomNav && <BottomNavigation activeTab={activeTab} onChange={setActiveTab} />}
     </div>
   );
 }

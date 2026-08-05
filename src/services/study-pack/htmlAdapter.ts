@@ -2,7 +2,7 @@ import type { DocumentBlock, DocumentModel, DocumentSection } from '@/types/stud
 
 const PRINT_STYLES = `
 * { box-sizing: border-box; }
-@page { size: A4; margin: 20mm 16mm; }
+@page { size: A4; margin: 24mm; }
 body {
   font-family: 'Lexend', ui-sans-serif, system-ui, -apple-system, sans-serif;
   color: #24152A;

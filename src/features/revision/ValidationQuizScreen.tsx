@@ -67,7 +67,7 @@ export function ValidationQuizScreen({
       <div className="flex flex-1 flex-col gap-3 py-3 sm:gap-4 sm:py-6">
         <QuestionCard question={currentQuestion} />
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="flex flex-col gap-3">
           {currentQuestion.options.map((option, index) => (
             <AnswerOption
               key={option.id}

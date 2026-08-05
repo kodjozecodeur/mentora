@@ -1,7 +1,6 @@
 import { ArrowRight, CheckCircle2, Clock3, Download, Lock } from 'lucide-react';
 import { AppLogo } from '@/components/ui/AppLogo';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
-import { SecondaryButton } from '@/components/ui/SecondaryButton';
 import { cn } from '@/lib/utils';
 import type { RevisionPlan, RevisionUnit } from '@/types/revision';
 import { isRevisionPlanComplete } from '@/services/revision/progress';
@@ -53,12 +52,14 @@ export function RevisionOverviewScreen({
       </header>
 
       <div className="pb-7">
-        <SecondaryButton onClick={onDownloadStudyPack} className="w-auto px-4 py-2 text-sm">
-          <span className="inline-flex items-center justify-center gap-2">
-            <Download className="size-4" aria-hidden="true" />
-            Télécharger mon Study Pack
-          </span>
-        </SecondaryButton>
+        <button
+          type="button"
+          onClick={onDownloadStudyPack}
+          className="text-highlight focus-visible:ring-highlight/40 inline-flex w-fit items-center gap-1.5 text-xs font-semibold hover:underline focus-visible:ring-4 focus-visible:outline-none"
+        >
+          <Download className="size-3.5" aria-hidden="true" />
+          Télécharger la fiche de révision
+        </button>
       </div>
 
       {isComplete ? (
