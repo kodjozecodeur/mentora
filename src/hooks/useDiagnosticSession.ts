@@ -30,7 +30,12 @@ function restoreState(phase: DiagnosticPhase, questions: DiagnosticQuestion[]) {
   const saved = loadDiagnosticProgress(phase);
   if (!saved) return { questionIndex: 0, responses: {}, result: null };
 
-  const questionIndex = Math.min(saved.questionIndex, questions.length - 1);
+  // `questions` is chapter-scoped and still empty on first mount (the chapter isn't picked
+  // yet) — clamping against it then would floor a valid index to -1 and permanently blank
+  // the diagnostic screen for the rest of the session. Only clamp once we actually know the
+  // chapter's question count; otherwise fall back to a safe start.
+  const questionIndex =
+    questions.length === 0 ? 0 : Math.min(saved.questionIndex, questions.length - 1);
   return { questionIndex, responses: saved.responses, result: saved.result };
 }
 
