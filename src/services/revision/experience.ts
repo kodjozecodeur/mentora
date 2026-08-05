@@ -6,13 +6,29 @@ import { generateRevisionPlan } from './generator';
 
 export const CURRENT_REVISION_PACK_VERSION = '1.0.0';
 
+/**
+ * Drops competency-mastery entries the current content catalog no longer covers (e.g. a
+ * diagnostic result persisted in localStorage before the chapter scope was narrowed) so a
+ * stale client never crashes plan generation — it just gets a plan scoped to what's still
+ * available, instead of an unhandled throw from `generateRevisionPlan`.
+ */
+function scopeToAvailableUnits(result: DiagnosticResult): DiagnosticResult {
+  const availableCompetencyIds = new Set(REVISION_UNITS.map((unit) => unit.competencyId));
+  return {
+    ...result,
+    competencyMastery: result.competencyMastery.filter((mastery) =>
+      availableCompetencyIds.has(mastery.competencyId),
+    ),
+  };
+}
+
 export function createPlanForDiagnostic(
   result: DiagnosticResult,
   studentName?: string,
 ): RevisionPlan {
   return generateRevisionPlan({
     diagnosticId: `diagnostic:${result.completedAt}`,
-    diagnosticResult: result,
+    diagnosticResult: scopeToAvailableUnits(result),
     revisionUnits: REVISION_UNITS,
     studentName,
     contentVersion: CURRENT_REVISION_PACK_VERSION,
