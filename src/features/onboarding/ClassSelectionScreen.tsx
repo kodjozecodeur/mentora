@@ -28,7 +28,7 @@ export function ClassSelectionScreen({
 
       <div className="flex items-start gap-3 py-8">
         <AppLogo size="sm" />
-        <SpeechBubble>Dans quelle classe es-tu ?</SpeechBubble>
+        <SpeechBubble>Parfait ! Dans quelle classe es-tu ?</SpeechBubble>
       </div>
 
       <div className="flex flex-col gap-4">

@@ -29,7 +29,9 @@ export function ChapterSelectionScreen({
 
       <div className="flex items-start gap-3 py-8">
         <AppLogo size="sm" />
-        <SpeechBubble>Quel chapitre étudies-tu en ce moment ?</SpeechBubble>
+        <SpeechBubble>
+          Excellent. Quel chapitre souhaites-tu travailler aujourd&apos;hui ?
+        </SpeechBubble>
       </div>
 
       <div className="flex flex-col gap-4">

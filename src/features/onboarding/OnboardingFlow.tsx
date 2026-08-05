@@ -15,6 +15,7 @@ import { selectChapterQuestions } from '@/services/diagnostic/chapterScope';
 import { useRevisionPlan } from '@/services/revision/useRevisionPlan';
 import type { DiagnosticQuestion } from '@/types/diagnostic';
 import type { ChapterOption, SubjectOption } from '@/types/onboarding';
+import { SplashScreen } from './SplashScreen';
 import { WelcomeScreen } from './WelcomeScreen';
 import { ClassSelectionScreen } from './ClassSelectionScreen';
 import { SubjectSelectionScreen } from './SubjectSelectionScreen';
@@ -26,6 +27,7 @@ import { isMvpSubjectAvailable } from './subjectAvailability';
 import { isMvpChapterAvailable } from './chapterAvailability';
 
 type Step =
+  | 'splash'
   | 'welcome'
   | 'class'
   | 'subject'
@@ -47,7 +49,7 @@ const STEPS_REQUIRING_INITIAL_RESULT: Step[] = [
 ];
 
 export function OnboardingFlow() {
-  const [step, setStep] = useState<Step>('welcome');
+  const [step, setStep] = useState<Step>('splash');
   const [name, setName] = useState('');
   const [classId, setClassId] = useState<string | null>(null);
   const [subjectId, setSubjectId] = useState<string | null>(null);
@@ -89,7 +91,7 @@ export function OnboardingFlow() {
 
   // A restored diagnostic result resumes in the post-diagnostic app shell.
   useEffect(() => {
-    if (step === 'welcome' && diagnostic.result) {
+    if ((step === 'splash' || step === 'welcome') && diagnostic.result) {
       setStep('app-shell');
     }
   }, [step, diagnostic.result]);
@@ -103,6 +105,8 @@ export function OnboardingFlow() {
   }, [step, diagnostic.result]);
 
   switch (step) {
+    case 'splash':
+      return <SplashScreen onContinue={() => setStep('welcome')} />;
     case 'welcome':
       return (
         <WelcomeScreen name={name} onNameChange={setName} onContinue={() => setStep('class')} />

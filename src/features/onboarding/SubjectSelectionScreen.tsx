@@ -29,7 +29,7 @@ export function SubjectSelectionScreen({
 
       <div className="flex items-start gap-3 py-8">
         <AppLogo size="sm" />
-        <SpeechBubble>Quelle matière souhaites-tu travailler ?</SpeechBubble>
+        <SpeechBubble>Très bien. Quelle matière souhaites-tu travailler ?</SpeechBubble>
       </div>
 
       <div className="flex flex-col gap-4">
