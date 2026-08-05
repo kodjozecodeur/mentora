@@ -1,6 +1,7 @@
 [
   {
     "id": "calcul-litteral-01",
+    "chapterId": "polynomes-second-degre",
     "competencyId": "calcul-litteral",
     "competencyLabel": "Calcul littéral",
     "instruction": "Développe et réduis",
@@ -8,10 +9,26 @@
     "contentFormat": "latex",
     "type": "single-choice",
     "options": [
-      { "id": "calcul-litteral-01-a", "content": "2x-11", "contentFormat": "latex" },
-      { "id": "calcul-litteral-01-b", "content": "2x+5", "contentFormat": "latex" },
-      { "id": "calcul-litteral-01-c", "content": "10x-11", "contentFormat": "latex" },
-      { "id": "calcul-litteral-01-d", "content": "10x+5", "contentFormat": "latex" }
+      {
+        "id": "calcul-litteral-01-a",
+        "content": "2x-11",
+        "contentFormat": "latex"
+      },
+      {
+        "id": "calcul-litteral-01-b",
+        "content": "2x+5",
+        "contentFormat": "latex"
+      },
+      {
+        "id": "calcul-litteral-01-c",
+        "content": "10x-11",
+        "contentFormat": "latex"
+      },
+      {
+        "id": "calcul-litteral-01-d",
+        "content": "10x+5",
+        "contentFormat": "latex"
+      }
     ],
     "correctOptionId": "calcul-litteral-01-a",
     "points": 1,
@@ -21,6 +38,7 @@
   },
   {
     "id": "calcul-litteral-02",
+    "chapterId": "polynomes-second-degre",
     "competencyId": "calcul-litteral",
     "competencyLabel": "Calcul littéral",
     "instruction": "Développe et réduis",
@@ -28,10 +46,26 @@
     "contentFormat": "latex",
     "type": "single-choice",
     "options": [
-      { "id": "calcul-litteral-02-a", "content": "-x+3", "contentFormat": "latex" },
-      { "id": "calcul-litteral-02-b", "content": "-x+9", "contentFormat": "latex" },
-      { "id": "calcul-litteral-02-c", "content": "5x+3", "contentFormat": "latex" },
-      { "id": "calcul-litteral-02-d", "content": "5x+9", "contentFormat": "latex" }
+      {
+        "id": "calcul-litteral-02-a",
+        "content": "-x+3",
+        "contentFormat": "latex"
+      },
+      {
+        "id": "calcul-litteral-02-b",
+        "content": "-x+9",
+        "contentFormat": "latex"
+      },
+      {
+        "id": "calcul-litteral-02-c",
+        "content": "5x+3",
+        "contentFormat": "latex"
+      },
+      {
+        "id": "calcul-litteral-02-d",
+        "content": "5x+9",
+        "contentFormat": "latex"
+      }
     ],
     "correctOptionId": "calcul-litteral-02-b",
     "points": 1,
@@ -41,6 +75,7 @@
   },
   {
     "id": "equations-01",
+    "chapterId": "polynomes-second-degre",
     "competencyId": "equations",
     "competencyLabel": "Équations",
     "instruction": "Résous l'équation",
@@ -48,10 +83,26 @@
     "contentFormat": "latex",
     "type": "single-choice",
     "options": [
-      { "id": "equations-01-a", "content": "x=8", "contentFormat": "latex" },
-      { "id": "equations-01-b", "content": "x=16", "contentFormat": "latex" },
-      { "id": "equations-01-c", "content": "x=3", "contentFormat": "latex" },
-      { "id": "equations-01-d", "content": "x=-3", "contentFormat": "latex" }
+      {
+        "id": "equations-01-a",
+        "content": "x=8",
+        "contentFormat": "latex"
+      },
+      {
+        "id": "equations-01-b",
+        "content": "x=16",
+        "contentFormat": "latex"
+      },
+      {
+        "id": "equations-01-c",
+        "content": "x=3",
+        "contentFormat": "latex"
+      },
+      {
+        "id": "equations-01-d",
+        "content": "x=-3",
+        "contentFormat": "latex"
+      }
     ],
     "correctOptionId": "equations-01-c",
     "points": 1,
@@ -61,6 +112,7 @@
   },
   {
     "id": "equations-02",
+    "chapterId": "polynomes-second-degre",
     "competencyId": "equations",
     "competencyLabel": "Équations",
     "instruction": "Résous l'équation",
@@ -68,10 +120,26 @@
     "contentFormat": "latex",
     "type": "single-choice",
     "options": [
-      { "id": "equations-02-a", "content": "x=2", "contentFormat": "latex" },
-      { "id": "equations-02-b", "content": "x=-12", "contentFormat": "latex" },
-      { "id": "equations-02-c", "content": "x=-2", "contentFormat": "latex" },
-      { "id": "equations-02-d", "content": "x=12", "contentFormat": "latex" }
+      {
+        "id": "equations-02-a",
+        "content": "x=2",
+        "contentFormat": "latex"
+      },
+      {
+        "id": "equations-02-b",
+        "content": "x=-12",
+        "contentFormat": "latex"
+      },
+      {
+        "id": "equations-02-c",
+        "content": "x=-2",
+        "contentFormat": "latex"
+      },
+      {
+        "id": "equations-02-d",
+        "content": "x=12",
+        "contentFormat": "latex"
+      }
     ],
     "correctOptionId": "equations-02-d",
     "points": 1,
@@ -81,6 +149,7 @@
   },
   {
     "id": "fonctions-lineaires-01",
+    "chapterId": "polynomes-second-degre",
     "competencyId": "fonctions-lineaires",
     "competencyLabel": "Fonctions linéaires",
     "instruction": "f(x) = 3x. Calcule f(4).",
@@ -88,10 +157,26 @@
     "contentFormat": "latex",
     "type": "single-choice",
     "options": [
-      { "id": "fonctions-lineaires-01-a", "content": "12", "contentFormat": "text" },
-      { "id": "fonctions-lineaires-01-b", "content": "7", "contentFormat": "text" },
-      { "id": "fonctions-lineaires-01-c", "content": "1", "contentFormat": "text" },
-      { "id": "fonctions-lineaires-01-d", "content": "64", "contentFormat": "text" }
+      {
+        "id": "fonctions-lineaires-01-a",
+        "content": "12",
+        "contentFormat": "text"
+      },
+      {
+        "id": "fonctions-lineaires-01-b",
+        "content": "7",
+        "contentFormat": "text"
+      },
+      {
+        "id": "fonctions-lineaires-01-c",
+        "content": "1",
+        "contentFormat": "text"
+      },
+      {
+        "id": "fonctions-lineaires-01-d",
+        "content": "64",
+        "contentFormat": "text"
+      }
     ],
     "correctOptionId": "fonctions-lineaires-01-a",
     "points": 1,
@@ -101,6 +186,7 @@
   },
   {
     "id": "fonctions-lineaires-02",
+    "chapterId": "polynomes-second-degre",
     "competencyId": "fonctions-lineaires",
     "competencyLabel": "Fonctions linéaires",
     "instruction": "g(x) = -2x+1. Calcule g(3).",
@@ -108,10 +194,26 @@
     "contentFormat": "latex",
     "type": "single-choice",
     "options": [
-      { "id": "fonctions-lineaires-02-a", "content": "5", "contentFormat": "text" },
-      { "id": "fonctions-lineaires-02-b", "content": "-5", "contentFormat": "text" },
-      { "id": "fonctions-lineaires-02-c", "content": "-7", "contentFormat": "text" },
-      { "id": "fonctions-lineaires-02-d", "content": "7", "contentFormat": "text" }
+      {
+        "id": "fonctions-lineaires-02-a",
+        "content": "5",
+        "contentFormat": "text"
+      },
+      {
+        "id": "fonctions-lineaires-02-b",
+        "content": "-5",
+        "contentFormat": "text"
+      },
+      {
+        "id": "fonctions-lineaires-02-c",
+        "content": "-7",
+        "contentFormat": "text"
+      },
+      {
+        "id": "fonctions-lineaires-02-d",
+        "content": "7",
+        "contentFormat": "text"
+      }
     ],
     "correctOptionId": "fonctions-lineaires-02-b",
     "points": 1,
@@ -121,6 +223,7 @@
   },
   {
     "id": "theoreme-pythagore-01",
+    "chapterId": "polynomes-second-degre",
     "competencyId": "theoreme-pythagore",
     "competencyLabel": "Théorème de Pythagore",
     "instruction": "Calcule BC (hypoténuse).",
@@ -128,10 +231,26 @@
     "contentFormat": "text",
     "type": "single-choice",
     "options": [
-      { "id": "theoreme-pythagore-01-a", "content": "7 cm", "contentFormat": "text" },
-      { "id": "theoreme-pythagore-01-b", "content": "1 cm", "contentFormat": "text" },
-      { "id": "theoreme-pythagore-01-c", "content": "5 cm", "contentFormat": "text" },
-      { "id": "theoreme-pythagore-01-d", "content": "25 cm", "contentFormat": "text" }
+      {
+        "id": "theoreme-pythagore-01-a",
+        "content": "7 cm",
+        "contentFormat": "text"
+      },
+      {
+        "id": "theoreme-pythagore-01-b",
+        "content": "1 cm",
+        "contentFormat": "text"
+      },
+      {
+        "id": "theoreme-pythagore-01-c",
+        "content": "5 cm",
+        "contentFormat": "text"
+      },
+      {
+        "id": "theoreme-pythagore-01-d",
+        "content": "25 cm",
+        "contentFormat": "text"
+      }
     ],
     "correctOptionId": "theoreme-pythagore-01-c",
     "points": 1,
@@ -141,6 +260,7 @@
   },
   {
     "id": "theoreme-pythagore-02",
+    "chapterId": "polynomes-second-degre",
     "competencyId": "theoreme-pythagore",
     "competencyLabel": "Théorème de Pythagore",
     "instruction": "Calcule AC.",
@@ -148,10 +268,26 @@
     "contentFormat": "text",
     "type": "single-choice",
     "options": [
-      { "id": "theoreme-pythagore-02-a", "content": "4 cm", "contentFormat": "text" },
-      { "id": "theoreme-pythagore-02-b", "content": "64 cm", "contentFormat": "text" },
-      { "id": "theoreme-pythagore-02-c", "content": "14 cm", "contentFormat": "text" },
-      { "id": "theoreme-pythagore-02-d", "content": "8 cm", "contentFormat": "text" }
+      {
+        "id": "theoreme-pythagore-02-a",
+        "content": "4 cm",
+        "contentFormat": "text"
+      },
+      {
+        "id": "theoreme-pythagore-02-b",
+        "content": "64 cm",
+        "contentFormat": "text"
+      },
+      {
+        "id": "theoreme-pythagore-02-c",
+        "content": "14 cm",
+        "contentFormat": "text"
+      },
+      {
+        "id": "theoreme-pythagore-02-d",
+        "content": "8 cm",
+        "contentFormat": "text"
+      }
     ],
     "correctOptionId": "theoreme-pythagore-02-d",
     "points": 1,
@@ -161,6 +297,7 @@
   },
   {
     "id": "theoreme-thales-01",
+    "chapterId": "polynomes-second-degre",
     "competencyId": "theoreme-thales",
     "competencyLabel": "Théorème de Thalès",
     "instruction": "Calcule AE.",
@@ -168,10 +305,26 @@
     "contentFormat": "text",
     "type": "single-choice",
     "options": [
-      { "id": "theoreme-thales-01-a", "content": "3 cm", "contentFormat": "text" },
-      { "id": "theoreme-thales-01-b", "content": "1,875 cm", "contentFormat": "text" },
-      { "id": "theoreme-thales-01-c", "content": "18,75 cm", "contentFormat": "text" },
-      { "id": "theoreme-thales-01-d", "content": "0,3 cm", "contentFormat": "text" }
+      {
+        "id": "theoreme-thales-01-a",
+        "content": "3 cm",
+        "contentFormat": "text"
+      },
+      {
+        "id": "theoreme-thales-01-b",
+        "content": "1,875 cm",
+        "contentFormat": "text"
+      },
+      {
+        "id": "theoreme-thales-01-c",
+        "content": "18,75 cm",
+        "contentFormat": "text"
+      },
+      {
+        "id": "theoreme-thales-01-d",
+        "content": "0,3 cm",
+        "contentFormat": "text"
+      }
     ],
     "correctOptionId": "theoreme-thales-01-a",
     "points": 1,
@@ -181,6 +334,7 @@
   },
   {
     "id": "theoreme-thales-02",
+    "chapterId": "polynomes-second-degre",
     "competencyId": "theoreme-thales",
     "competencyLabel": "Théorème de Thalès",
     "instruction": "Calcule BC.",
@@ -188,10 +342,26 @@
     "contentFormat": "text",
     "type": "single-choice",
     "options": [
-      { "id": "theoreme-thales-02-a", "content": "4,5 cm", "contentFormat": "text" },
-      { "id": "theoreme-thales-02-b", "content": "8 cm", "contentFormat": "text" },
-      { "id": "theoreme-thales-02-c", "content": "2 cm", "contentFormat": "text" },
-      { "id": "theoreme-thales-02-d", "content": "18 cm", "contentFormat": "text" }
+      {
+        "id": "theoreme-thales-02-a",
+        "content": "4,5 cm",
+        "contentFormat": "text"
+      },
+      {
+        "id": "theoreme-thales-02-b",
+        "content": "8 cm",
+        "contentFormat": "text"
+      },
+      {
+        "id": "theoreme-thales-02-c",
+        "content": "2 cm",
+        "contentFormat": "text"
+      },
+      {
+        "id": "theoreme-thales-02-d",
+        "content": "18 cm",
+        "contentFormat": "text"
+      }
     ],
     "correctOptionId": "theoreme-thales-02-b",
     "points": 1,
@@ -201,6 +371,7 @@
   },
   {
     "id": "statistiques-01",
+    "chapterId": "polynomes-second-degre",
     "competencyId": "statistiques",
     "competencyLabel": "Statistiques",
     "instruction": "Calcule la moyenne de cette série.",
@@ -208,10 +379,26 @@
     "contentFormat": "text",
     "type": "single-choice",
     "options": [
-      { "id": "statistiques-01-a", "content": "10", "contentFormat": "text" },
-      { "id": "statistiques-01-b", "content": "60", "contentFormat": "text" },
-      { "id": "statistiques-01-c", "content": "12", "contentFormat": "text" },
-      { "id": "statistiques-01-d", "content": "14", "contentFormat": "text" }
+      {
+        "id": "statistiques-01-a",
+        "content": "10",
+        "contentFormat": "text"
+      },
+      {
+        "id": "statistiques-01-b",
+        "content": "60",
+        "contentFormat": "text"
+      },
+      {
+        "id": "statistiques-01-c",
+        "content": "12",
+        "contentFormat": "text"
+      },
+      {
+        "id": "statistiques-01-d",
+        "content": "14",
+        "contentFormat": "text"
+      }
     ],
     "correctOptionId": "statistiques-01-c",
     "points": 1,
@@ -221,6 +408,7 @@
   },
   {
     "id": "statistiques-02",
+    "chapterId": "polynomes-second-degre",
     "competencyId": "statistiques",
     "competencyLabel": "Statistiques",
     "instruction": "Calcule la moyenne de cette série.",
@@ -228,10 +416,26 @@
     "contentFormat": "text",
     "type": "single-choice",
     "options": [
-      { "id": "statistiques-02-a", "content": "7,5", "contentFormat": "text" },
-      { "id": "statistiques-02-b", "content": "15", "contentFormat": "text" },
-      { "id": "statistiques-02-c", "content": "35", "contentFormat": "text" },
-      { "id": "statistiques-02-d", "content": "7", "contentFormat": "text" }
+      {
+        "id": "statistiques-02-a",
+        "content": "7,5",
+        "contentFormat": "text"
+      },
+      {
+        "id": "statistiques-02-b",
+        "content": "15",
+        "contentFormat": "text"
+      },
+      {
+        "id": "statistiques-02-c",
+        "content": "35",
+        "contentFormat": "text"
+      },
+      {
+        "id": "statistiques-02-d",
+        "content": "7",
+        "contentFormat": "text"
+      }
     ],
     "correctOptionId": "statistiques-02-d",
     "points": 1,

@@ -8,6 +8,7 @@ const question = (
   competencyLabel: string,
 ): DiagnosticQuestion => ({
   id,
+  chapterId: 'polynomes-second-degre',
   competencyId,
   competencyLabel,
   instruction: 'Résous',

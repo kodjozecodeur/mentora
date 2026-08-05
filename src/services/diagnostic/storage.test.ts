@@ -57,7 +57,12 @@ describe('diagnostic storage', () => {
 
   it('clears the saved progress', () => {
     stubLocalStorage();
-    saveDiagnosticProgress('initial', { questionIndex: 0, responses: {}, result: null, phase: 'initial' });
+    saveDiagnosticProgress('initial', {
+      questionIndex: 0,
+      responses: {},
+      result: null,
+      phase: 'initial',
+    });
     clearDiagnosticProgress('initial');
     expect(loadDiagnosticProgress('initial')).toBeNull();
   });

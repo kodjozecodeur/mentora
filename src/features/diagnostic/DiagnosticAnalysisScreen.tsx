@@ -51,12 +51,15 @@ export function DiagnosticAnalysisScreen({ onComplete }: DiagnosticAnalysisScree
     );
 
     timers.push(
-      setTimeout(() => {
-        if (hasCompleted.current) return;
+      setTimeout(
+        () => {
+          if (hasCompleted.current) return;
 
-        hasCompleted.current = true;
-        onComplete();
-      }, lastStepAt + READY_DELAY + REDIRECT_DELAY),
+          hasCompleted.current = true;
+          onComplete();
+        },
+        lastStepAt + READY_DELAY + REDIRECT_DELAY,
+      ),
     );
 
     return () => {
@@ -101,7 +104,9 @@ export function DiagnosticAnalysisScreen({ onComplete }: DiagnosticAnalysisScree
                   )}
                   aria-hidden="true"
                 >
-                  {isDone && <Check className="text-highlight-foreground size-3.5" strokeWidth={3} />}
+                  {isDone && (
+                    <Check className="text-highlight-foreground size-3.5" strokeWidth={3} />
+                  )}
                 </span>
                 {label}
               </motion.li>

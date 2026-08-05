@@ -9,6 +9,7 @@ const question = (
   points: number,
 ): DiagnosticQuestion => ({
   id,
+  chapterId: 'polynomes-second-degre',
   competencyId,
   competencyLabel,
   instruction: 'Résous',

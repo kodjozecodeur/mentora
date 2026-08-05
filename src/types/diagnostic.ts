@@ -12,6 +12,7 @@ export interface DiagnosticQuestionOption {
 
 export interface DiagnosticQuestion {
   id: string;
+  chapterId: string;
   competencyId: string;
   competencyLabel: string;
   instruction: string;

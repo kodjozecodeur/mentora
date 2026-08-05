@@ -1,12 +1,14 @@
 'use client';
 
 import { Menu } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { AppLogo } from '@/components/ui/AppLogo';
 import { BottomNavigation } from '@/components/app-shell/BottomNavigation';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
 import { REVISION_UNITS } from '@/data/revision-units';
+import type { ResultsBranch } from '@/features/diagnostic/resultCopy';
 import { RevisionNoteScreen } from '@/features/revision/RevisionNoteScreen';
+import { RevisionOverviewScreen } from '@/features/revision/RevisionOverviewScreen';
 import { RevisionPlanScreen } from '@/features/revision/RevisionPlanScreen';
 import { ValidationQuizScreen } from '@/features/revision/ValidationQuizScreen';
 import { ValidationResultScreen } from '@/features/revision/ValidationResultScreen';
@@ -15,7 +17,7 @@ import {
   resolveRevisionSessionContent,
   type RevisionSessionContent,
 } from '@/services/revision/experience';
-import { getCompetencyStatuses, isReadyForExam } from '@/services/revision/progress';
+import { getCompetencyStatuses } from '@/services/revision/progress';
 import { getValidationQuestions } from '@/services/revision/validation';
 import { exportStudyPackToPdf } from '@/services/study-pack';
 import type { DiagnosticQuestion, DiagnosticResult } from '@/types/diagnostic';
@@ -26,30 +28,30 @@ import {
   getRevisionUnitForSession,
   getShellStudentName,
 } from './appShellData';
-import { DiagnosticScreen } from './DiagnosticScreen';
 import { HomeScreen } from './HomeScreen';
+import { resolveInitialRevisionView } from './journeyEntry';
 import { ProfileScreen } from './ProfileScreen';
 import type { AppTab, RevisionShellView } from './types';
 
 const STUDY_PACK_EXPORT_ERROR_MESSAGE =
   "Le Study Pack n'a pas pu s'ouvrir. Autorise les fenêtres pop-up dans ton navigateur, puis réessaie.";
 
+/** Study-pack PDF cover copy only — no exam concept survives in AppShell's own state/nav. */
+const STUDY_PACK_EXAM_LABEL = 'BEPC';
+
 interface AppShellProps {
   diagnosticResult: DiagnosticResult;
   revisionPlan: RevisionPlan;
   diagnosticQuestions: DiagnosticQuestion[];
   firstName?: string;
-  examLabel: string;
   subjectLabel: string;
+  resultsBranch: ResultsBranch;
   onRestartDiagnostic: () => void;
   onStartRevisionSession: (revisionUnitId: string) => void;
   onSubmitValidationAttempt: (
     revisionUnitId: string,
     responses: ValidationResponse[],
   ) => ValidationAttempt | null;
-  /** Journey state-machine trigger: fires once every competency is validated (may re-fire on every
-   * mount while the plan stays fully validated — callers must guard against re-entering the same step). */
-  onReadyForExam?: () => void;
 }
 
 export function AppShell({
@@ -57,18 +59,21 @@ export function AppShell({
   revisionPlan,
   diagnosticQuestions,
   firstName,
-  examLabel,
   subjectLabel,
+  resultsBranch,
   onRestartDiagnostic,
   onStartRevisionSession,
   onSubmitValidationAttempt,
-  onReadyForExam,
 }: AppShellProps) {
   const [activeTab, setActiveTab] = useState<AppTab>('home');
-  const [revisionView, setRevisionView] = useState<RevisionShellView>('plan');
+  const [revisionView, setRevisionView] = useState<RevisionShellView>(() =>
+    resolveInitialRevisionView(resultsBranch),
+  );
+  const [hasEnteredJourney, setHasEnteredJourney] = useState(
+    () => resultsBranch === 'learning-journey',
+  );
   const [activeRevisionUnitId, setActiveRevisionUnitId] = useState<string | null>(null);
   const [activeAttempt, setActiveAttempt] = useState<ValidationAttempt | null>(null);
-  const hasNotifiedReadyForExam = useRef(false);
 
   const studentName = getShellStudentName(firstName, revisionPlan);
   const avatarInitial = studentName.charAt(0).toUpperCase();
@@ -82,19 +87,9 @@ export function AppShell({
     : [];
   const showShellHeader = activeTab !== 'revision';
 
-  // Journey trigger (state machine only, no screen built yet): fires once when the last
-  // competency in sequence is validated, per spec §3.1 revision -> ready-for-exam.
-  useEffect(() => {
-    if (hasNotifiedReadyForExam.current) return;
-    if (isReadyForExam(revisionPlan)) {
-      hasNotifiedReadyForExam.current = true;
-      onReadyForExam?.();
-    }
-  }, [revisionPlan, onReadyForExam]);
-
   function openRevisionPlan() {
     setActiveTab('revision');
-    setRevisionView('plan');
+    setRevisionView(hasEnteredJourney ? 'overview' : 'plan');
   }
 
   function openRevisionSession(revisionUnitId: string) {
@@ -110,6 +105,9 @@ export function AppShell({
     setActiveRevisionUnitId(revisionUnitId);
     setActiveTab('revision');
     setRevisionView('note');
+    // Starting a session moves the student past the one-time plan intro — every later return to
+    // this tab lands on the persistent Learning Journey hub, not back on the plan intro.
+    setHasEnteredJourney(true);
   }
 
   // The note screen never marks a competency validated itself — it only hands off to validation.
@@ -131,7 +129,7 @@ export function AppShell({
 
   function continueAfterPass() {
     setActiveAttempt(null);
-    setRevisionView('plan');
+    setRevisionView(hasEnteredJourney ? 'overview' : 'plan');
   }
 
   function retryValidation() {
@@ -153,7 +151,7 @@ export function AppShell({
         allRevisionNotes: bundledRevisionNotesEngine.getRevisionNotes(),
         studentName: firstName,
         subjectLabel,
-        examLabel,
+        examLabel: STUDY_PACK_EXAM_LABEL,
       });
     } catch {
       window.alert(STUDY_PACK_EXPORT_ERROR_MESSAGE);
@@ -176,20 +174,8 @@ export function AppShell({
       );
     }
 
-    if (activeTab === 'diagnostic') {
-      return (
-        <DiagnosticScreen
-          result={diagnosticResult}
-          subjectLabel={subjectLabel}
-          onRestartDiagnostic={onRestartDiagnostic}
-        />
-      );
-    }
-
     if (activeTab === 'profile') {
-      return (
-        <ProfileScreen firstName={studentName} examLabel={examLabel} subjectLabel={subjectLabel} />
-      );
+      return <ProfileScreen firstName={studentName} subjectLabel={subjectLabel} />;
     }
 
     if (revisionView === 'plan') {
@@ -198,6 +184,19 @@ export function AppShell({
           embedded
           plan={revisionPlan}
           readinessScore={diagnosticResult.readinessScore}
+          units={REVISION_UNITS}
+          onStartSession={openRevisionSession}
+          onRestartDiagnostic={onRestartDiagnostic}
+          onDownloadStudyPack={downloadStudyPack}
+        />
+      );
+    }
+
+    if (revisionView === 'overview') {
+      return (
+        <RevisionOverviewScreen
+          embedded
+          plan={revisionPlan}
           units={REVISION_UNITS}
           onStartSession={openRevisionSession}
           onRestartDiagnostic={onRestartDiagnostic}
@@ -243,10 +242,9 @@ export function AppShell({
     }
 
     return (
-      <RevisionPlanScreen
+      <RevisionOverviewScreen
         embedded
         plan={revisionPlan}
-        readinessScore={diagnosticResult.readinessScore}
         units={REVISION_UNITS}
         onStartSession={openRevisionSession}
         onRestartDiagnostic={onRestartDiagnostic}
@@ -294,7 +292,6 @@ export function AppShell({
 
 function getTabTitle(tab: AppTab): string {
   if (tab === 'home') return 'Accueil';
-  if (tab === 'diagnostic') return 'Examens';
-  if (tab === 'revision') return 'Révision';
+  if (tab === 'revision') return 'Mon parcours';
   return 'Profil';
 }

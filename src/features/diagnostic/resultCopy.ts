@@ -28,7 +28,6 @@ export function getWeaknessBadgeLabel(level: ReadinessLevel): string {
 }
 
 export const PROGRESSION_GLOBALE_LABEL = 'Progression globale';
-export const PREPARATION_BEPC_LABEL = 'Préparation au BEPC';
 
 export function getMasteryStatusLabel(level: ReadinessLevel): string {
   if (level === 'mastered') return 'Maîtrisé';
@@ -55,4 +54,16 @@ export function partitionByReadinessLevel(mastery: CompetencyMastery[]): {
       .sort(byMasteryPercent('asc')),
     priority: mastery.filter((m) => m.readinessLevel === 'priority').sort(byMasteryPercent('asc')),
   };
+}
+
+/** Spec: Results branches to the Personalized Revision Plan unless every competency is mastered. */
+export type ResultsBranch = 'revision-plan' | 'learning-journey';
+
+export function resolveResultsBranch(mastery: CompetencyMastery[]): ResultsBranch {
+  const { inProgress, priority } = partitionByReadinessLevel(mastery);
+  return inProgress.length > 0 || priority.length > 0 ? 'revision-plan' : 'learning-journey';
+}
+
+export function getResultsContinueLabel(branch: ResultsBranch): string {
+  return branch === 'revision-plan' ? 'Créer mon plan de révision' : 'Accéder à mon parcours';
 }

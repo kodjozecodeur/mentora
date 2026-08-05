@@ -115,69 +115,74 @@ The visual style is a sophisticated blend of **Minimalism** and **Tactile Modern
 
 This design system uses a high-energy primary palette balanced by soft, airy background tones.
 
-*   **Primary Yellow (#F4CE1A):** Used for primary actions, progress indicators, and highlight accents. It represents energy and optimism.
-*   **Secondary Purple (#873694):** Used for branding, character elements, and secondary interactive states. It provides a grounded, academic contrast to the yellow.
-*   **Tertiary Cream (#FDF9E7):** Specifically for speech bubbles and "thought" containers to keep them distinct from standard UI cards.
-*   **Background Lavender (#F9F7FC):** A very light, tinted off-white that prevents screen fatigue and feels more welcoming than pure white.
-*   **Functional Colors:** Use a soft emerald for "Correct" states and a warm coral for "Error" states, maintaining the playful yet clear aesthetic.
+- **Primary Yellow (#F4CE1A):** Used for primary actions, progress indicators, and highlight accents. It represents energy and optimism.
+- **Secondary Purple (#873694):** Used for branding, character elements, and secondary interactive states. It provides a grounded, academic contrast to the yellow.
+- **Tertiary Cream (#FDF9E7):** Specifically for speech bubbles and "thought" containers to keep them distinct from standard UI cards.
+- **Background Lavender (#F9F7FC):** A very light, tinted off-white that prevents screen fatigue and feels more welcoming than pure white.
+- **Functional Colors:** Use a soft emerald for "Correct" states and a warm coral for "Error" states, maintaining the playful yet clear aesthetic.
 
 ## Typography
 
 **Lexend** is the sole typeface for this design system. Its design was specifically engineered to reduce visual stress and improve reading speed, making it the perfect choice for an educational app.
 
-*   **Headlines:** Use Bold or Semi-Bold weights with tight letter spacing for a punchy, authoritative feel.
-*   **Body:** Use Medium weight (500) for standard reading to ensure the rounded terminals of the font provide a friendly, approachable texture.
-*   **Clarity:** Never use light weights. The app must remain highly legible for students under exam-prep pressure.
-*   **Language Note:** All French typography should respect standard punctuation spacing (e.g., a space before the question mark).
+- **Headlines:** Use Bold or Semi-Bold weights with tight letter spacing for a punchy, authoritative feel.
+- **Body:** Use Medium weight (500) for standard reading to ensure the rounded terminals of the font provide a friendly, approachable texture.
+- **Clarity:** Never use light weights. The app must remain highly legible for students under exam-prep pressure.
+- **Language Note:** All French typography should respect standard punctuation spacing (e.g., a space before the question mark).
 
 ## Layout & Spacing
 
 The layout follows a **fluid grid** model with generous safe areas to maintain an "airy" feel.
 
-*   **Mobile:** 4-column grid with 20px side margins and 16px gutters.
-*   **Tablet/Desktop:** Content is centered in a max-width container (720px for lessons, 1024px for dashboards) to prevent line lengths from becoming unreadable.
-*   **Vertical Rhythm:** Use the `stack-gap` (16px) for related elements (like a list of options) and `lg` (40px) to separate distinct sections (like the character prompt and the user input area).
-*   **White Space:** If in doubt, add more space. The diagnostic experience should never feel cluttered or overwhelming.
+- **Mobile:** 4-column grid with 20px side margins and 16px gutters.
+- **Tablet/Desktop:** Content is centered in a max-width container (720px for lessons, 1024px for dashboards) to prevent line lengths from becoming unreadable.
+- **Vertical Rhythm:** Use the `stack-gap` (16px) for related elements (like a list of options) and `lg` (40px) to separate distinct sections (like the character prompt and the user input area).
+- **White Space:** If in doubt, add more space. The diagnostic experience should never feel cluttered or overwhelming.
 
 ## Elevation & Depth
 
 Hierarchy is established through **Tonal Layers** and **Tactile Shadows** rather than traditional elevation.
 
-*   **Flat Base:** The background is flat.
-*   **Tactile Cards:** Interactive cards use a 2px solid border in a slightly darker shade of the surface color, plus a "bottom-heavy" shadow (4px offset) to make them look like physical buttons that can be pressed.
-*   **Active States:** When an element is pressed or selected, the shadow disappears (0px offset) and the element shifts 2px down, simulating a physical click.
-*   **Character Layer:** The diagnostic character and its speech bubble exist on the highest perceived layer, using a slightly more diffused, soft ambient shadow to appear "above" the curriculum content.
+- **Flat Base:** The background is flat.
+- **Tactile Cards:** Interactive cards use a 2px solid border in a slightly darker shade of the surface color, plus a "bottom-heavy" shadow (4px offset) to make them look like physical buttons that can be pressed.
+- **Active States:** When an element is pressed or selected, the shadow disappears (0px offset) and the element shifts 2px down, simulating a physical click.
+- **Character Layer:** The diagnostic character and its speech bubble exist on the highest perceived layer, using a slightly more diffused, soft ambient shadow to appear "above" the curriculum content.
 
 ## Shapes
 
 The shape language is consistently **Rounded**, reinforcing the friendly and non-intimidating brand persona.
 
-*   **Primary Containers:** Use `rounded-lg` (16px) for lesson cards and speech bubbles.
-*   **Buttons & Inputs:** Use `rounded-xl` (24px) to create a soft, pill-like appearance that invites interaction.
-*   **Progress Bars:** Always use fully rounded ends (caps) to ensure the progress feels fluid and organic rather than mechanical.
-*   **Speech Bubbles:** Include a small, rounded triangular pointer (beak) that connects the bubble to the character icon.
+- **Primary Containers:** Use `rounded-lg` (16px) for lesson cards and speech bubbles.
+- **Buttons & Inputs:** Use `rounded-xl` (24px) to create a soft, pill-like appearance that invites interaction.
+- **Progress Bars:** Always use fully rounded ends (caps) to ensure the progress feels fluid and organic rather than mechanical.
+- **Speech Bubbles:** Include a small, rounded triangular pointer (beak) that connects the bubble to the character icon.
 
 ## Components
 
 ### Buttons
-*   **Primary:** Background `#F4CE1A`, text `#1A1A1A`, with a 4px dark-yellow bottom border to simulate depth.
-*   **Secondary:** Outline style using `#873694` with a 2px stroke.
+
+- **Primary:** Background `#F4CE1A`, text `#1A1A1A`, with a 4px dark-yellow bottom border to simulate depth.
+- **Secondary:** Outline style using `#873694` with a 2px stroke.
 
 ### Diagnostic Speech Bubbles
-*   A container with `#FDF9E7` background and `#F4CE1A` border. 
-*   Positioned next to the character avatar.
-*   Text should be centered or left-aligned depending on length, using `body-lg`.
+
+- A container with `#FDF9E7` background and `#F4CE1A` border.
+- Positioned next to the character avatar.
+- Text should be centered or left-aligned depending on length, using `body-lg`.
 
 ### Option Cards (Selection)
-*   Large, full-width cards with `body-md` bold text.
-*   **Unselected:** White background, light grey border.
-*   **Selected:** Soft purple background, `#873694` border, 2px downward translation.
+
+- Large, full-width cards with `body-md` bold text.
+- **Unselected:** White background, light grey border.
+- **Selected:** Soft purple background, `#873694` border, 2px downward translation.
 
 ### Progress Bars
-*   **Track:** Semi-transparent lavender or light grey.
-*   **Indicator:** Solid `#F4CE1A`.
-*   Height should be 12px or 16px to feel substantial and "rewarding" as it fills.
+
+- **Track:** Semi-transparent lavender or light grey.
+- **Indicator:** Solid `#F4CE1A`.
+- Height should be 12px or 16px to feel substantial and "rewarding" as it fills.
 
 ### Input Fields
-*   Clean white background, 2px light grey border that turns `#873694` on focus. 
-*   Placeholder text in `label-lg` with a soft grey tint.
+
+- Clean white background, 2px light grey border that turns `#873694` on focus.
+- Placeholder text in `label-lg` with a soft grey tint.

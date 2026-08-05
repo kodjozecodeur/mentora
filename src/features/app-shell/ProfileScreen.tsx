@@ -1,15 +1,14 @@
-import { BookOpen, GraduationCap, UserRound } from 'lucide-react';
+import { BookOpen, UserRound } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 interface ProfileScreenProps {
   firstName: string;
-  examLabel: string;
   subjectLabel: string;
 }
 
 const APP_VERSION = '0.1.0';
 
-export function ProfileScreen({ firstName, examLabel, subjectLabel }: ProfileScreenProps) {
+export function ProfileScreen({ firstName, subjectLabel }: ProfileScreenProps) {
   return (
     <div className="flex flex-col gap-5 pb-6">
       <header className="flex flex-col gap-1">
@@ -22,11 +21,6 @@ export function ProfileScreen({ firstName, examLabel, subjectLabel }: ProfileScr
           icon={<UserRound className="size-5" aria-hidden="true" />}
           label="Prénom"
           value={firstName}
-        />
-        <ProfileRow
-          icon={<GraduationCap className="size-5" aria-hidden="true" />}
-          label="Examen"
-          value={examLabel}
         />
         <ProfileRow
           icon={<BookOpen className="size-5" aria-hidden="true" />}

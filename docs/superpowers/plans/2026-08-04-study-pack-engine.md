@@ -54,7 +54,7 @@ route only.
   array and object) must be deep-frozen — mutation attempts must throw.
 - `src/app/dev/study-pack-preview/page.tsx` must call Next's `notFound()` (from
   `next/navigation`) and render nothing else when `process.env.NODE_ENV ===
-  'production'`. It must not be linked from any nav, layout, or existing screen.
+'production'`. It must not be linked from any nav, layout, or existing screen.
 - **Do not run `git commit` in any task step below.** The human partner running this
   session holds all changes uncommitted until every task has been reviewed together and
   a final whole-diff review has passed. Do every other step (write test, run it, verify
@@ -66,9 +66,11 @@ route only.
 ### Task 1: Study Pack domain types
 
 **Files:**
+
 - Create: `src/types/study-pack.ts`
 
 **Interfaces:**
+
 - Consumes: `CompetencyMastery`, `DiagnosticResult`, `RevisionRecommendation` from
   `@/types/diagnostic`; `RevisionPlan`, `RevisionUnit` from `@/types/revision`;
   `RevisionNote` from `@/services/revision-notes/types`.
@@ -215,13 +217,15 @@ errors within itself).
 ### Task 2: Markdown helpers
 
 **Files:**
+
 - Create: `src/services/study-pack/markdown.ts`
 - Test: `src/services/study-pack/markdown.test.ts`
 
 **Interfaces:**
+
 - Consumes: nothing (pure string functions).
 - Produces: `stripInlineMarkdown(value: string): string`, `splitParagraphs(value:
-  string): string[]` — consumed by Task 4 (`documentModel.ts`).
+string): string[]` — consumed by Task 4 (`documentModel.ts`).
 
 - [ ] **Step 1: Write the failing test**
 
@@ -309,11 +313,13 @@ Expected: PASS (7 tests)
 ### Task 3: Test fixtures + `buildStudyPack`
 
 **Files:**
+
 - Create: `src/services/study-pack/testFixtures.ts`
 - Create: `src/services/study-pack/builder.ts`
 - Test: `src/services/study-pack/builder.test.ts`
 
 **Interfaces:**
+
 - Consumes: types from Task 1 (`@/types/study-pack`).
 - Produces: `buildStudyPack(input: BuildStudyPackInput): StudyPack`,
   `STUDY_PACK_ALGORITHM_VERSION` constant — consumed by Task 4, Task 7 (barrel), Task 8
@@ -327,7 +333,11 @@ Expected: PASS (7 tests)
 Create `src/services/study-pack/testFixtures.ts`:
 
 ```ts
-import type { CompetencyMastery, DiagnosticResult, RevisionRecommendation } from '@/types/diagnostic';
+import type {
+  CompetencyMastery,
+  DiagnosticResult,
+  RevisionRecommendation,
+} from '@/types/diagnostic';
 import type { RevisionPlan, RevisionUnit } from '@/types/revision';
 import type { RevisionNote } from '@/services/revision-notes/types';
 import type { BuildStudyPackInput } from '@/types/study-pack';
@@ -503,10 +513,7 @@ Create `src/services/study-pack/builder.test.ts`:
 ```ts
 import { describe, expect, it } from 'vitest';
 import { buildStudyPack } from './builder';
-import {
-  fixtureBuildStudyPackInput,
-  fixtureRevisionNotes,
-} from './testFixtures';
+import { fixtureBuildStudyPackInput, fixtureRevisionNotes } from './testFixtures';
 import type { StudyPackSection } from '@/types/study-pack';
 
 function expectKind<K extends StudyPackSection['kind']>(
@@ -587,9 +594,9 @@ describe('buildStudyPack', () => {
   });
 
   it('throws when the plan references a competency with no matching note', () => {
-    expect(() =>
-      buildStudyPack({ ...fixtureBuildStudyPackInput, allRevisionNotes: [] }),
-    ).toThrow(/calcul-litteral/);
+    expect(() => buildStudyPack({ ...fixtureBuildStudyPackInput, allRevisionNotes: [] })).toThrow(
+      /calcul-litteral/,
+    );
   });
 
   it('separates exercises from corrections: corrections carry statement, answer, and correction', () => {
@@ -629,8 +636,11 @@ describe('buildStudyPack', () => {
   });
 
   it('defaults generatedAt and algorithmVersion when not supplied', () => {
-    const { generatedAt: _generatedAt, algorithmVersion: _algorithmVersion, ...rest } =
-      fixtureBuildStudyPackInput;
+    const {
+      generatedAt: _generatedAt,
+      algorithmVersion: _algorithmVersion,
+      ...rest
+    } = fixtureBuildStudyPackInput;
     const pack = buildStudyPack(rest);
     expect(pack.snapshot.algorithmVersion).toBe('study-pack.v1');
     expect(typeof pack.snapshot.generatedAt).toBe('string');
@@ -828,10 +838,12 @@ Expected: PASS (13 tests)
 ### Task 4: `studyPackToDocumentModel`
 
 **Files:**
+
 - Create: `src/services/study-pack/documentModel.ts`
 - Test: `src/services/study-pack/documentModel.test.ts`
 
 **Interfaces:**
+
 - Consumes: `StudyPack`, `StudyPackSection`, `DocumentModel`, `DocumentSection`,
   `DocumentBlock` from `@/types/study-pack`; `stripInlineMarkdown`, `splitParagraphs`
   from `./markdown` (Task 2); `buildStudyPack` + fixtures from Task 3 (test only).
@@ -914,7 +926,13 @@ describe('studyPackToDocumentModel', () => {
     const planSection = document.sections.find((section) => section.id === 'revision-plan');
     const table = planSection?.blocks.find((block) => block.kind === 'table');
     if (!table || table.kind !== 'table') throw new Error('expected a table block');
-    expect(table.headers).toEqual(['Jour', 'Compétence', 'Objectif', 'Durée', 'Critère de réussite']);
+    expect(table.headers).toEqual([
+      'Jour',
+      'Compétence',
+      'Objectif',
+      'Durée',
+      'Critère de réussite',
+    ]);
     expect(table.rows).toEqual([
       [
         '1',
@@ -1194,10 +1212,12 @@ Expected: PASS (9 tests)
 ### Task 5: HTML adapter
 
 **Files:**
+
 - Create: `src/services/study-pack/htmlAdapter.ts`
 - Test: `src/services/study-pack/htmlAdapter.test.ts`
 
 **Interfaces:**
+
 - Consumes: `DocumentModel`, `DocumentSection`, `DocumentBlock` from
   `@/types/study-pack`; `buildStudyPack` + `studyPackToDocumentModel` + fixtures (test
   only).
@@ -1357,7 +1377,11 @@ ${sectionsHtml}
 }
 
 function renderSection(section: DocumentSection): string {
-  const classes = ['section', section.pageBreakBefore && 'page-break-before', section.pageBreakAfter && 'page-break-after']
+  const classes = [
+    'section',
+    section.pageBreakBefore && 'page-break-before',
+    section.pageBreakAfter && 'page-break-after',
+  ]
     .filter(Boolean)
     .join(' ');
   return `<section class="${classes}" id="${escapeHtml(section.id)}">${section.blocks.map(renderBlock).join('')}</section>`;
@@ -1379,9 +1403,7 @@ function renderBlock(block: DocumentBlock): string {
         .map((headerCell) => `<th>${escapeHtml(headerCell)}</th>`)
         .join('')}</tr></thead>`;
       const body = `<tbody>${block.rows
-        .map(
-          (row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`,
-        )
+        .map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`)
         .join('')}</tbody>`;
       return `<table>${head}${body}</table>`;
     }
@@ -1424,10 +1446,12 @@ Expected: PASS (8 tests)
 ### Task 6: `downloadStudyPack`
 
 **Files:**
+
 - Create: `src/services/study-pack/downloadStudyPack.ts`
 - Test: `src/services/study-pack/downloadStudyPack.test.ts`
 
 **Interfaces:**
+
 - Consumes: nothing from earlier tasks (takes a plain `html: string`).
 - Produces: `downloadStudyPack(html: string, options?: { windowName?: string }): void` —
   consumed by Task 7.
@@ -1543,10 +1567,12 @@ Expected: PASS (4 tests)
 ### Task 7: Public API barrel — `exportStudyPackToPdf`
 
 **Files:**
+
 - Create: `src/services/study-pack/index.ts`
 - Test: `src/services/study-pack/index.test.ts`
 
 **Interfaces:**
+
 - Consumes: `buildStudyPack` (Task 3), `studyPackToDocumentModel` (Task 4),
   `renderDocumentModelToHtml` (Task 5), `downloadStudyPack` (Task 6),
   `fixtureBuildStudyPackInput` (Task 3, test only).
@@ -1591,9 +1617,7 @@ describe('exportStudyPackToPdf', () => {
 
   it('propagates a popup-blocked error instead of swallowing it', () => {
     vi.stubGlobal('window', { open: vi.fn(() => null) });
-    expect(() => exportStudyPackToPdf(fixtureBuildStudyPackInput)).toThrow(
-      /bloqueur de fenêtres/,
-    );
+    expect(() => exportStudyPackToPdf(fixtureBuildStudyPackInput)).toThrow(/bloqueur de fenêtres/);
   });
 });
 ```
@@ -1647,9 +1671,11 @@ Expected: PASS (2 tests)
 ### Task 8: Dev-only preview route
 
 **Files:**
+
 - Create: `src/app/dev/study-pack-preview/page.tsx`
 
 **Interfaces:**
+
 - Consumes: `buildStudyPack`, `studyPackToDocumentModel`, `renderDocumentModelToHtml`
   from `@/services/study-pack` (Task 7); `bundledRevisionNotesEngine` from
   `@/services/revision-notes/bundled-source` (existing, read-only);

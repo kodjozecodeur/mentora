@@ -11,7 +11,10 @@ function hasLocalStorage(): boolean {
   return typeof localStorage !== 'undefined';
 }
 
-export function saveDiagnosticProgress(phase: DiagnosticPhase, state: DiagnosticSessionState): void {
+export function saveDiagnosticProgress(
+  phase: DiagnosticPhase,
+  state: DiagnosticSessionState,
+): void {
   if (!hasLocalStorage()) return;
   localStorage.setItem(STORAGE_KEYS[phase], JSON.stringify(state));
 }

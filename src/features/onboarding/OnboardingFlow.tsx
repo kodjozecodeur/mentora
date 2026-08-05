@@ -1,43 +1,41 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import diagnosticQuestions from '@/data/diagnostic-questions.json';
-import exams from '@/data/exams.json';
 import subjects from '@/data/subjects.json';
+import chapters from '@/data/chapters.json';
 import { ConfirmationDialog } from '@/components/ui/ConfirmationDialog';
 import { AppShell } from '@/features/app-shell/AppShell';
-import { ComparisonScreen } from '@/features/diagnostic/ComparisonScreen';
 import { DiagnosticAnalysisScreen } from '@/features/diagnostic/DiagnosticAnalysisScreen';
 import { DiagnosticCompleteScreen } from '@/features/diagnostic/DiagnosticCompleteScreen';
 import { DiagnosticQuestionScreen } from '@/features/diagnostic/DiagnosticQuestionScreen';
-import { FinalDiagnosticResultScreen } from '@/features/diagnostic/FinalDiagnosticResultScreen';
+import { resolveResultsBranch } from '@/features/diagnostic/resultCopy';
 import { useDiagnosticSession } from '@/hooks/useDiagnosticSession';
+import { selectChapterQuestions } from '@/services/diagnostic/chapterScope';
 import { useRevisionPlan } from '@/services/revision/useRevisionPlan';
 import type { DiagnosticQuestion } from '@/types/diagnostic';
-import type { ExamOption, SubjectOption } from '@/types/onboarding';
+import type { ChapterOption, SubjectOption } from '@/types/onboarding';
 import { WelcomeScreen } from './WelcomeScreen';
-import { ExamSelectionScreen } from './ExamSelectionScreen';
+import { ClassSelectionScreen } from './ClassSelectionScreen';
 import { SubjectSelectionScreen } from './SubjectSelectionScreen';
+import { ChapterSelectionScreen } from './ChapterSelectionScreen';
 import { DiagnosticIntroScreen } from './DiagnosticIntroScreen';
 import { PreparingScreen } from './PreparingScreen';
-import { ReadyForExamScreen } from './ReadyForExamScreen';
+import { isMvpClassAvailable } from './classAvailability';
 import { isMvpSubjectAvailable } from './subjectAvailability';
+import { isMvpChapterAvailable } from './chapterAvailability';
 
 type Step =
   | 'welcome'
-  | 'exam'
+  | 'class'
   | 'subject'
+  | 'chapter'
   | 'preparing'
   | 'diagnostic-intro'
   | 'diagnostic-question'
   | 'diagnostic-analysis'
   | 'diagnostic-result'
-  | 'app-shell'
-  | 'ready-for-exam'
-  | 'final-diagnostic-question'
-  | 'final-diagnostic-analysis'
-  | 'final-diagnostic-result'
-  | 'comparison';
+  | 'app-shell';
 
 const DIAGNOSTIC_QUESTIONS = diagnosticQuestions as DiagnosticQuestion[];
 
@@ -46,26 +44,26 @@ const STEPS_REQUIRING_INITIAL_RESULT: Step[] = [
   'diagnostic-analysis',
   'diagnostic-result',
   'app-shell',
-  'ready-for-exam',
-  'final-diagnostic-question',
-  'final-diagnostic-analysis',
-  'final-diagnostic-result',
-  'comparison',
 ];
 
 export function OnboardingFlow() {
   const [step, setStep] = useState<Step>('welcome');
   const [name, setName] = useState('');
-  const [examId, setExamId] = useState<string | null>(null);
+  const [classId, setClassId] = useState<string | null>(null);
   const [subjectId, setSubjectId] = useState<string | null>(null);
+  const [chapterId, setChapterId] = useState<string | null>(null);
   const [isRestartDialogOpen, setIsRestartDialogOpen] = useState(false);
-  const diagnostic = useDiagnosticSession(DIAGNOSTIC_QUESTIONS, 'initial');
-  const finalDiagnostic = useDiagnosticSession(DIAGNOSTIC_QUESTIONS, 'final');
+  const chapterQuestions = useMemo(
+    () => selectChapterQuestions(DIAGNOSTIC_QUESTIONS, chapterId),
+    [chapterId],
+  );
+  const diagnostic = useDiagnosticSession(chapterQuestions, 'initial');
   const revision = useRevisionPlan(diagnostic.result, name);
 
   const subjectLabel =
     (subjects as SubjectOption[]).find((subject) => subject.id === subjectId)?.label ?? '';
-  const examLabel = (exams as ExamOption[]).find((exam) => exam.id === examId)?.label ?? '';
+  const chapterLabel =
+    (chapters as ChapterOption[]).find((chapter) => chapter.id === chapterId)?.label ?? '';
 
   function restartDiagnostic() {
     revision.clearPlan();
@@ -104,36 +102,20 @@ export function OnboardingFlow() {
     }
   }, [step, diagnostic.result]);
 
-  // Final diagnostic's 12th validate() call -> hand off to the analysis transition, same as initial.
-  useEffect(() => {
-    if (step === 'final-diagnostic-question' && finalDiagnostic.result) {
-      setStep('final-diagnostic-analysis');
-    }
-  }, [step, finalDiagnostic.result]);
-
-  // Defensive fallback: the final-diagnostic result steps require a saved final result.
-  useEffect(() => {
-    if (
-      (step === 'final-diagnostic-analysis' ||
-        step === 'final-diagnostic-result' ||
-        step === 'comparison') &&
-      !finalDiagnostic.result
-    ) {
-      setStep('final-diagnostic-question');
-    }
-  }, [step, finalDiagnostic.result]);
-
   switch (step) {
     case 'welcome':
       return (
-        <WelcomeScreen name={name} onNameChange={setName} onContinue={() => setStep('exam')} />
+        <WelcomeScreen name={name} onNameChange={setName} onContinue={() => setStep('class')} />
       );
-    case 'exam':
+    case 'class':
       return (
-        <ExamSelectionScreen
-          selectedExamId={examId}
-          onSelectExam={setExamId}
-          onContinue={() => setStep('subject')}
+        <ClassSelectionScreen
+          selectedClassId={classId}
+          onSelectClass={setClassId}
+          onContinue={() => {
+            if (!isMvpClassAvailable(classId)) return;
+            setStep('subject');
+          }}
         />
       );
     case 'subject':
@@ -143,6 +125,17 @@ export function OnboardingFlow() {
           onSelectSubject={setSubjectId}
           onContinue={() => {
             if (!isMvpSubjectAvailable(subjectId)) return;
+            setStep('chapter');
+          }}
+        />
+      );
+    case 'chapter':
+      return (
+        <ChapterSelectionScreen
+          selectedChapterId={chapterId}
+          onSelectChapter={setChapterId}
+          onContinue={() => {
+            if (!isMvpChapterAvailable(chapterId)) return;
             setStep('preparing');
           }}
         />
@@ -152,7 +145,7 @@ export function OnboardingFlow() {
     case 'diagnostic-intro':
       return (
         <DiagnosticIntroScreen
-          subjectLabel={subjectLabel}
+          chapterLabel={chapterLabel}
           onContinue={() => setStep('diagnostic-question')}
         />
       );
@@ -187,6 +180,7 @@ export function OnboardingFlow() {
       return (
         <DiagnosticCompleteScreen
           result={diagnostic.result}
+          chapterLabel={chapterLabel}
           firstName={name}
           onContinue={() => setStep('app-shell')}
         />
@@ -202,18 +196,11 @@ export function OnboardingFlow() {
             revisionPlan={revision.plan}
             diagnosticQuestions={DIAGNOSTIC_QUESTIONS}
             firstName={name}
-            examLabel={examLabel || 'BEPC'}
             subjectLabel={subjectLabel || 'Mathématiques'}
+            resultsBranch={resolveResultsBranch(diagnostic.result.competencyMastery)}
             onRestartDiagnostic={requestRestartDiagnostic}
             onStartRevisionSession={revision.startSession}
             onSubmitValidationAttempt={revision.submitValidationAttempt}
-            onReadyForExam={() => {
-              // A final result already exists (this journey, or a stale one from before a restart —
-              // spec §12) -> the checkpoint has already been crossed, don't re-show it every time
-              // AppShell remounts and re-derives isReadyForExam() as true.
-              if (finalDiagnostic.result) return;
-              setStep('ready-for-exam');
-            }}
           />
           <ConfirmationDialog
             open={isRestartDialogOpen}
@@ -221,60 +208,6 @@ export function OnboardingFlow() {
             onConfirm={confirmRestartDiagnostic}
           />
         </>
-      );
-    }
-    case 'ready-for-exam':
-      return (
-        <ReadyForExamScreen
-          firstName={name}
-          onStartFinalDiagnostic={() => setStep('final-diagnostic-question')}
-        />
-      );
-    case 'final-diagnostic-question': {
-      if (!finalDiagnostic.currentQuestion) return null;
-
-      return (
-        <DiagnosticQuestionScreen
-          key={finalDiagnostic.currentQuestion.id}
-          question={finalDiagnostic.currentQuestion}
-          questionNumber={finalDiagnostic.questionNumber}
-          totalQuestions={finalDiagnostic.totalQuestions}
-          selectedOptionId={finalDiagnostic.selectedOptionId}
-          onSelectOption={finalDiagnostic.selectOption}
-          onValidate={finalDiagnostic.validate}
-        />
-      );
-    }
-    case 'final-diagnostic-analysis': {
-      if (!finalDiagnostic.result) return null;
-
-      return (
-        <DiagnosticAnalysisScreen
-          result={finalDiagnostic.result}
-          onComplete={() => setStep('final-diagnostic-result')}
-        />
-      );
-    }
-    case 'final-diagnostic-result': {
-      if (!finalDiagnostic.result) return null;
-
-      return (
-        <FinalDiagnosticResultScreen
-          result={finalDiagnostic.result}
-          firstName={name}
-          onContinue={() => setStep('comparison')}
-        />
-      );
-    }
-    case 'comparison': {
-      if (!diagnostic.result || !finalDiagnostic.result) return null;
-
-      return (
-        <ComparisonScreen
-          initialResult={diagnostic.result}
-          finalResult={finalDiagnostic.result}
-          onContinue={() => setStep('app-shell')}
-        />
       );
     }
   }

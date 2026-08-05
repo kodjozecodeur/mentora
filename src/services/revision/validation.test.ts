@@ -10,6 +10,7 @@ import {
 const diagnosticQuestions: DiagnosticQuestion[] = [
   {
     id: 'equations-01',
+    chapterId: 'polynomes-second-degre',
     competencyId: 'equations',
     competencyLabel: 'Équations',
     instruction: "Résous l'équation",
@@ -28,6 +29,7 @@ const diagnosticQuestions: DiagnosticQuestion[] = [
   },
   {
     id: 'calcul-litteral-01',
+    chapterId: 'polynomes-second-degre',
     competencyId: 'calcul-litteral',
     competencyLabel: 'Calcul littéral',
     instruction: 'Développe et réduis',

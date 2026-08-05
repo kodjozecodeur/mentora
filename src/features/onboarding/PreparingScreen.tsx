@@ -69,7 +69,7 @@ export function PreparingScreen({ onComplete }: PreparingScreenProps) {
 
   return (
     <ScreenContainer>
-      <ProgressIndicator step={3} totalSteps={4} />
+      <ProgressIndicator step={4} totalSteps={5} />
 
       <div className="flex flex-1 flex-col items-center justify-center gap-5 py-8 text-center">
         <AppLogo size="sm" />

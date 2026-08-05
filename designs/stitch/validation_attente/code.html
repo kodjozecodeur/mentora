@@ -1,251 +1,337 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="light" lang="fr"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Correction en cours... - Mentora</title>
-<!-- Google Fonts & Material Symbols -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Tailwind Theme Config -->
-<script id="tailwind-config">
+<html class="light" lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Correction en cours... - Mentora</title>
+    <!-- Google Fonts & Material Symbols -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Theme Config -->
+    <script id="tailwind-config">
       tailwind.config = {
-        darkMode: "class",
+        darkMode: 'class',
         theme: {
           extend: {
-            "colors": {
-                    "secondary-fixed": "#ffd6fe",
-                    "tertiary-fixed": "#e6e3d1",
-                    "tertiary": "#605f51",
-                    "on-tertiary-container": "#5b5a4c",
-                    "background": "#fcf9f8",
-                    "outline": "#7e7760",
-                    "surface-container-low": "#f6f3f2",
-                    "on-tertiary-fixed": "#1d1c11",
-                    "primary": "#705d00",
-                    "secondary-fixed-dim": "#f9acff",
-                    "on-tertiary": "#ffffff",
-                    "inverse-surface": "#313030",
-                    "surface-variant": "#e5e2e1",
-                    "surface-container-highest": "#e5e2e1",
-                    "secondary": "#8d3c9a",
-                    "outline-variant": "#d0c6ac",
-                    "on-tertiary-fixed-variant": "#48473a",
-                    "on-primary": "#ffffff",
-                    "surface-container-lowest": "#ffffff",
-                    "on-error": "#ffffff",
-                    "inverse-on-surface": "#f3f0ef",
-                    "primary-fixed": "#ffe16f",
-                    "error": "#ba1a1a",
-                    "tertiary-container": "#d4d1c0",
-                    "surface-bright": "#fcf9f8",
-                    "on-secondary": "#ffffff",
-                    "surface-tint": "#705d00",
-                    "on-primary-container": "#6a5800",
-                    "surface-container-high": "#eae7e7",
-                    "on-surface-variant": "#4d4632",
-                    "error-container": "#ffdad6",
-                    "on-secondary-container": "#772685",
-                    "on-background": "#1c1b1b",
-                    "secondary-container": "#f59aff",
-                    "inverse-primary": "#e9c403",
-                    "primary-container": "#f4ce1a",
-                    "primary-fixed-dim": "#e9c403",
-                    "on-error-container": "#93000a",
-                    "on-primary-fixed-variant": "#544600",
-                    "tertiary-fixed-dim": "#cac7b6",
-                    "surface-container": "#f0eded",
-                    "surface": "#fcf9f8",
-                    "surface-dim": "#dcd9d9",
-                    "on-secondary-fixed-variant": "#722180",
-                    "on-secondary-fixed": "#35003f",
-                    "on-surface": "#1c1b1b",
-                    "on-primary-fixed": "#221b00"
+            colors: {
+              'secondary-fixed': '#ffd6fe',
+              'tertiary-fixed': '#e6e3d1',
+              tertiary: '#605f51',
+              'on-tertiary-container': '#5b5a4c',
+              background: '#fcf9f8',
+              outline: '#7e7760',
+              'surface-container-low': '#f6f3f2',
+              'on-tertiary-fixed': '#1d1c11',
+              primary: '#705d00',
+              'secondary-fixed-dim': '#f9acff',
+              'on-tertiary': '#ffffff',
+              'inverse-surface': '#313030',
+              'surface-variant': '#e5e2e1',
+              'surface-container-highest': '#e5e2e1',
+              secondary: '#8d3c9a',
+              'outline-variant': '#d0c6ac',
+              'on-tertiary-fixed-variant': '#48473a',
+              'on-primary': '#ffffff',
+              'surface-container-lowest': '#ffffff',
+              'on-error': '#ffffff',
+              'inverse-on-surface': '#f3f0ef',
+              'primary-fixed': '#ffe16f',
+              error: '#ba1a1a',
+              'tertiary-container': '#d4d1c0',
+              'surface-bright': '#fcf9f8',
+              'on-secondary': '#ffffff',
+              'surface-tint': '#705d00',
+              'on-primary-container': '#6a5800',
+              'surface-container-high': '#eae7e7',
+              'on-surface-variant': '#4d4632',
+              'error-container': '#ffdad6',
+              'on-secondary-container': '#772685',
+              'on-background': '#1c1b1b',
+              'secondary-container': '#f59aff',
+              'inverse-primary': '#e9c403',
+              'primary-container': '#f4ce1a',
+              'primary-fixed-dim': '#e9c403',
+              'on-error-container': '#93000a',
+              'on-primary-fixed-variant': '#544600',
+              'tertiary-fixed-dim': '#cac7b6',
+              'surface-container': '#f0eded',
+              surface: '#fcf9f8',
+              'surface-dim': '#dcd9d9',
+              'on-secondary-fixed-variant': '#722180',
+              'on-secondary-fixed': '#35003f',
+              'on-surface': '#1c1b1b',
+              'on-primary-fixed': '#221b00',
             },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
             },
-            "spacing": {
-                    "base": "8px",
-                    "xs": "4px",
-                    "xl": "64px",
-                    "sm": "12px",
-                    "lg": "40px",
-                    "container-padding": "20px",
-                    "md": "24px",
-                    "stack-gap": "16px"
+            spacing: {
+              base: '8px',
+              xs: '4px',
+              xl: '64px',
+              sm: '12px',
+              lg: '40px',
+              'container-padding': '20px',
+              md: '24px',
+              'stack-gap': '16px',
             },
-            "fontFamily": {
-                    "label-sm": ["Lexend"],
-                    "body-lg": ["Lexend"],
-                    "headline-lg-mobile": ["Lexend"],
-                    "headline-lg": ["Lexend"],
-                    "headline-xl": ["Lexend"],
-                    "body-md": ["Lexend"],
-                    "label-lg": ["Lexend"]
+            fontFamily: {
+              'label-sm': ['Lexend'],
+              'body-lg': ['Lexend'],
+              'headline-lg-mobile': ['Lexend'],
+              'headline-lg': ['Lexend'],
+              'headline-xl': ['Lexend'],
+              'body-md': ['Lexend'],
+              'label-lg': ['Lexend'],
             },
-            "fontSize": {
-                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
-                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "500"}],
-                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
-                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}]
-            }
-          }
+            fontSize: {
+              'label-sm': ['12px', { lineHeight: '16px', fontWeight: '500' }],
+              'body-lg': ['18px', { lineHeight: '28px', fontWeight: '500' }],
+              'headline-lg-mobile': ['20px', { lineHeight: '28px', fontWeight: '600' }],
+              'headline-lg': [
+                '24px',
+                { lineHeight: '32px', letterSpacing: '-0.01em', fontWeight: '600' },
+              ],
+              'headline-xl': [
+                '32px',
+                { lineHeight: '40px', letterSpacing: '-0.02em', fontWeight: '700' },
+              ],
+              'body-md': ['16px', { lineHeight: '24px', fontWeight: '400' }],
+              'label-lg': [
+                '14px',
+                { lineHeight: '20px', letterSpacing: '0.02em', fontWeight: '600' },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-family: 'Material Symbols Outlined';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+      }
+
+      /* Loading Pulse Animation */
+      @keyframes pulse-ring {
+        0% {
+          transform: scale(0.8);
+          box-shadow: 0 0 0 0 rgba(244, 206, 26, 0.7);
+        }
+        70% {
+          transform: scale(1);
+          box-shadow: 0 0 0 20px rgba(244, 206, 26, 0);
+        }
+        100% {
+          transform: scale(0.8);
+          box-shadow: 0 0 0 0 rgba(244, 206, 26, 0);
         }
       }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-family: 'Material Symbols Outlined';
-            font-weight: normal;
-            font-style: normal;
-            font-size: 24px;
-            display: inline-block;
-            line-height: 1;
-            text-transform: none;
-            letter-spacing: normal;
-            word-wrap: normal;
-            white-space: nowrap;
-            direction: ltr;
-        }
 
-        /* Loading Pulse Animation */
-        @keyframes pulse-ring {
-            0% {
-                transform: scale(0.8);
-                box-shadow: 0 0 0 0 rgba(244, 206, 26, 0.7);
-            }
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 20px rgba(244, 206, 26, 0);
-            }
-            100% {
-                transform: scale(0.8);
-                box-shadow: 0 0 0 0 rgba(244, 206, 26, 0);
-            }
-        }
+      .robot-avatar {
+        animation: pulse-ring 2s infinite;
+      }
 
-        .robot-avatar {
-            animation: pulse-ring 2s infinite;
+      /* Progress Bar Animation */
+      @keyframes progress-fill {
+        0% {
+          width: 0%;
         }
+        50% {
+          width: 60%;
+        }
+        100% {
+          width: 95%;
+        } /* Stays at 95% until technically finished */
+      }
 
-        /* Progress Bar Animation */
-        @keyframes progress-fill {
-            0% { width: 0%; }
-            50% { width: 60%; }
-            100% { width: 95%; } /* Stays at 95% until technically finished */
-        }
+      .progress-bar-fill {
+        animation: progress-fill 3s ease-out forwards;
+      }
 
-        .progress-bar-fill {
-            animation: progress-fill 3s ease-out forwards;
+      /* Floating Bubbles Animation for background */
+      @keyframes float {
+        0% {
+          transform: translateY(0px) rotate(0deg);
+          opacity: 0;
         }
-        
-        /* Floating Bubbles Animation for background */
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
-            100% { transform: translateY(-100px) rotate(45deg); opacity: 0; }
+        10% {
+          opacity: 0.5;
         }
-        
-        .bubble {
-            position: absolute;
-            background: rgba(135, 54, 148, 0.05);
-            border-radius: 50%;
-            pointer-events: none;
+        90% {
+          opacity: 0.5;
         }
+        100% {
+          transform: translateY(-100px) rotate(45deg);
+          opacity: 0;
+        }
+      }
+
+      .bubble {
+        position: absolute;
+        background: rgba(135, 54, 148, 0.05);
+        border-radius: 50%;
+        pointer-events: none;
+      }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
   </head>
-<body class="bg-background text-on-background min-h-screen flex flex-col justify-center items-center overflow-hidden relative">
-<!-- Decorative Background Elements -->
-<div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
-<div class="bubble w-16 h-16 left-[10%] bottom-[20%]" style="animation: float 6s infinite ease-in;"></div>
-<div class="bubble w-24 h-24 right-[15%] bottom-[10%]" style="animation: float 8s infinite ease-in 2s;"></div>
-<div class="bubble w-12 h-12 left-[30%] bottom-[40%]" style="animation: float 5s infinite ease-in 1s;"></div>
-<div class="bubble w-32 h-32 right-[30%] bottom-[30%]" style="animation: float 10s infinite ease-in 3s;"></div>
-</div>
-<!-- Main Content Container (No Navigation Shell as this is a transactional/intermediate state) -->
-<main class="w-full max-w-[720px] mx-auto px-container-padding flex flex-col items-center justify-center relative z-10">
-<!-- Tactile Card Container -->
-<div class="bg-surface-container-lowest border-2 border-surface-variant rounded-xl p-md md:p-lg w-full flex flex-col items-center text-center shadow-[0_4px_0_0_rgba(229,226,225,1)]">
-<!-- Mentora Robot Avatar -->
-<div class="relative mb-lg">
-<div class="w-32 h-32 rounded-full border-4 border-primary-container bg-surface flex items-center justify-center robot-avatar z-10 relative">
-<img class="w-24 h-24 object-contain rounded-full" data-alt="A highly detailed, 3D rendered illustration of a friendly, futuristic robot head with large glowing eyes and soft curves. The robot is colored in crisp white with vibrant yellow and deep purple accents. The background is completely transparent. The lighting is soft and studio-quality, creating a modern, high-tech yet approachable aesthetic suitable for an educational application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgo8ppNfp9l_Dag_LeLJX6VEJvA1QLpYRfw6j0OJGhHB_ppIES_qu-4NumjqHwDAOroG2fQaCs132JaclpYLDH6ybF5M97p0R4OnPzPn8UsPGMWR7asToqneRSrnafH-79aRnchtFCoWBZ6ddiZ9nsHFJ6DNAt1t-8EirAT1HMRmpPyPAf_9WiJ2jpb2hs9ChmTC57IfyCeH-O3I8vepUcZAraIo1A-yKoO_fO8ABkgGgiSIOa9CM"/>
-</div>
-<!-- Scanning Effect Line over Robot -->
-<div class="absolute top-0 left-0 w-full h-2 bg-secondary opacity-50 z-20 rounded-full blur-[2px]" style="animation: scan 2s infinite linear;"></div>
-<style>
-                    @keyframes scan {
-                        0% { top: 0%; opacity: 0; }
-                        10% { opacity: 0.7; }
-                        90% { opacity: 0.7; }
-                        100% { top: 100%; opacity: 0; }
-                    }
-                </style>
-</div>
-<!-- Typography -->
-<h1 class="font-headline-xl text-headline-xl md:font-headline-xl text-on-background mb-stack-gap">Correction en cours...</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant mb-lg max-w-md">
-                Notre IA analyse ta réponse pour mesurer ta maîtrise de la compétence.
-            </p>
-<!-- Progress Bar (Tactile Style) -->
-<div class="w-full max-w-sm mb-stack-gap">
-<div class="h-4 w-full bg-surface-variant rounded-full overflow-hidden border border-surface-dim relative">
-<div class="progress-bar-fill h-full bg-primary-container relative">
-<!-- Shine effect on progress bar -->
-<div class="absolute top-0 left-0 bottom-0 w-full bg-gradient-to-r from-transparent via-white to-transparent opacity-30" style="animation: shine 1.5s infinite linear; transform: skewX(-20deg);"></div>
-<style>
-                            @keyframes shine {
-                                0% { transform: translateX(-100%) skewX(-20deg); }
-                                100% { transform: translateX(200%) skewX(-20deg); }
-                            }
-                        </style>
-</div>
-</div>
-</div>
-<!-- Dynamic Analyzing Text -->
-<div class="font-label-sm text-label-sm text-secondary flex items-center gap-2">
-<span class="material-symbols-outlined text-[16px] animate-spin">sync</span>
-<span id="loading-status">Analyse sémantique...</span>
-</div>
-<!-- Simple JS to cycle loading messages -->
-<script>
-                const statuses = [
-                    "Analyse sémantique...",
-                    "Vérification des concepts...",
-                    "Calcul du score de maîtrise...",
-                    "Préparation des retours..."
-                ];
-                let currentIndex = 0;
-                const statusElement = document.getElementById('loading-status');
-                
-                setInterval(() => {
-                    currentIndex = (currentIndex + 1) % statuses.length;
-                    statusElement.textContent = statuses[currentIndex];
-                    statusElement.style.opacity = 0;
-                    setTimeout(() => {
-                        statusElement.style.transition = 'opacity 0.3s ease';
-                        statusElement.style.opacity = 1;
-                    }, 50);
-                }, 1500);
-            </script>
-</div>
-</main>
-</body></html>
+  <body
+    class="bg-background text-on-background relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
+  >
+    <!-- Decorative Background Elements -->
+    <div class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+      <div
+        class="bubble bottom-[20%] left-[10%] h-16 w-16"
+        style="animation: float 6s infinite ease-in"
+      ></div>
+      <div
+        class="bubble right-[15%] bottom-[10%] h-24 w-24"
+        style="animation: float 8s infinite ease-in 2s"
+      ></div>
+      <div
+        class="bubble bottom-[40%] left-[30%] h-12 w-12"
+        style="animation: float 5s infinite ease-in 1s"
+      ></div>
+      <div
+        class="bubble right-[30%] bottom-[30%] h-32 w-32"
+        style="animation: float 10s infinite ease-in 3s"
+      ></div>
+    </div>
+    <!-- Main Content Container (No Navigation Shell as this is a transactional/intermediate state) -->
+    <main
+      class="px-container-padding relative z-10 mx-auto flex w-full max-w-[720px] flex-col items-center justify-center"
+    >
+      <!-- Tactile Card Container -->
+      <div
+        class="bg-surface-container-lowest border-surface-variant p-md md:p-lg flex w-full flex-col items-center rounded-xl border-2 text-center shadow-[0_4px_0_0_rgba(229,226,225,1)]"
+      >
+        <!-- Mentora Robot Avatar -->
+        <div class="mb-lg relative">
+          <div
+            class="border-primary-container bg-surface robot-avatar relative z-10 flex h-32 w-32 items-center justify-center rounded-full border-4"
+          >
+            <img
+              class="h-24 w-24 rounded-full object-contain"
+              data-alt="A highly detailed, 3D rendered illustration of a friendly, futuristic robot head with large glowing eyes and soft curves. The robot is colored in crisp white with vibrant yellow and deep purple accents. The background is completely transparent. The lighting is soft and studio-quality, creating a modern, high-tech yet approachable aesthetic suitable for an educational application."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgo8ppNfp9l_Dag_LeLJX6VEJvA1QLpYRfw6j0OJGhHB_ppIES_qu-4NumjqHwDAOroG2fQaCs132JaclpYLDH6ybF5M97p0R4OnPzPn8UsPGMWR7asToqneRSrnafH-79aRnchtFCoWBZ6ddiZ9nsHFJ6DNAt1t-8EirAT1HMRmpPyPAf_9WiJ2jpb2hs9ChmTC57IfyCeH-O3I8vepUcZAraIo1A-yKoO_fO8ABkgGgiSIOa9CM"
+            />
+          </div>
+          <!-- Scanning Effect Line over Robot -->
+          <div
+            class="bg-secondary absolute top-0 left-0 z-20 h-2 w-full rounded-full opacity-50 blur-[2px]"
+            style="animation: scan 2s infinite linear"
+          ></div>
+          <style>
+            @keyframes scan {
+              0% {
+                top: 0%;
+                opacity: 0;
+              }
+              10% {
+                opacity: 0.7;
+              }
+              90% {
+                opacity: 0.7;
+              }
+              100% {
+                top: 100%;
+                opacity: 0;
+              }
+            }
+          </style>
+        </div>
+        <!-- Typography -->
+        <h1
+          class="font-headline-xl text-headline-xl md:font-headline-xl text-on-background mb-stack-gap"
+        >
+          Correction en cours...
+        </h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant mb-lg max-w-md">
+          Notre IA analyse ta réponse pour mesurer ta maîtrise de la compétence.
+        </p>
+        <!-- Progress Bar (Tactile Style) -->
+        <div class="mb-stack-gap w-full max-w-sm">
+          <div
+            class="bg-surface-variant border-surface-dim relative h-4 w-full overflow-hidden rounded-full border"
+          >
+            <div class="progress-bar-fill bg-primary-container relative h-full">
+              <!-- Shine effect on progress bar -->
+              <div
+                class="absolute top-0 bottom-0 left-0 w-full bg-gradient-to-r from-transparent via-white to-transparent opacity-30"
+                style="animation: shine 1.5s infinite linear; transform: skewX(-20deg)"
+              ></div>
+              <style>
+                @keyframes shine {
+                  0% {
+                    transform: translateX(-100%) skewX(-20deg);
+                  }
+                  100% {
+                    transform: translateX(200%) skewX(-20deg);
+                  }
+                }
+              </style>
+            </div>
+          </div>
+        </div>
+        <!-- Dynamic Analyzing Text -->
+        <div class="font-label-sm text-label-sm text-secondary flex items-center gap-2">
+          <span class="material-symbols-outlined animate-spin text-[16px]">sync</span>
+          <span id="loading-status">Analyse sémantique...</span>
+        </div>
+        <!-- Simple JS to cycle loading messages -->
+        <script>
+          const statuses = [
+            'Analyse sémantique...',
+            'Vérification des concepts...',
+            'Calcul du score de maîtrise...',
+            'Préparation des retours...',
+          ];
+          let currentIndex = 0;
+          const statusElement = document.getElementById('loading-status');
+
+          setInterval(() => {
+            currentIndex = (currentIndex + 1) % statuses.length;
+            statusElement.textContent = statuses[currentIndex];
+            statusElement.style.opacity = 0;
+            setTimeout(() => {
+              statusElement.style.transition = 'opacity 0.3s ease';
+              statusElement.style.opacity = 1;
+            }, 50);
+          }, 1500);
+        </script>
+      </div>
+    </main>
+  </body>
+</html>

@@ -49,7 +49,9 @@ export function computeCompetencyMastery(
   return order.map((competencyId) => {
     const entry = byCompetency.get(competencyId)!;
     const masteryPercent =
-      entry.pointsPossible === 0 ? 0 : Math.round((entry.pointsEarned / entry.pointsPossible) * 100);
+      entry.pointsPossible === 0
+        ? 0
+        : Math.round((entry.pointsEarned / entry.pointsPossible) * 100);
 
     return {
       competencyId,

@@ -25,7 +25,7 @@ export function SubjectSelectionScreen({
 
   return (
     <ScreenContainer>
-      <ProgressIndicator step={3} totalSteps={4} />
+      <ProgressIndicator step={3} totalSteps={5} />
 
       <div className="flex items-start gap-3 py-8">
         <AppLogo size="sm" />

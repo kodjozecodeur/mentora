@@ -33,7 +33,7 @@ document, not a license to deviate.
 6. **Remove "Passer à la suite pour l'instant."** The Stitch `validation_chec` mockup includes this as
    a de-emphasized third button. It must not ship. See §13.
 7. **The next competency remains locked after failure.** Failing never unlocks anything. Locking only
-   ever changes on a *pass* event.
+   ever changes on a _pass_ event.
 8. **"Voir le corrigé" lives inside the success/failure result screen.** It is an inline reveal
    (accordion/expand), not a navigation to a separate correction route. There is no standalone
    correction screen in the MVP.
@@ -49,33 +49,33 @@ document, not a license to deviate.
 
 ### 2.1 Screen inventory (status-tagged)
 
-| # | Screen | Stitch source | Status |
-|---|---|---|---|
-| 1 | Welcome | — | Shipped, unchanged |
-| 2 | Exam selection | — | Shipped, unchanged |
-| 3 | Subject selection | — | Shipped, unchanged |
-| 4 | Preparing (transition) | — | Shipped, unchanged |
-| 5 | Diagnostic intro | — | Shipped, unchanged |
-| 6 | Diagnostic question ×12 | `diagnostic_question` | Shipped, matches Stitch; gains `phase` prop (§9) |
-| 7 | Diagnostic analysis (loading) | *(loosely) `g_n_ration_du_plan_attente`* | Shipped, gains `phase` prop |
-| 8 | Diagnostic result — **initial** | *(loosely) `r_sultats`* | Shipped; unchanged for `phase='initial'` |
-| 9 | Home (app shell) | `accueil` | Shipped, unchanged |
-| 10 | Competency menu | `menu_r_vision` | Shipped (`RevisionPlanScreen`); **gains lock enforcement** (net-new logic, §6) |
-| 11 | Revision note / lesson | `r_vision_cours` | Shipped (`RevisionNoteScreen`); **CTA rewired** to launch validation instead of marking complete (§14) |
-| 12 | Targeted validation — question(s) | *reuses `diagnostic_question` layout* | **Net new.** No dedicated mockup; deliberately reuses the diagnostic question pattern since a targeted validation is structurally "a mini diagnostic for one competency" |
-| 13 | Validation — grading (loading) | `validation_attente` | Net new, reuse Stitch as-is |
-| 14 | Validation — success | `validation_succ_s` | Net new; reuse Stitch as-is (already has "Voir le corrigé détaillé") |
-| 15 | Validation — failure | `validation_chec` | Net new; **modified** — remove "Passer à la suite pour l'instant", add inline "Voir le corrigé" (§13) |
-| 16 | Ready for exam | — | **Net new. No Stitch design exists.** See §13. |
-| 17 | Diagnostic question ×N — **final** | `diagnostic_question` | Reused component, `phase='final'` |
-| 18 | Diagnostic analysis — **final** | *(loosely) `g_n_ration_du_plan_attente`* | Reused component, `phase='final'` |
-| 19 | Diagnostic result — **final** | — | **Net new variant. No Stitch design exists** for the final-phase result copy/CTA (the existing `r_sultats` CTA "Générer mon plan de révision" doesn't apply post-loop). See §13. |
-| 20 | Before/after comparison | — | **Net new. No Stitch design exists.** See §13. |
+| #   | Screen                             | Stitch source                            | Status                                                                                                                                                                           |
+| --- | ---------------------------------- | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Welcome                            | —                                        | Shipped, unchanged                                                                                                                                                               |
+| 2   | Exam selection                     | —                                        | Shipped, unchanged                                                                                                                                                               |
+| 3   | Subject selection                  | —                                        | Shipped, unchanged                                                                                                                                                               |
+| 4   | Preparing (transition)             | —                                        | Shipped, unchanged                                                                                                                                                               |
+| 5   | Diagnostic intro                   | —                                        | Shipped, unchanged                                                                                                                                                               |
+| 6   | Diagnostic question ×12            | `diagnostic_question`                    | Shipped, matches Stitch; gains `phase` prop (§9)                                                                                                                                 |
+| 7   | Diagnostic analysis (loading)      | _(loosely) `g_n_ration_du_plan_attente`_ | Shipped, gains `phase` prop                                                                                                                                                      |
+| 8   | Diagnostic result — **initial**    | _(loosely) `r_sultats`_                  | Shipped; unchanged for `phase='initial'`                                                                                                                                         |
+| 9   | Home (app shell)                   | `accueil`                                | Shipped, unchanged                                                                                                                                                               |
+| 10  | Competency menu                    | `menu_r_vision`                          | Shipped (`RevisionPlanScreen`); **gains lock enforcement** (net-new logic, §6)                                                                                                   |
+| 11  | Revision note / lesson             | `r_vision_cours`                         | Shipped (`RevisionNoteScreen`); **CTA rewired** to launch validation instead of marking complete (§14)                                                                           |
+| 12  | Targeted validation — question(s)  | _reuses `diagnostic_question` layout_    | **Net new.** No dedicated mockup; deliberately reuses the diagnostic question pattern since a targeted validation is structurally "a mini diagnostic for one competency"         |
+| 13  | Validation — grading (loading)     | `validation_attente`                     | Net new, reuse Stitch as-is                                                                                                                                                      |
+| 14  | Validation — success               | `validation_succ_s`                      | Net new; reuse Stitch as-is (already has "Voir le corrigé détaillé")                                                                                                             |
+| 15  | Validation — failure               | `validation_chec`                        | Net new; **modified** — remove "Passer à la suite pour l'instant", add inline "Voir le corrigé" (§13)                                                                            |
+| 16  | Ready for exam                     | —                                        | **Net new. No Stitch design exists.** See §13.                                                                                                                                   |
+| 17  | Diagnostic question ×N — **final** | `diagnostic_question`                    | Reused component, `phase='final'`                                                                                                                                                |
+| 18  | Diagnostic analysis — **final**    | _(loosely) `g_n_ration_du_plan_attente`_ | Reused component, `phase='final'`                                                                                                                                                |
+| 19  | Diagnostic result — **final**      | —                                        | **Net new variant. No Stitch design exists** for the final-phase result copy/CTA (the existing `r_sultats` CTA "Générer mon plan de révision" doesn't apply post-loop). See §13. |
+| 20  | Before/after comparison            | —                                        | **Net new. No Stitch design exists.** See §13.                                                                                                                                   |
 
 Out of scope for this spec (designed in Stitch, not required by decisions 1–10, not sequenced in §15):
 `plan_pr_t`, `simulateur_d_examen_intro`, `pr_paration_examen_final`,
 `bilan_final_de_comp_tences`, `tableau_de_r_ussite_final`. These read as a BAC-exam-prep expansion
-layered on *top* of a completed comparison, and should be specced separately once the core loop ships.
+layered on _top_ of a completed comparison, and should be specced separately once the core loop ships.
 
 ### 2.2 Narrative
 
@@ -164,9 +164,10 @@ grading (validation_attente, transitional)               │
 ```
 
 Notes:
+
 - `validated` is terminal for a competency — a validated competency is never re-locked, and revisiting
   it later (e.g. from the menu) is a read-only review, not a re-validation.
-- `failed` is not a stored terminal status; it's the *result of the most recent attempt*. The
+- `failed` is not a stored terminal status; it's the _result of the most recent attempt_. The
   competency's persisted `status` stays `in-progress` while failed — see §8 for why this matters for
   persistence/resume.
 - There is no `skipped` status. Decision 6/7 mean no transition exists that both leaves a competency
@@ -176,36 +177,36 @@ Notes:
 
 ## 4. Screen responsibilities
 
-| Screen | Responsibility | Reads | Writes |
-|---|---|---|---|
-| Competency menu (`menu_r_vision`) | Show every competency in sequence order with its derived status (locked / available / in-progress / validated); block taps on locked items | `CompetencyProgress[]` | — |
-| Revision note (`r_vision_cours`) | Render lesson content for one competency; on completion, hand off to validation (never marks the competency validated itself) | `RevisionUnit`, `RevisionNote` | — |
-| Targeted validation — question | Ask N questions scoped to exactly one `competencyId`; collect responses | `ValidationQuestion[]` filtered by `competencyId` | in-memory responses |
-| Validation — grading | Transitional/loading only; computes `scorePercent` from responses | responses | `ValidationAttempt` |
-| Validation — success | Confirm pass, reveal "Voir le corrigé" inline, offer "Continuer mon plan" | `ValidationAttempt` (passed) | `CompetencyProgress.status = 'validated'`, unlocks next |
-| Validation — failure | Confirm fail, reveal "Voir le corrigé" inline, offer exactly two actions (retry / reread) | `ValidationAttempt` (failed) | nothing progresses; competency stays `in-progress`, next stays `locked` |
-| Ready for exam | Confirm all competencies validated; single CTA into the final diagnostic | `CompetencyProgress[]` (all `validated`) | — |
-| Diagnostic question/analysis/result (`phase='final'`) | Identical engine/UI to initial diagnostic; result screen copy/CTA differs (no "generate a plan" CTA — there's nothing left to plan) | 12(+) responses | `DiagnosticResult` (phase `'final'`), stored in the separate final slot |
-| Before/after comparison | Pair the initial and final `DiagnosticResult` records by `competencyId`; render per-competency delta and overall readiness delta | `DiagnosticResult` (initial) + `DiagnosticResult` (final) | — |
+| Screen                                                | Responsibility                                                                                                                             | Reads                                                     | Writes                                                                  |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Competency menu (`menu_r_vision`)                     | Show every competency in sequence order with its derived status (locked / available / in-progress / validated); block taps on locked items | `CompetencyProgress[]`                                    | —                                                                       |
+| Revision note (`r_vision_cours`)                      | Render lesson content for one competency; on completion, hand off to validation (never marks the competency validated itself)              | `RevisionUnit`, `RevisionNote`                            | —                                                                       |
+| Targeted validation — question                        | Ask N questions scoped to exactly one `competencyId`; collect responses                                                                    | `ValidationQuestion[]` filtered by `competencyId`         | in-memory responses                                                     |
+| Validation — grading                                  | Transitional/loading only; computes `scorePercent` from responses                                                                          | responses                                                 | `ValidationAttempt`                                                     |
+| Validation — success                                  | Confirm pass, reveal "Voir le corrigé" inline, offer "Continuer mon plan"                                                                  | `ValidationAttempt` (passed)                              | `CompetencyProgress.status = 'validated'`, unlocks next                 |
+| Validation — failure                                  | Confirm fail, reveal "Voir le corrigé" inline, offer exactly two actions (retry / reread)                                                  | `ValidationAttempt` (failed)                              | nothing progresses; competency stays `in-progress`, next stays `locked` |
+| Ready for exam                                        | Confirm all competencies validated; single CTA into the final diagnostic                                                                   | `CompetencyProgress[]` (all `validated`)                  | —                                                                       |
+| Diagnostic question/analysis/result (`phase='final'`) | Identical engine/UI to initial diagnostic; result screen copy/CTA differs (no "generate a plan" CTA — there's nothing left to plan)        | 12(+) responses                                           | `DiagnosticResult` (phase `'final'`), stored in the separate final slot |
+| Before/after comparison                               | Pair the initial and final `DiagnosticResult` records by `competencyId`; render per-competency delta and overall readiness delta           | `DiagnosticResult` (initial) + `DiagnosticResult` (final) | —                                                                       |
 
 ---
 
 ## 5. Transitions
 
-| Trigger | From | To |
-|---|---|---|
-| Initial diagnostic completes | `initial-diagnostic` | `revision`, competency 1 → `available`, competencies 2..N → `locked` |
-| Open lesson on an `available` competency | competency: `available` | `in-progress` |
-| Tap "Terminé & Valider la compétence" | competency: `in-progress` | `pending-validation` |
-| Submit validation answers | `pending-validation` | `grading` |
-| Grading resolves, score ≥ 70 | `grading` | competency: `validated`; next competency: `locked` → `available` |
-| Grading resolves, score < 70 | `grading` | competency: `in-progress` (failed-attempt state); next competency: unchanged (`locked`) |
-| Tap "Réessayer la validation" (on failure screen) | failed | `pending-validation` (new attempt) |
-| Tap "Relire le cours" (on failure screen) | failed | `in-progress` (reading) |
-| Last competency reaches `validated` | `revision` | `ready-for-exam` |
-| Tap "Commencer le diagnostic final" | `ready-for-exam` | `final-diagnostic` |
-| Final diagnostic completes | `final-diagnostic` | `comparison` |
-| Restart diagnostic (existing `onRestartDiagnostic`) | any | `initial-diagnostic`, full journey reset (§12) |
+| Trigger                                             | From                      | To                                                                                      |
+| --------------------------------------------------- | ------------------------- | --------------------------------------------------------------------------------------- |
+| Initial diagnostic completes                        | `initial-diagnostic`      | `revision`, competency 1 → `available`, competencies 2..N → `locked`                    |
+| Open lesson on an `available` competency            | competency: `available`   | `in-progress`                                                                           |
+| Tap "Terminé & Valider la compétence"               | competency: `in-progress` | `pending-validation`                                                                    |
+| Submit validation answers                           | `pending-validation`      | `grading`                                                                               |
+| Grading resolves, score ≥ 70                        | `grading`                 | competency: `validated`; next competency: `locked` → `available`                        |
+| Grading resolves, score < 70                        | `grading`                 | competency: `in-progress` (failed-attempt state); next competency: unchanged (`locked`) |
+| Tap "Réessayer la validation" (on failure screen)   | failed                    | `pending-validation` (new attempt)                                                      |
+| Tap "Relire le cours" (on failure screen)           | failed                    | `in-progress` (reading)                                                                 |
+| Last competency reaches `validated`                 | `revision`                | `ready-for-exam`                                                                        |
+| Tap "Commencer le diagnostic final"                 | `ready-for-exam`          | `final-diagnostic`                                                                      |
+| Final diagnostic completes                          | `final-diagnostic`        | `comparison`                                                                            |
+| Restart diagnostic (existing `onRestartDiagnostic`) | any                       | `initial-diagnostic`, full journey reset (§12)                                          |
 
 No transition exists from `failed` directly to a `validated`/next-competency state, and none exists
 from `locked` except via the unlock rule in §6. This is the formal encoding of Decisions 5, 6, 7.
@@ -242,7 +243,7 @@ from `locked` except via the unlock rule in §6. This is the formal encoding of 
   `ExitCriterion { type: 'minimum-score', target: 70 }` on the `RevisionUnit`/`RevisionSession` —
   a type that already exists in `src/types/revision.ts` but is currently unused by any generator.
   This spec is what activates it.
-- Attempts are unlimited. Every attempt is recorded (§8); the UI only needs the *latest* attempt to
+- Attempts are unlimited. Every attempt is recorded (§8); the UI only needs the _latest_ attempt to
   decide current status, but history is retained for the before/after story and for future analytics.
 - A retry attempt is a **new** validation, not a resume of the failed one — no partial-credit carry
   between attempts.
@@ -300,6 +301,7 @@ interface RevisionSession {
 ```
 
 Derived (not stored) values:
+
 - `CompetencyStatus` for menu rendering: `'locked' | 'available' | 'in-progress' | 'validated'`,
   computed from `RevisionSession.status` + lock rule in §6 (`status` still uses the existing
   `'not-started' | 'in-progress' | 'completed'` enum; `'completed'` now specifically means "last
@@ -315,11 +317,11 @@ Derived (not stored) values:
 Current: two localStorage keys, both hard-coded per subject/exam, both unversioned beyond a literal
 `.vN` suffix (`src/services/diagnostic/storage.ts`, `src/services/revision/storage.ts`).
 
-| Key (current) | Key (V2) | Change |
-|---|---|---|
-| `mentora.diagnostic.bepc-mathematiques.v2` | `mentora.diagnostic.bepc-mathematiques.initial.v3` | Same shape + `phase: 'initial'`. Version bump because the shape changed (additive field, but bump anyway per existing convention of bumping on shape change). |
-| *(none)* | `mentora.diagnostic.bepc-mathematiques.final.v1` | **New.** Same `DiagnosticSessionState` shape, `phase: 'final'`. Written only once the final diagnostic completes. Never overwrites the `initial` key (Decision 10). |
-| `mentora.revision-plan.bepc-mathematiques.v1` | `mentora.revision-plan.bepc-mathematiques.v2` | Each `RevisionSession` gains `validationAttempts: []` (defaults empty on migrate/load). Version bump because `isRevisionPlan()` type-guard shape changes. |
+| Key (current)                                 | Key (V2)                                           | Change                                                                                                                                                              |
+| --------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mentora.diagnostic.bepc-mathematiques.v2`    | `mentora.diagnostic.bepc-mathematiques.initial.v3` | Same shape + `phase: 'initial'`. Version bump because the shape changed (additive field, but bump anyway per existing convention of bumping on shape change).       |
+| _(none)_                                      | `mentora.diagnostic.bepc-mathematiques.final.v1`   | **New.** Same `DiagnosticSessionState` shape, `phase: 'final'`. Written only once the final diagnostic completes. Never overwrites the `initial` key (Decision 10). |
+| `mentora.revision-plan.bepc-mathematiques.v1` | `mentora.revision-plan.bepc-mathematiques.v2`      | Each `RevisionSession` gains `validationAttempts: []` (defaults empty on migrate/load). Version bump because `isRevisionPlan()` type-guard shape changes.           |
 
 No new storage abstraction is introduced — the existing pattern (per-key module, `hasLocalStorage()`
 guard, save-on-every-mutation, defensive JSON parse) is kept as-is and simply extended to the two new
@@ -337,7 +339,7 @@ production incidents, and doesn't need a generic storage layer for three keys.
 - Question set: whether the final diagnostic reuses the same 12 questions as the initial one or a
   distinct final-phase question bank is **not decided by this spec** and must be resolved before
   Sprint 4 (§15) — flagged here rather than assumed, since it affects `data/diagnostic-questions.json`
-  scope and comparison validity (comparing mastery on the *same* questions is the cleaner signal, but
+  scope and comparison validity (comparing mastery on the _same_ questions is the cleaner signal, but
   reusing identical questions risks memorization artifacts).
 - The result screen (`DiagnosticCompleteScreen` equivalent for `phase='final'`) needs new copy and a
   new primary CTA ("Voir ma progression" → comparison) instead of the initial-phase CTA. No Stitch
@@ -374,7 +376,7 @@ production incidents, and doesn't need a generic storage layer for three keys.
   reload, the student re-enters the quiz from question 1 of the current attempt. This does not create
   a phantom "passed" or "failed" attempt — an attempt is recorded only on submission.
 - **Restart diagnostic mid-journey.** The existing `onRestartDiagnostic` action must now reset the
-  *entire* journey, not just the diagnostic: clears `initial` diagnostic slot, clears the revision
+  _entire_ journey, not just the diagnostic: clears `initial` diagnostic slot, clears the revision
   plan (including all `validationAttempts`), returns to `onboarding`/`welcome`. It must **not** clear
   a `final` diagnostic slot if one somehow already existed pre-restart in a partially-built version of
   this flow — restart is only reachable pre-`final-diagnostic` in the intended flow, so this is a
@@ -413,7 +415,7 @@ this spec, but they should not ship pixel-final without a design pass:
    un Examen Blanc") but is scoped to BAC-specific exam-day framing, out of scope here (§2.1); the
    ready-for-exam screen this spec needs is simpler and has no equivalent mockup.
 
-Additionally, one required *behavioral* change to an existing mockup, not a missing design:
+Additionally, one required _behavioral_ change to an existing mockup, not a missing design:
 
 4. **`validation_chec` (failure screen) must be modified before build**, not used as-is:
    - Remove: the third button, `Passer à la suite pour l'instant` (Decision 6).
@@ -433,6 +435,7 @@ Audited baseline: `src/features/onboarding/OnboardingFlow.tsx`, `src/features/ap
 `src/hooks/useDiagnosticSession.ts`, `src/services/revision/*`, `src/services/diagnostic/*`.
 
 **What already exists and needs no behavioral change:**
+
 - Initial diagnostic engine (`useDiagnosticSession`, `scoring.ts`, `recommendations.ts`) — fully
   reusable for `phase='final'` as-is; only needs the `phase` prop threaded through and a second
   storage key (§9).
@@ -442,9 +445,10 @@ Audited baseline: `src/features/onboarding/OnboardingFlow.tsx`, `src/features/ap
   screens, and now also implicitly for validation-question authoring (§7).
 
 **What must change:**
+
 - **`RevisionSession.status` semantics shift.** Today, `completeSession()` fires the instant a student
   clicks "Terminer cette session" in `RevisionNoteScreen.tsx` (line ~164) — reading is sufficient for
-  `'completed'`. Under this spec, `'completed'` must mean *the last `validationAttempts` entry passed*.
+  `'completed'`. Under this spec, `'completed'` must mean _the last `validationAttempts` entry passed_.
   The current wiring (`AppShell.completeRevisionSession` → `onCompleteRevisionSession` →
   `revision.completeSession`) must be rerouted: the note screen's completion button should launch the
   validation quiz instead of calling `completeSession` directly; `completeSession` (renamed/repurposed
@@ -464,8 +468,8 @@ Audited baseline: `src/features/onboarding/OnboardingFlow.tsx`, `src/features/ap
 - **No "ready for exam" screen, final-diagnostic entry point, or comparison screen exist today** — net-
   new (§2.1 screens 16, 19, 20).
 - **"Passer à la suite" does not exist in code today** (confirmed by grep — zero matches). There is
-  nothing to remove from the codebase; the removal instruction (Decision 6) applies to *not
-  introducing* it when building the failure screen from the `validation_chec` mockup, which does
+  nothing to remove from the codebase; the removal instruction (Decision 6) applies to _not
+  introducing_ it when building the failure screen from the `validation_chec` mockup, which does
   include it.
 - **"Voir le corrigé" does not exist as a live in-app screen today** — `correction` text currently only
   reaches students via the exported PDF Study Pack (`study-pack/documentModel.ts`). The inline reveal
@@ -479,6 +483,7 @@ Audited baseline: `src/features/onboarding/OnboardingFlow.tsx`, `src/features/ap
 Each sprint should ship independently testable and revertible; later sprints depend on earlier ones.
 
 **Sprint 1 — Data model foundation**
+
 - Add `phase` to `DiagnosticResult`/`DiagnosticSessionState`; thread through `useDiagnosticSession`.
 - Add `ValidationQuestion`, `ValidationResponse`, `ValidationAttempt` types; add
   `validationAttempts: []` to `RevisionSession`.
@@ -486,6 +491,7 @@ Each sprint should ship independently testable and revertible; later sprints dep
 - No UI changes yet. Ship behind existing screens unaffected.
 
 **Sprint 2 — Locking**
+
 - Implement the derived lock rule (§6) in the competency menu (`RevisionPlanScreen`).
 - Redefine `RevisionSession.status === 'completed'` to require a passing `validationAttempts` entry
   (temporarily: until Sprint 3 ships, gate it on a stub/manual-pass path so the menu is testable
@@ -493,8 +499,9 @@ Each sprint should ship independently testable and revertible; later sprints dep
 - Visually distinguish locked / available / in-progress / validated per `menu_r_vision`.
 
 **Sprint 3 — Targeted validation loop**
+
 - Build the validation question screen (reusing `diagnostic_question`'s layout/component patterns),
-  grading transition (`validation_attente`), success screen (`validation_succ_s`), and the *modified*
+  grading transition (`validation_attente`), success screen (`validation_succ_s`), and the _modified_
   failure screen (`validation_chec` minus skip-forward, plus inline corrigé — §13).
 - Wire `RevisionNoteScreen`'s completion CTA to launch validation instead of calling
   `completeSession` directly.
@@ -504,17 +511,20 @@ Each sprint should ship independently testable and revertible; later sprints dep
   parallel with the screen build).
 
 **Sprint 4 — Ready for exam + final diagnostic**
+
 - Build "ready for exam" screen (no Stitch design — needs a design pass first, §13).
 - Resolve the open question from §10 (shared vs. distinct final-phase question bank) before starting.
 - Wire `phase='final'` through the existing diagnostic screens into the new `.final.` storage key.
 - Build the final-diagnostic result screen variant (no Stitch design — needs a design pass, §13).
 
 **Sprint 5 — Before/after comparison**
+
 - Build the comparison screen (no Stitch design — needs a design pass, §13): join initial/final
   `DiagnosticResult` by `competencyId`, render per-competency and overall deltas.
 - This is the terminal screen for this spec's scope; no further transitions defined.
 
 **Sprint 6 — Migration/restart hardening**
+
 - Update `onRestartDiagnostic` to reset the full journey (initial + final slots, revision plan with
   attempts) per §12.
 - Add the deep-link/locked-competency defensive redirect per §12.

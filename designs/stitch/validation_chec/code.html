@@ -1,208 +1,263 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html lang="fr"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Pas tout à fait... - Mentora</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "secondary-fixed": "#ffd6fe",
-                        "tertiary-fixed": "#e6e3d1",
-                        "tertiary": "#605f51",
-                        "on-tertiary-container": "#5b5a4c",
-                        "background": "#fcf9f8",
-                        "outline": "#7e7760",
-                        "surface-container-low": "#f6f3f2",
-                        "on-tertiary-fixed": "#1d1c11",
-                        "primary": "#705d00",
-                        "secondary-fixed-dim": "#f9acff",
-                        "on-tertiary": "#ffffff",
-                        "inverse-surface": "#313030",
-                        "surface-variant": "#e5e2e1",
-                        "surface-container-highest": "#e5e2e1",
-                        "secondary": "#8d3c9a",
-                        "outline-variant": "#d0c6ac",
-                        "on-tertiary-fixed-variant": "#48473a",
-                        "on-primary": "#ffffff",
-                        "surface-container-lowest": "#ffffff",
-                        "on-error": "#ffffff",
-                        "inverse-on-surface": "#f3f0ef",
-                        "primary-fixed": "#ffe16f",
-                        "error": "#ba1a1a",
-                        "tertiary-container": "#d4d1c0",
-                        "surface-bright": "#fcf9f8",
-                        "on-secondary": "#ffffff",
-                        "surface-tint": "#705d00",
-                        "on-primary-container": "#6a5800",
-                        "surface-container-high": "#eae7e7",
-                        "on-surface-variant": "#4d4632",
-                        "error-container": "#ffdad6",
-                        "on-secondary-container": "#772685",
-                        "on-background": "#1c1b1b",
-                        "secondary-container": "#f59aff",
-                        "inverse-primary": "#e9c403",
-                        "primary-container": "#f4ce1a",
-                        "primary-fixed-dim": "#e9c403",
-                        "on-error-container": "#93000a",
-                        "on-primary-fixed-variant": "#544600",
-                        "tertiary-fixed-dim": "#cac7b6",
-                        "surface-container": "#f0eded",
-                        "surface": "#fcf9f8",
-                        "surface-dim": "#dcd9d9",
-                        "on-secondary-fixed-variant": "#722180",
-                        "on-secondary-fixed": "#35003f",
-                        "on-surface": "#1c1b1b",
-                        "on-primary-fixed": "#221b00"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "base": "8px",
-                        "xs": "4px",
-                        "xl": "64px",
-                        "sm": "12px",
-                        "lg": "40px",
-                        "container-padding": "20px",
-                        "md": "24px",
-                        "stack-gap": "16px"
-                    },
-                    "fontFamily": {
-                        "label-sm": ["Lexend"],
-                        "body-lg": ["Lexend"],
-                        "headline-lg-mobile": ["Lexend"],
-                        "headline-lg": ["Lexend"],
-                        "headline-xl": ["Lexend"],
-                        "body-md": ["Lexend"],
-                        "label-lg": ["Lexend"]
-                    },
-                    "fontSize": {
-                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
-                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
-                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
-                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-                        "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }]
-                    }
-                }
-            }
-        }
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pas tout à fait... - Mentora</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'secondary-fixed': '#ffd6fe',
+              'tertiary-fixed': '#e6e3d1',
+              tertiary: '#605f51',
+              'on-tertiary-container': '#5b5a4c',
+              background: '#fcf9f8',
+              outline: '#7e7760',
+              'surface-container-low': '#f6f3f2',
+              'on-tertiary-fixed': '#1d1c11',
+              primary: '#705d00',
+              'secondary-fixed-dim': '#f9acff',
+              'on-tertiary': '#ffffff',
+              'inverse-surface': '#313030',
+              'surface-variant': '#e5e2e1',
+              'surface-container-highest': '#e5e2e1',
+              secondary: '#8d3c9a',
+              'outline-variant': '#d0c6ac',
+              'on-tertiary-fixed-variant': '#48473a',
+              'on-primary': '#ffffff',
+              'surface-container-lowest': '#ffffff',
+              'on-error': '#ffffff',
+              'inverse-on-surface': '#f3f0ef',
+              'primary-fixed': '#ffe16f',
+              error: '#ba1a1a',
+              'tertiary-container': '#d4d1c0',
+              'surface-bright': '#fcf9f8',
+              'on-secondary': '#ffffff',
+              'surface-tint': '#705d00',
+              'on-primary-container': '#6a5800',
+              'surface-container-high': '#eae7e7',
+              'on-surface-variant': '#4d4632',
+              'error-container': '#ffdad6',
+              'on-secondary-container': '#772685',
+              'on-background': '#1c1b1b',
+              'secondary-container': '#f59aff',
+              'inverse-primary': '#e9c403',
+              'primary-container': '#f4ce1a',
+              'primary-fixed-dim': '#e9c403',
+              'on-error-container': '#93000a',
+              'on-primary-fixed-variant': '#544600',
+              'tertiary-fixed-dim': '#cac7b6',
+              'surface-container': '#f0eded',
+              surface: '#fcf9f8',
+              'surface-dim': '#dcd9d9',
+              'on-secondary-fixed-variant': '#722180',
+              'on-secondary-fixed': '#35003f',
+              'on-surface': '#1c1b1b',
+              'on-primary-fixed': '#221b00',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              base: '8px',
+              xs: '4px',
+              xl: '64px',
+              sm: '12px',
+              lg: '40px',
+              'container-padding': '20px',
+              md: '24px',
+              'stack-gap': '16px',
+            },
+            fontFamily: {
+              'label-sm': ['Lexend'],
+              'body-lg': ['Lexend'],
+              'headline-lg-mobile': ['Lexend'],
+              'headline-lg': ['Lexend'],
+              'headline-xl': ['Lexend'],
+              'body-md': ['Lexend'],
+              'label-lg': ['Lexend'],
+            },
+            fontSize: {
+              'label-sm': ['12px', { lineHeight: '16px', fontWeight: '500' }],
+              'body-lg': ['18px', { lineHeight: '28px', fontWeight: '500' }],
+              'headline-lg-mobile': ['20px', { lineHeight: '28px', fontWeight: '600' }],
+              'headline-lg': [
+                '24px',
+                { lineHeight: '32px', letterSpacing: '-0.01em', fontWeight: '600' },
+              ],
+              'headline-xl': [
+                '32px',
+                { lineHeight: '40px', letterSpacing: '-0.02em', fontWeight: '700' },
+              ],
+              'body-md': ['16px', { lineHeight: '24px', fontWeight: '400' }],
+              'label-lg': [
+                '14px',
+                { lineHeight: '20px', letterSpacing: '0.02em', fontWeight: '600' },
+              ],
+            },
+          },
+        },
+      };
     </script>
-<style>
-        .tactile-button {
-            border-bottom-width: 4px;
-            border-color: #544600; /* Darker shade of primary for depth */
-            transition: all 0.1s ease-in-out;
-        }
-        .tactile-button:active {
-            border-bottom-width: 0px;
-            transform: translateY(4px);
-            margin-bottom: 4px;
-        }
-        .speech-bubble {
-            position: relative;
-        }
-        .speech-bubble::before {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 20px;
-            border-width: 10px 10px 0;
-            border-style: solid;
-            border-color: #FDF9E7 transparent transparent transparent;
-            z-index: 10;
-        }
-        .speech-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -13px;
-            left: 19px;
-            border-width: 11px 11px 0;
-            border-style: solid;
-            border-color: #F4CE1A transparent transparent transparent;
-            z-index: 9;
-        }
+    <style>
+      .tactile-button {
+        border-bottom-width: 4px;
+        border-color: #544600; /* Darker shade of primary for depth */
+        transition: all 0.1s ease-in-out;
+      }
+      .tactile-button:active {
+        border-bottom-width: 0px;
+        transform: translateY(4px);
+        margin-bottom: 4px;
+      }
+      .speech-bubble {
+        position: relative;
+      }
+      .speech-bubble::before {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 20px;
+        border-width: 10px 10px 0;
+        border-style: solid;
+        border-color: #fdf9e7 transparent transparent transparent;
+        z-index: 10;
+      }
+      .speech-bubble::after {
+        content: '';
+        position: absolute;
+        bottom: -13px;
+        left: 19px;
+        border-width: 11px 11px 0;
+        border-style: solid;
+        border-color: #f4ce1a transparent transparent transparent;
+        z-index: 9;
+      }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
   </head>
-<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col items-center justify-center p-container-padding">
-<!-- Top Navigation suppressed as per instructions for linear/transactional/result screens -->
-<main class="w-full max-w-[720px] flex flex-col items-center gap-lg">
-<!-- Header Section -->
-<div class="text-center flex flex-col gap-sm items-center">
-<span class="material-symbols-outlined text-secondary text-[48px]" style="font-variation-settings: 'FILL' 1;">
-                sentiment_dissatisfied
-            </span>
-<h1 class="font-headline-xl text-headline-xl text-on-background">Pas tout à fait...</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
-                Cette notion demande encore un peu de pratique, mais ne te décourage pas !
-            </p>
-</div>
-<!-- Mentora Character & Speech Bubble -->
-<div class="flex flex-col items-start w-full relative pt-md">
-<!-- Speech Bubble -->
-<div class="speech-bubble bg-[#FDF9E7] border-2 border-primary-container rounded-xl p-md shadow-sm w-full mb-md relative z-20">
-<p class="font-body-lg text-body-lg text-on-surface text-center">
-                    C'était presque ça ! Voyons ensemble les points qui ont posé problème.
-                </p>
-</div>
-<!-- Character Image -->
-<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-surface-container-low shadow-md relative z-10 -mt-8 ml-8">
-<img class="w-full h-full object-cover" data-alt="A highly detailed illustration of a friendly, futuristic robot companion designed for education, looking encouraging but slightly sympathetic. The robot has glowing soft blue eyes and is colored in a bright yellow and crisp white palette. The illustration is rendered in a modern, tactile flat vector style with soft lighting, set against a pristine, minimalist light-mode background to convey an optimistic and supportive educational environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpyGSKzfp3iuT75FKdV9CUhBjTd3gCPljVAkU6JDydARST-F2BB6FUEwP35ulaKEl60FQ2g-EiJtL9eeY3AQZz0GCfWDnaE6AB3dQzJMj_JqXn2d8wFA2nrSrUoRAhSjvIQlwsrt7dri38SZX2J-i9V5vJtv4ceeohdDYspwkh3gyIpSr5keAja5-8k1N8-WH3PkwLlBcTHn8rKaJDiXl2drrJkUielQdc78Gqkp1x62FjUM8Nu0A"/>
-</div>
-</div>
-<!-- Points to Review Card -->
-<div class="w-full bg-surface-container-low border-2 border-surface-variant rounded-xl p-md shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)]">
-<h2 class="font-label-lg text-label-lg text-secondary mb-sm uppercase tracking-widest flex items-center gap-xs">
-<span class="material-symbols-outlined text-[18px]">rule</span>
-                Points à revoir
-            </h2>
-<ul class="flex flex-col gap-sm">
-<li class="flex items-start gap-sm bg-surface p-sm rounded-lg border border-surface-variant">
-<span class="material-symbols-outlined text-error mt-0.5">close</span>
-<div>
-<strong class="font-body-md text-on-surface block">L'accord du participe passé avec 'avoir'</strong>
-<span class="font-label-sm text-label-sm text-on-surface-variant">Revois la règle avec le COD placé avant le verbe.</span>
-</div>
-</li>
-<li class="flex items-start gap-sm bg-surface p-sm rounded-lg border border-surface-variant">
-<span class="material-symbols-outlined text-error mt-0.5">close</span>
-<div>
-<strong class="font-body-md text-on-surface block">Les verbes pronominaux essentiels</strong>
-<span class="font-label-sm text-label-sm text-on-surface-variant">Attention à l'accord du sujet dans ces cas particuliers.</span>
-</div>
-</li>
-</ul>
-</div>
-<!-- Action Buttons -->
-<div class="w-full flex flex-col gap-stack-gap mt-md">
-<button class="w-full bg-primary-container text-on-primary-container font-label-lg text-label-lg py-sm px-md rounded-lg tactile-button flex items-center justify-center gap-sm">
-<span class="material-symbols-outlined">refresh</span>
-                Réessayer l'exercice
-            </button>
-<button class="w-full bg-surface text-secondary font-label-lg text-label-lg py-sm px-md rounded-lg border-2 border-secondary hover:bg-surface-container-low transition-colors flex items-center justify-center gap-sm">
-<span class="material-symbols-outlined">menu_book</span>
-                Relire le cours
-            </button>
-<button class="w-full text-on-surface-variant font-label-lg text-label-lg py-sm px-md hover:text-on-surface transition-colors mt-sm">
-                Passer à la suite pour l'instant
-            </button>
-</div>
-</main>
-</body></html>
+  <body
+    class="bg-background text-on-background font-body-md p-container-padding flex min-h-screen flex-col items-center justify-center"
+  >
+    <!-- Top Navigation suppressed as per instructions for linear/transactional/result screens -->
+    <main class="gap-lg flex w-full max-w-[720px] flex-col items-center">
+      <!-- Header Section -->
+      <div class="gap-sm flex flex-col items-center text-center">
+        <span
+          class="material-symbols-outlined text-secondary text-[48px]"
+          style="font-variation-settings: 'FILL' 1"
+        >
+          sentiment_dissatisfied
+        </span>
+        <h1 class="font-headline-xl text-headline-xl text-on-background">Pas tout à fait...</h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+          Cette notion demande encore un peu de pratique, mais ne te décourage pas !
+        </p>
+      </div>
+      <!-- Mentora Character & Speech Bubble -->
+      <div class="pt-md relative flex w-full flex-col items-start">
+        <!-- Speech Bubble -->
+        <div
+          class="speech-bubble border-primary-container p-md mb-md relative z-20 w-full rounded-xl border-2 bg-[#FDF9E7] shadow-sm"
+        >
+          <p class="font-body-lg text-body-lg text-on-surface text-center">
+            C'était presque ça ! Voyons ensemble les points qui ont posé problème.
+          </p>
+        </div>
+        <!-- Character Image -->
+        <div
+          class="border-surface-container-low relative z-10 -mt-8 ml-8 h-32 w-32 overflow-hidden rounded-full border-4 shadow-md"
+        >
+          <img
+            class="h-full w-full object-cover"
+            data-alt="A highly detailed illustration of a friendly, futuristic robot companion designed for education, looking encouraging but slightly sympathetic. The robot has glowing soft blue eyes and is colored in a bright yellow and crisp white palette. The illustration is rendered in a modern, tactile flat vector style with soft lighting, set against a pristine, minimalist light-mode background to convey an optimistic and supportive educational environment."
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpyGSKzfp3iuT75FKdV9CUhBjTd3gCPljVAkU6JDydARST-F2BB6FUEwP35ulaKEl60FQ2g-EiJtL9eeY3AQZz0GCfWDnaE6AB3dQzJMj_JqXn2d8wFA2nrSrUoRAhSjvIQlwsrt7dri38SZX2J-i9V5vJtv4ceeohdDYspwkh3gyIpSr5keAja5-8k1N8-WH3PkwLlBcTHn8rKaJDiXl2drrJkUielQdc78Gqkp1x62FjUM8Nu0A"
+          />
+        </div>
+      </div>
+      <!-- Points to Review Card -->
+      <div
+        class="bg-surface-container-low border-surface-variant p-md w-full rounded-xl border-2 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)]"
+      >
+        <h2
+          class="font-label-lg text-label-lg text-secondary mb-sm gap-xs flex items-center tracking-widest uppercase"
+        >
+          <span class="material-symbols-outlined text-[18px]">rule</span>
+          Points à revoir
+        </h2>
+        <ul class="gap-sm flex flex-col">
+          <li
+            class="gap-sm bg-surface p-sm border-surface-variant flex items-start rounded-lg border"
+          >
+            <span class="material-symbols-outlined text-error mt-0.5">close</span>
+            <div>
+              <strong class="font-body-md text-on-surface block"
+                >L'accord du participe passé avec 'avoir'</strong
+              >
+              <span class="font-label-sm text-label-sm text-on-surface-variant"
+                >Revois la règle avec le COD placé avant le verbe.</span
+              >
+            </div>
+          </li>
+          <li
+            class="gap-sm bg-surface p-sm border-surface-variant flex items-start rounded-lg border"
+          >
+            <span class="material-symbols-outlined text-error mt-0.5">close</span>
+            <div>
+              <strong class="font-body-md text-on-surface block"
+                >Les verbes pronominaux essentiels</strong
+              >
+              <span class="font-label-sm text-label-sm text-on-surface-variant"
+                >Attention à l'accord du sujet dans ces cas particuliers.</span
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- Action Buttons -->
+      <div class="gap-stack-gap mt-md flex w-full flex-col">
+        <button
+          class="bg-primary-container text-on-primary-container font-label-lg text-label-lg py-sm px-md tactile-button gap-sm flex w-full items-center justify-center rounded-lg"
+        >
+          <span class="material-symbols-outlined">refresh</span>
+          Réessayer l'exercice
+        </button>
+        <button
+          class="bg-surface text-secondary font-label-lg text-label-lg py-sm px-md border-secondary hover:bg-surface-container-low gap-sm flex w-full items-center justify-center rounded-lg border-2 transition-colors"
+        >
+          <span class="material-symbols-outlined">menu_book</span>
+          Relire le cours
+        </button>
+        <button
+          class="text-on-surface-variant font-label-lg text-label-lg py-sm px-md hover:text-on-surface mt-sm w-full transition-colors"
+        >
+          Passer à la suite pour l'instant
+        </button>
+      </div>
+    </main>
+  </body>
+</html>

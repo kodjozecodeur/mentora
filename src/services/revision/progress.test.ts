@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import type { RevisionPlan, RevisionSession, ValidationAttempt } from '@/types/revision';
 import {
   getCompetencyStatuses,
-  isReadyForExam,
   recordValidationAttempt,
   updateRevisionSessionStatus,
 } from './progress';
@@ -139,24 +138,6 @@ describe('getCompetencyStatuses', () => {
       sessions: sequentialPlan.sessions.map((session) => ({ ...session, status: 'not-started' })),
     };
     expect(getCompetencyStatuses(freshPlan)).toEqual(['available', 'locked', 'locked']);
-  });
-});
-
-describe('isReadyForExam', () => {
-  it('is false while any competency remains unvalidated', () => {
-    expect(isReadyForExam(sequentialPlan)).toBe(false);
-  });
-
-  it('is true once every competency is validated', () => {
-    const allValidated: RevisionPlan = {
-      ...sequentialPlan,
-      sessions: sequentialPlan.sessions.map((session) => ({ ...session, status: 'completed' })),
-    };
-    expect(isReadyForExam(allValidated)).toBe(true);
-  });
-
-  it('is vacuously true when there are no competencies to revise (edge case: all mastered)', () => {
-    expect(isReadyForExam({ sessions: [] })).toBe(true);
   });
 });
 

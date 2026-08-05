@@ -11,7 +11,7 @@ export function TextField({ error, className, ...props }: TextFieldProps) {
       <input
         aria-invalid={!!error}
         className={cn(
-          'w-full rounded-2xl bg-surface px-5 py-4 text-lg text-foreground placeholder:text-muted focus:outline-none',
+          'bg-surface text-foreground placeholder:text-muted w-full rounded-2xl px-5 py-4 text-lg focus:outline-none',
           className,
         )}
         {...props}

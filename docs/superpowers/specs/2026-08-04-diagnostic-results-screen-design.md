@@ -67,36 +67,37 @@ local to `DiagnosticCompleteScreen.tsx` since they're not reused elsewhere yet (
 1. **Header** — `AppLogo size="sm"` + small muted text `Ton diagnostic est terminé`.
 2. **Main block** — `Bravo {firstName} !` if `firstName` is non-empty after trim,
    otherwise `Bravo !`; fixed subtext `Voici ton niveau de préparation au BEPC en
-   mathématiques.`
+mathématiques.`
 3. **Readiness score** — CSS `conic-gradient` ring (brand `--highlight` color only, no
    red/green semantics), `{score}%` centered. The ring `div` is a pure CSS `background`
    with no accessible content of its own, so it does not need `aria-hidden` — and must
    NOT carry it, since the score number lives inside that same div: hiding the wrapper
    would hide the number from screen readers too. The score number, label (`Niveau de
-   préparation`), bucketed message, and points line are all real, unhidden text nodes,
+préparation`), bucketed message, and points line are all real, unhidden text nodes,
    so screen readers get full info without a duplicate `aria-label`. Message bucketed by
    `readinessScore` value only (display branching on an already-given number, not a
    recompute):
    - 0–39: `Tu as encore plusieurs notions importantes à renforcer.`
    - 40–69: `Tu progresses bien, mais certaines notions doivent encore être
-     consolidées.`
+consolidées.`
    - 70–100: `Tu maîtrises déjà une bonne partie des compétences évaluées.`
 
    Below: `{totalEarnedPoints} points sur {totalMaxPoints}`.
+
 4. **Tes points forts** — up to 3 items from `strengths` (`.slice(0, 3)`), each row:
    competency label, `masteryPercent`%, "Maîtrisée" badge. Empty state: `Aucune
-   compétence n'est encore totalement maîtrisée, mais ton plan va t'aider à progresser.`
+compétence n'est encore totalement maîtrisée, mais ton plan va t'aider à progresser.`
 5. **À renforcer** — up to 3 items from `weaknesses` (`.slice(0, 3)`, engine order kept
    as-is), each row: label, `masteryPercent`%, badge from `readinessLevel`
    (`priority`→"Prioritaire", `in-progress`→"En progression"). Empty state (score-élevé
    case, not specified verbatim in the PRD): `Bravo, aucune faiblesse identifiée pour
-   l'instant.`
+l'instant.`
 6. **Ta priorité** — accent card (highlight border/tint, not a full-bleed block) showing
    `revisionPriorities[0]`: competency name, current `masteryPercent`%, fixed text
    `Commence par cette compétence pour progresser plus rapidement.` Empty state: `Tu as
-   maîtrisé toutes les compétences évaluées.`
+maîtrisé toutes les compétences évaluées.`
 7. **CTA** — `BottomCTA` wrapping a single `PrimaryButton`: `Commencer mon plan de
-   révision`, calling the existing `onContinue` callback (stub behavior preserved from
+révision`, calling the existing `onContinue` callback (stub behavior preserved from
    `OnboardingFlow`, ready for sprint 4 to swap in real plan navigation). The optional
    secondary CTA (`Revoir mes résultats`) is dropped: it has no clear function on a
    single, non-paginated results screen and the PRD marks it optional — adding it would

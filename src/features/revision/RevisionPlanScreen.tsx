@@ -56,10 +56,7 @@ export function RevisionPlanScreen({
       </section>
 
       <div className="pb-7">
-        <SecondaryButton
-          onClick={onDownloadStudyPack}
-          className="w-auto px-4 py-2 text-sm"
-        >
+        <SecondaryButton onClick={onDownloadStudyPack} className="w-auto px-4 py-2 text-sm">
           <span className="inline-flex items-center justify-center gap-2">
             <Download className="size-4" aria-hidden="true" />
             Télécharger mon Study Pack
@@ -237,7 +234,7 @@ function StatusBadge({ status }: { status: CompetencyStatus }) {
   );
 }
 
-function CompletedPlanState({ onRestartDiagnostic }: { onRestartDiagnostic: () => void }) {
+export function CompletedPlanState({ onRestartDiagnostic }: { onRestartDiagnostic: () => void }) {
   return (
     <section
       aria-labelledby="completed-plan-title"

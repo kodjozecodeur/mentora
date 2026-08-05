@@ -4,14 +4,14 @@ import { ProgressIndicator } from '@/components/ui/ProgressIndicator';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
 
 interface DiagnosticIntroScreenProps {
-  subjectLabel: string;
+  chapterLabel: string;
   onContinue: () => void;
 }
 
-export function DiagnosticIntroScreen({ subjectLabel, onContinue }: DiagnosticIntroScreenProps) {
+export function DiagnosticIntroScreen({ chapterLabel, onContinue }: DiagnosticIntroScreenProps) {
   return (
     <ScreenContainer className="onboarding-reveal">
-      <ProgressIndicator step={4} totalSteps={4} />
+      <ProgressIndicator step={5} totalSteps={5} />
 
       <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
         <div className="flex size-24 shrink-0 items-center justify-center" aria-hidden="true">
@@ -26,8 +26,8 @@ export function DiagnosticIntroScreen({ subjectLabel, onContinue }: DiagnosticIn
         </div>
         <h1 className="text-foreground text-2xl font-bold">Vérifions ensemble</h1>
         <p className="text-muted text-base font-medium">
-          Réponds à quelques questions sur {subjectLabel.toLowerCase()} pour permettre à Mentora
-          d&apos;identifier ce que tu maîtrises déjà et ce que tu dois encore renforcer.
+          Réponds à quelques questions sur le chapitre {chapterLabel.toLowerCase()} pour permettre à
+          Mentora d&apos;identifier ce que tu maîtrises déjà et ce que tu dois encore renforcer.
         </p>
       </div>
 

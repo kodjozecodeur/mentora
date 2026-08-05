@@ -4,10 +4,11 @@ import {
   getMasteryStatusLabel,
   getReadinessLevelLabel,
   getReadinessMessage,
+  getResultsContinueLabel,
   getWeaknessBadgeLabel,
   partitionByReadinessLevel,
-  PREPARATION_BEPC_LABEL,
   PROGRESSION_GLOBALE_LABEL,
+  resolveResultsBranch,
 } from './resultCopy';
 import type { CompetencyMastery } from '@/types/diagnostic';
 
@@ -143,8 +144,44 @@ describe('getMasteryStatusLabel', () => {
 });
 
 describe('progression labels', () => {
-  it('exposes the repositioned score labels', () => {
+  it('exposes the repositioned score label', () => {
     expect(PROGRESSION_GLOBALE_LABEL).toBe('Progression globale');
-    expect(PREPARATION_BEPC_LABEL).toBe('Préparation au BEPC');
+  });
+});
+
+describe('resolveResultsBranch', () => {
+  it('branches to the revision plan when a competency is in progress', () => {
+    const input = [
+      mastery({ competencyId: 'a', readinessLevel: 'mastered' }),
+      mastery({ competencyId: 'b', readinessLevel: 'in-progress' }),
+    ];
+
+    expect(resolveResultsBranch(input)).toBe('revision-plan');
+  });
+
+  it('branches to the revision plan when a competency is priority', () => {
+    const input = [mastery({ competencyId: 'a', readinessLevel: 'priority' })];
+
+    expect(resolveResultsBranch(input)).toBe('revision-plan');
+  });
+
+  it('branches directly to the learning journey when every competency is mastered', () => {
+    const input = [
+      mastery({ competencyId: 'a', readinessLevel: 'mastered' }),
+      mastery({ competencyId: 'b', readinessLevel: 'mastered' }),
+    ];
+
+    expect(resolveResultsBranch(input)).toBe('learning-journey');
+  });
+
+  it('branches directly to the learning journey when there is no competency data', () => {
+    expect(resolveResultsBranch([])).toBe('learning-journey');
+  });
+});
+
+describe('getResultsContinueLabel', () => {
+  it('labels the CTA for each branch', () => {
+    expect(getResultsContinueLabel('revision-plan')).toBe('Créer mon plan de révision');
+    expect(getResultsContinueLabel('learning-journey')).toBe('Accéder à mon parcours');
   });
 });

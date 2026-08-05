@@ -1,294 +1,398 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="light" lang="fr"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Mentora - Résultats du Diagnostic</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-primary-fixed-variant": "#544600",
-                        "tertiary": "#605f51",
-                        "on-tertiary-container": "#5b5a4c",
-                        "surface-container-low": "#f6f3f2",
-                        "tertiary-fixed-dim": "#cac7b6",
-                        "surface-dim": "#dcd9d9",
-                        "surface": "#fcf9f8",
-                        "error-container": "#ffdad6",
-                        "on-tertiary-fixed-variant": "#48473a",
-                        "surface-container": "#f0eded",
-                        "on-secondary-fixed-variant": "#722180",
-                        "inverse-on-surface": "#f3f0ef",
-                        "primary-container": "#f4ce1a",
-                        "on-tertiary": "#ffffff",
-                        "primary-fixed-dim": "#e9c403",
-                        "on-primary-fixed": "#221b00",
-                        "surface-container-highest": "#e5e2e1",
-                        "inverse-primary": "#e9c403",
-                        "outline-variant": "#d0c6ac",
-                        "inverse-surface": "#313030",
-                        "outline": "#7e7760",
-                        "on-tertiary-fixed": "#1d1c11",
-                        "surface-bright": "#fcf9f8",
-                        "on-secondary": "#ffffff",
-                        "on-error": "#ffffff",
-                        "tertiary-fixed": "#e6e3d1",
-                        "background": "#fcf9f8",
-                        "secondary": "#8d3c9a",
-                        "on-surface-variant": "#4d4632",
-                        "primary": "#705d00",
-                        "on-error-container": "#93000a",
-                        "secondary-fixed-dim": "#f9acff",
-                        "surface-container-lowest": "#ffffff",
-                        "on-background": "#1c1b1b",
-                        "tertiary-container": "#d4d1c0",
-                        "error": "#ba1a1a",
-                        "surface-tint": "#705d00",
-                        "primary-fixed": "#ffe16f",
-                        "secondary-fixed": "#ffd6fe",
-                        "on-secondary-fixed": "#35003f",
-                        "secondary-container": "#f59aff",
-                        "surface-container-high": "#eae7e7",
-                        "on-primary": "#ffffff",
-                        "on-surface": "#1c1b1b",
-                        "on-secondary-container": "#772685",
-                        "on-primary-container": "#6a5800",
-                        "surface-variant": "#e5e2e1"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "container-padding": "20px",
-                        "md": "24px",
-                        "lg": "40px",
-                        "sm": "12px",
-                        "stack-gap": "16px",
-                        "base": "8px",
-                        "xl": "64px",
-                        "xs": "4px"
-                    },
-                    "fontFamily": {
-                        "headline-lg-mobile": ["Lexend"],
-                        "body-lg": ["Lexend"],
-                        "label-lg": ["Lexend"],
-                        "body-md": ["Lexend"],
-                        "headline-xl": ["Lexend"],
-                        "headline-lg": ["Lexend"],
-                        "label-sm": ["Lexend"]
-                    },
-                    "fontSize": {
-                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
-                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
-                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }],
-                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
-                    }
-                }
-            }
-        }
+<html class="light" lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Mentora - Résultats du Diagnostic</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'on-primary-fixed-variant': '#544600',
+              tertiary: '#605f51',
+              'on-tertiary-container': '#5b5a4c',
+              'surface-container-low': '#f6f3f2',
+              'tertiary-fixed-dim': '#cac7b6',
+              'surface-dim': '#dcd9d9',
+              surface: '#fcf9f8',
+              'error-container': '#ffdad6',
+              'on-tertiary-fixed-variant': '#48473a',
+              'surface-container': '#f0eded',
+              'on-secondary-fixed-variant': '#722180',
+              'inverse-on-surface': '#f3f0ef',
+              'primary-container': '#f4ce1a',
+              'on-tertiary': '#ffffff',
+              'primary-fixed-dim': '#e9c403',
+              'on-primary-fixed': '#221b00',
+              'surface-container-highest': '#e5e2e1',
+              'inverse-primary': '#e9c403',
+              'outline-variant': '#d0c6ac',
+              'inverse-surface': '#313030',
+              outline: '#7e7760',
+              'on-tertiary-fixed': '#1d1c11',
+              'surface-bright': '#fcf9f8',
+              'on-secondary': '#ffffff',
+              'on-error': '#ffffff',
+              'tertiary-fixed': '#e6e3d1',
+              background: '#fcf9f8',
+              secondary: '#8d3c9a',
+              'on-surface-variant': '#4d4632',
+              primary: '#705d00',
+              'on-error-container': '#93000a',
+              'secondary-fixed-dim': '#f9acff',
+              'surface-container-lowest': '#ffffff',
+              'on-background': '#1c1b1b',
+              'tertiary-container': '#d4d1c0',
+              error: '#ba1a1a',
+              'surface-tint': '#705d00',
+              'primary-fixed': '#ffe16f',
+              'secondary-fixed': '#ffd6fe',
+              'on-secondary-fixed': '#35003f',
+              'secondary-container': '#f59aff',
+              'surface-container-high': '#eae7e7',
+              'on-primary': '#ffffff',
+              'on-surface': '#1c1b1b',
+              'on-secondary-container': '#772685',
+              'on-primary-container': '#6a5800',
+              'surface-variant': '#e5e2e1',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              'container-padding': '20px',
+              md: '24px',
+              lg: '40px',
+              sm: '12px',
+              'stack-gap': '16px',
+              base: '8px',
+              xl: '64px',
+              xs: '4px',
+            },
+            fontFamily: {
+              'headline-lg-mobile': ['Lexend'],
+              'body-lg': ['Lexend'],
+              'label-lg': ['Lexend'],
+              'body-md': ['Lexend'],
+              'headline-xl': ['Lexend'],
+              'headline-lg': ['Lexend'],
+              'label-sm': ['Lexend'],
+            },
+            fontSize: {
+              'headline-lg-mobile': ['20px', { lineHeight: '28px', fontWeight: '600' }],
+              'body-lg': ['18px', { lineHeight: '28px', fontWeight: '500' }],
+              'label-lg': [
+                '14px',
+                { lineHeight: '20px', letterSpacing: '0.02em', fontWeight: '600' },
+              ],
+              'body-md': ['16px', { lineHeight: '24px', fontWeight: '400' }],
+              'headline-xl': [
+                '32px',
+                { lineHeight: '40px', letterSpacing: '-0.02em', fontWeight: '700' },
+              ],
+              'headline-lg': [
+                '24px',
+                { lineHeight: '32px', letterSpacing: '-0.01em', fontWeight: '600' },
+              ],
+              'label-sm': ['12px', { lineHeight: '16px', fontWeight: '500' }],
+            },
+          },
+        },
+      };
     </script>
-<style>
-        .confetti-piece {
-            position: absolute;
-            width: 10px;
-            height: 20px;
-            background-color: #F4CE1A;
-            opacity: 0;
-            animation: fall 3s ease-in infinite;
+    <style>
+      .confetti-piece {
+        position: absolute;
+        width: 10px;
+        height: 20px;
+        background-color: #f4ce1a;
+        opacity: 0;
+        animation: fall 3s ease-in infinite;
+      }
+      @keyframes fall {
+        0% {
+          opacity: 1;
+          top: -10%;
+          transform: rotateZ(0deg) rotateY(0deg);
         }
-        @keyframes fall {
-            0% { opacity: 1; top: -10%; transform: rotateZ(0deg) rotateY(0deg); }
-            100% { opacity: 0; top: 110%; transform: rotateZ(360deg) rotateY(360deg); }
+        100% {
+          opacity: 0;
+          top: 110%;
+          transform: rotateZ(360deg) rotateY(360deg);
         }
-        .tactile-card {
-            border: 2px solid theme('colors.surface-variant');
-            box-shadow: 0 4px 0 theme('colors.surface-variant');
-            transition: all 0.15s ease;
-        }
-        .tactile-btn {
-            border-bottom: 4px solid #6a5800; /* Darker yellow for primary button depth */
-            transition: all 0.1s ease-in-out;
-        }
-        .tactile-btn:active {
-            border-bottom-width: 0px;
-            transform: translateY(4px);
-        }
+      }
+      .tactile-card {
+        border: 2px solid theme('colors.surface-variant');
+        box-shadow: 0 4px 0 theme('colors.surface-variant');
+        transition: all 0.15s ease;
+      }
+      .tactile-btn {
+        border-bottom: 4px solid #6a5800; /* Darker yellow for primary button depth */
+        transition: all 0.1s ease-in-out;
+      }
+      .tactile-btn:active {
+        border-bottom-width: 0px;
+        transform: translateY(4px);
+      }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
   </head>
-<body class="bg-background text-on-background antialiased pb-[100px] overflow-x-hidden relative">
-<!-- Confetti Container -->
-<div class="fixed inset-0 pointer-events-none z-10 overflow-hidden hidden md:block" id="confetti-container"></div>
-<!-- TopAppBar -->
-<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-padding h-16 max-w-[720px] mx-auto bg-background flat no shadows">
-<button aria-label="Menu" class="text-primary hover:bg-surface-container transition-colors p-2 rounded-full">
-<span class="material-symbols-outlined" data-icon="menu">menu</span>
-</button>
-<div class="font-headline-xl text-headline-xl font-bold text-primary">Mentora</div>
-<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container-highest cursor-pointer hover:bg-surface-container transition-colors">
-<img alt="User profile photo" class="w-full h-full object-cover" data-alt="A small, friendly profile picture placeholder showing an abstract geometric character in vibrant yellow and purple tones on a white background, minimal and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGUaLAcYxg2gmmVsV-DIUZxTvTpBosvxOyV8M2sWdQJ5cDU00DxeBVvhBp-xYRg5UccgSLaKcSOqECdOC7lV5FYMpYIvAIZHjcdjQcB7KTcqAROGs1td7Cg4zOSG7iD8SpKjOM9nw1n4qftiQxnXYtoKhLG3qb2bDIFa7xWOjNIDOGp8Ur0823nUu-swE7UrLMNPAYIr7JPwfANYRHnP2O1kidSZTglDFqjLi-DLgXZrQeked6Glo"/>
-</div>
-</header>
-<main class="max-w-[720px] mx-auto px-container-padding pt-[100px] flex flex-col gap-lg">
-<!-- Celebration Header & Mascot -->
-<section class="flex flex-col items-center text-center relative z-20">
-<div class="relative w-48 h-48 mb-stack-gap">
-<!-- Mascot Image -->
-<img alt="Bot mascot celebrating" class="w-full h-full object-contain drop-shadow-xl" data-alt="A highly detailed, 3D rendered friendly robot mascot character celebrating with a huge smile. The robot is primarily white with vibrant yellow (#F4CE1A) and purple (#8D3C9A) accents. It is throwing confetti in the air. The style is modern, tactile, and brightly lit, suitable for an educational app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMXseTrsW-jlLjjPegp1A9qbuvluqZy1bcQ6Bf6A7i-z5VqtBYk3OIAcSv7kg_jcKwDa00g6YROpijUvPaNbjVtRzckHXSw_2W9vLQLSC4oSIXYx_nbTK87pizj-ZoB8pgwu8g_YRU_iTADyX8HUzp-4z1L56Q4oOit133fJJEwkcjE_HhAqmKg-4RpjEKTxg_d2wLdVO_iACOfdpeLHtLcfuOfNoez02KFeigVFBNtBUXsS_PqEo"/>
-<!-- Speech Bubble -->
-<div class="absolute -top-4 -right-12 bg-[#FDF9E7] border-2 border-[#F4CE1A] rounded-2xl p-4 shadow-lg animate-bounce w-48 z-30">
-<p class="font-body-md text-body-md text-on-background text-center">Excellent travail ! Tu es sur la bonne voie.</p>
-<div class="absolute -bottom-3 left-6 w-4 h-4 bg-[#FDF9E7] border-b-2 border-r-2 border-[#F4CE1A] transform rotate-45"></div>
-</div>
-</div>
-<h1 class="font-headline-xl text-headline-xl text-primary mb-sm">85%</h1>
-<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Prêt pour le BAC !</h2>
-</section>
-<!-- Analysis Bento Grid -->
-<section class="grid grid-cols-1 md:grid-cols-2 gap-stack-gap z-20">
-<!-- Forces -->
-<div class="tactile-card bg-surface rounded-xl p-md flex flex-col gap-sm relative overflow-hidden">
-<div class="absolute -right-6 -top-6 w-24 h-24 bg-primary-container opacity-20 rounded-full"></div>
-<div class="flex items-center gap-sm">
-<span class="material-symbols-outlined text-primary text-3xl" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
-<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Forces</h3>
-</div>
-<p class="font-body-lg text-body-lg text-primary">Algèbre</p>
-<div class="w-full bg-surface-container-highest rounded-full h-3 mt-auto">
-<div class="bg-primary-container h-3 rounded-full" style="width: 90%"></div>
-</div>
-</div>
-<!-- À renforcer -->
-<div class="tactile-card bg-surface rounded-xl p-md flex flex-col gap-sm relative overflow-hidden">
-<div class="absolute -right-6 -top-6 w-24 h-24 bg-error-container opacity-20 rounded-full"></div>
-<div class="flex items-center gap-sm">
-<span class="material-symbols-outlined text-secondary text-3xl" data-icon="trending_up">trending_up</span>
-<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">À renforcer</h3>
-</div>
-<p class="font-body-lg text-body-lg text-secondary">Géométrie</p>
-<div class="w-full bg-surface-container-highest rounded-full h-3 mt-auto">
-<div class="bg-secondary h-3 rounded-full" style="width: 45%"></div>
-</div>
-</div>
-</section>
-<!-- Competence Map (Radar Chart Placeholder) -->
-<section class="tactile-card bg-surface rounded-xl p-md flex flex-col items-center gap-stack-gap z-20">
-<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface w-full text-left">Carte des Compétences</h3>
-<div class="w-full max-w-[300px] aspect-square relative">
-<canvas id="radarChart"></canvas>
-</div>
-</section>
-<!-- CTA -->
-<section class="flex justify-center mt-md z-20">
-<button class="bg-primary-container text-on-primary-fixed font-label-lg text-label-lg py-4 px-8 rounded-full tactile-btn w-full md:w-auto shadow-sm hover:brightness-105">
-                Générer mon plan de révision
-            </button>
-</section>
-</main>
-<!-- BottomNavBar (Mobile Only) -->
-<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-safe bg-surface h-20 rounded-t-xl border-t-2 border-surface-container-highest shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] md:hidden">
-<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1.5 hover:bg-surface-container-high transition-all" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
-<span class="font-label-sm text-label-sm">Accueil</span>
-</a>
-<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1.5 hover:bg-surface-container-high transition-all scale-95 translate-y-0.5 duration-150" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="analytics" data-weight="fill" style="font-variation-settings: 'FILL' 1;">analytics</span>
-<span class="font-label-sm text-label-sm">Diagnostic</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1.5 hover:bg-surface-container-high transition-all" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="auto_stories">auto_stories</span>
-<span class="font-label-sm text-label-sm">Révision</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1.5 hover:bg-surface-container-high transition-all" href="#">
-<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
-<span class="font-label-sm text-label-sm">Profil</span>
-</a>
-</nav>
-<script>
-        // Radar Chart Initialization
-        document.addEventListener("DOMContentLoaded", function() {
-            const ctx = document.getElementById('radarChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: ['Algèbre', 'Géométrie', 'Probabilités', 'Fonctions', 'Suites'],
-                    datasets: [{
-                        label: 'Niveau Actuel',
-                        data: [90, 45, 80, 85, 75],
-                        backgroundColor: 'rgba(244, 206, 26, 0.4)', // primary-container with opacity
-                        borderColor: '#705d00', // primary
-                        pointBackgroundColor: '#8d3c9a', // secondary
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: '#8d3c9a',
-                        borderWidth: 2
-                    }]
+  <body class="bg-background text-on-background relative overflow-x-hidden pb-[100px] antialiased">
+    <!-- Confetti Container -->
+    <div
+      class="pointer-events-none fixed inset-0 z-10 hidden overflow-hidden md:block"
+      id="confetti-container"
+    ></div>
+    <!-- TopAppBar -->
+    <header
+      class="px-container-padding bg-background flat no shadows fixed top-0 left-0 z-50 mx-auto flex h-16 w-full max-w-[720px] items-center justify-between"
+    >
+      <button
+        aria-label="Menu"
+        class="text-primary hover:bg-surface-container rounded-full p-2 transition-colors"
+      >
+        <span class="material-symbols-outlined" data-icon="menu">menu</span>
+      </button>
+      <div class="font-headline-xl text-headline-xl text-primary font-bold">Mentora</div>
+      <div
+        class="border-surface-container-highest hover:bg-surface-container h-10 w-10 cursor-pointer overflow-hidden rounded-full border-2 transition-colors"
+      >
+        <img
+          alt="User profile photo"
+          class="h-full w-full object-cover"
+          data-alt="A small, friendly profile picture placeholder showing an abstract geometric character in vibrant yellow and purple tones on a white background, minimal and modern."
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGUaLAcYxg2gmmVsV-DIUZxTvTpBosvxOyV8M2sWdQJ5cDU00DxeBVvhBp-xYRg5UccgSLaKcSOqECdOC7lV5FYMpYIvAIZHjcdjQcB7KTcqAROGs1td7Cg4zOSG7iD8SpKjOM9nw1n4qftiQxnXYtoKhLG3qb2bDIFa7xWOjNIDOGp8Ur0823nUu-swE7UrLMNPAYIr7JPwfANYRHnP2O1kidSZTglDFqjLi-DLgXZrQeked6Glo"
+        />
+      </div>
+    </header>
+    <main class="px-container-padding gap-lg mx-auto flex max-w-[720px] flex-col pt-[100px]">
+      <!-- Celebration Header & Mascot -->
+      <section class="relative z-20 flex flex-col items-center text-center">
+        <div class="mb-stack-gap relative h-48 w-48">
+          <!-- Mascot Image -->
+          <img
+            alt="Bot mascot celebrating"
+            class="h-full w-full object-contain drop-shadow-xl"
+            data-alt="A highly detailed, 3D rendered friendly robot mascot character celebrating with a huge smile. The robot is primarily white with vibrant yellow (#F4CE1A) and purple (#8D3C9A) accents. It is throwing confetti in the air. The style is modern, tactile, and brightly lit, suitable for an educational app."
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMXseTrsW-jlLjjPegp1A9qbuvluqZy1bcQ6Bf6A7i-z5VqtBYk3OIAcSv7kg_jcKwDa00g6YROpijUvPaNbjVtRzckHXSw_2W9vLQLSC4oSIXYx_nbTK87pizj-ZoB8pgwu8g_YRU_iTADyX8HUzp-4z1L56Q4oOit133fJJEwkcjE_HhAqmKg-4RpjEKTxg_d2wLdVO_iACOfdpeLHtLcfuOfNoez02KFeigVFBNtBUXsS_PqEo"
+          />
+          <!-- Speech Bubble -->
+          <div
+            class="absolute -top-4 -right-12 z-30 w-48 animate-bounce rounded-2xl border-2 border-[#F4CE1A] bg-[#FDF9E7] p-4 shadow-lg"
+          >
+            <p class="font-body-md text-body-md text-on-background text-center">
+              Excellent travail ! Tu es sur la bonne voie.
+            </p>
+            <div
+              class="absolute -bottom-3 left-6 h-4 w-4 rotate-45 transform border-r-2 border-b-2 border-[#F4CE1A] bg-[#FDF9E7]"
+            ></div>
+          </div>
+        </div>
+        <h1 class="font-headline-xl text-headline-xl text-primary mb-sm">85%</h1>
+        <h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">
+          Prêt pour le BAC !
+        </h2>
+      </section>
+      <!-- Analysis Bento Grid -->
+      <section class="gap-stack-gap z-20 grid grid-cols-1 md:grid-cols-2">
+        <!-- Forces -->
+        <div
+          class="tactile-card bg-surface p-md gap-sm relative flex flex-col overflow-hidden rounded-xl"
+        >
+          <div
+            class="bg-primary-container absolute -top-6 -right-6 h-24 w-24 rounded-full opacity-20"
+          ></div>
+          <div class="gap-sm flex items-center">
+            <span
+              class="material-symbols-outlined text-primary text-3xl"
+              data-icon="star"
+              data-weight="fill"
+              style="font-variation-settings: 'FILL' 1"
+              >star</span
+            >
+            <h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Forces</h3>
+          </div>
+          <p class="font-body-lg text-body-lg text-primary">Algèbre</p>
+          <div class="bg-surface-container-highest mt-auto h-3 w-full rounded-full">
+            <div class="bg-primary-container h-3 rounded-full" style="width: 90%"></div>
+          </div>
+        </div>
+        <!-- À renforcer -->
+        <div
+          class="tactile-card bg-surface p-md gap-sm relative flex flex-col overflow-hidden rounded-xl"
+        >
+          <div
+            class="bg-error-container absolute -top-6 -right-6 h-24 w-24 rounded-full opacity-20"
+          ></div>
+          <div class="gap-sm flex items-center">
+            <span class="material-symbols-outlined text-secondary text-3xl" data-icon="trending_up"
+              >trending_up</span
+            >
+            <h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">
+              À renforcer
+            </h3>
+          </div>
+          <p class="font-body-lg text-body-lg text-secondary">Géométrie</p>
+          <div class="bg-surface-container-highest mt-auto h-3 w-full rounded-full">
+            <div class="bg-secondary h-3 rounded-full" style="width: 45%"></div>
+          </div>
+        </div>
+      </section>
+      <!-- Competence Map (Radar Chart Placeholder) -->
+      <section
+        class="tactile-card bg-surface p-md gap-stack-gap z-20 flex flex-col items-center rounded-xl"
+      >
+        <h3
+          class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface w-full text-left"
+        >
+          Carte des Compétences
+        </h3>
+        <div class="relative aspect-square w-full max-w-[300px]">
+          <canvas id="radarChart"></canvas>
+        </div>
+      </section>
+      <!-- CTA -->
+      <section class="mt-md z-20 flex justify-center">
+        <button
+          class="bg-primary-container text-on-primary-fixed font-label-lg text-label-lg tactile-btn w-full rounded-full px-8 py-4 shadow-sm hover:brightness-105 md:w-auto"
+        >
+          Générer mon plan de révision
+        </button>
+      </section>
+    </main>
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+      class="pb-safe bg-surface border-surface-container-highest fixed bottom-0 left-0 z-50 flex h-20 w-full items-center justify-around rounded-t-xl border-t-2 px-2 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] md:hidden"
+    >
+      <a
+        class="text-on-surface-variant hover:bg-surface-container-high flex flex-col items-center justify-center px-4 py-1.5 transition-all"
+        href="#"
+      >
+        <span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+        <span class="font-label-sm text-label-sm">Accueil</span>
+      </a>
+      <a
+        class="bg-primary-container text-on-primary-container hover:bg-surface-container-high flex translate-y-0.5 scale-95 flex-col items-center justify-center rounded-xl px-4 py-1.5 transition-all duration-150"
+        href="#"
+      >
+        <span
+          class="material-symbols-outlined mb-1"
+          data-icon="analytics"
+          data-weight="fill"
+          style="font-variation-settings: 'FILL' 1"
+          >analytics</span
+        >
+        <span class="font-label-sm text-label-sm">Diagnostic</span>
+      </a>
+      <a
+        class="text-on-surface-variant hover:bg-surface-container-high flex flex-col items-center justify-center px-4 py-1.5 transition-all"
+        href="#"
+      >
+        <span class="material-symbols-outlined mb-1" data-icon="auto_stories">auto_stories</span>
+        <span class="font-label-sm text-label-sm">Révision</span>
+      </a>
+      <a
+        class="text-on-surface-variant hover:bg-surface-container-high flex flex-col items-center justify-center px-4 py-1.5 transition-all"
+        href="#"
+      >
+        <span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+        <span class="font-label-sm text-label-sm">Profil</span>
+      </a>
+    </nav>
+    <script>
+      // Radar Chart Initialization
+      document.addEventListener('DOMContentLoaded', function () {
+        const ctx = document.getElementById('radarChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'radar',
+          data: {
+            labels: ['Algèbre', 'Géométrie', 'Probabilités', 'Fonctions', 'Suites'],
+            datasets: [
+              {
+                label: 'Niveau Actuel',
+                data: [90, 45, 80, 85, 75],
+                backgroundColor: 'rgba(244, 206, 26, 0.4)', // primary-container with opacity
+                borderColor: '#705d00', // primary
+                pointBackgroundColor: '#8d3c9a', // secondary
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#8d3c9a',
+                borderWidth: 2,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              r: {
+                angleLines: {
+                  color: '#e5e2e1', // surface-variant
                 },
-                options: {
-                    scales: {
-                        r: {
-                            angleLines: {
-                                color: '#e5e2e1' // surface-variant
-                            },
-                            grid: {
-                                color: '#e5e2e1'
-                            },
-                            pointLabels: {
-                                color: '#4d4632', // on-surface-variant
-                                font: {
-                                    family: 'Lexend',
-                                    size: 12,
-                                    weight: 500
-                                }
-                            },
-                            ticks: {
-                                display: false,
-                                max: 100,
-                                min: 0
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-            // Simple Confetti Effect (Desktop mostly as mobile might lag)
-            const confettiContainer = document.getElementById('confetti-container');
-            const colors = ['#F4CE1A', '#8D3C9A', '#705d00', '#f59aff'];
-            
-            for(let i=0; i<30; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti-piece');
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                confetti.style.animationDelay = Math.random() * 2 + 's';
-                confettiContainer.appendChild(confetti);
-            }
+                grid: {
+                  color: '#e5e2e1',
+                },
+                pointLabels: {
+                  color: '#4d4632', // on-surface-variant
+                  font: {
+                    family: 'Lexend',
+                    size: 12,
+                    weight: 500,
+                  },
+                },
+                ticks: {
+                  display: false,
+                  max: 100,
+                  min: 0,
+                },
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+          },
         });
+
+        // Simple Confetti Effect (Desktop mostly as mobile might lag)
+        const confettiContainer = document.getElementById('confetti-container');
+        const colors = ['#F4CE1A', '#8D3C9A', '#705d00', '#f59aff'];
+
+        for (let i = 0; i < 30; i++) {
+          const confetti = document.createElement('div');
+          confetti.classList.add('confetti-piece');
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.animationDuration = Math.random() * 2 + 2 + 's';
+          confetti.style.animationDelay = Math.random() * 2 + 's';
+          confettiContainer.appendChild(confetti);
+        }
+      });
     </script>
-</body></html>
+  </body>
+</html>

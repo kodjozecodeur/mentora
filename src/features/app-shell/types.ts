@@ -1,4 +1,4 @@
-export type AppTab = 'home' | 'diagnostic' | 'revision' | 'profile';
+export type AppTab = 'home' | 'revision' | 'profile';
 
 export type RevisionShellView =
-  'plan' | 'note' | 'validation-question' | 'validation-result';
+  'plan' | 'overview' | 'note' | 'validation-question' | 'validation-result';

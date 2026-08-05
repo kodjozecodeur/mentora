@@ -33,7 +33,7 @@ export function WelcomeScreen({ name, onNameChange, onContinue }: WelcomeScreenP
 
   return (
     <ScreenContainer>
-      <ProgressIndicator step={1} totalSteps={4} />
+      <ProgressIndicator step={1} totalSteps={5} />
 
       <div className="flex flex-1 flex-col items-center justify-center gap-8 py-12">
         <AppLogo size="lg" />

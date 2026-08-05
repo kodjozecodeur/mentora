@@ -5,16 +5,24 @@ import { ScreenContainer } from '@/components/ui/ScreenContainer';
 import { ReadinessScoreRing } from '@/components/diagnostic/ReadinessScoreRing';
 import { cn } from '@/lib/utils';
 import type { DiagnosticResult } from '@/types/diagnostic';
-import { getGreeting, PROGRESSION_GLOBALE_LABEL, partitionByReadinessLevel } from './resultCopy';
+import {
+  getGreeting,
+  getResultsContinueLabel,
+  partitionByReadinessLevel,
+  PROGRESSION_GLOBALE_LABEL,
+  resolveResultsBranch,
+} from './resultCopy';
 
 interface DiagnosticCompleteScreenProps {
   result: DiagnosticResult;
+  chapterLabel: string;
   firstName?: string;
   onContinue: () => void;
 }
 
 export function DiagnosticCompleteScreen({
   result,
+  chapterLabel,
   firstName,
   onContinue,
 }: DiagnosticCompleteScreenProps) {
@@ -23,14 +31,16 @@ export function DiagnosticCompleteScreen({
   const topInProgress = inProgress.slice(0, 3);
   const topPriority = priority.slice(0, 3);
   const nextRecommendation = result.revisionPriorities[0];
+  const branch = resolveResultsBranch(result.competencyMastery);
 
   return (
     <ScreenContainer className="diagnostic-question-reveal">
       <div className="flex flex-col items-center gap-2 pb-4 text-center">
         <AppLogo size="sm" />
         <p className="text-muted text-xs font-bold tracking-wide uppercase">
-          Ton diagnostic est terminé
+          Diagnostic du chapitre terminé
         </p>
+        <p className="text-foreground text-sm font-bold">{chapterLabel}</p>
       </div>
 
       <div className="flex flex-col items-center gap-1 pb-6 text-center">
@@ -38,7 +48,7 @@ export function DiagnosticCompleteScreen({
           {getGreeting(firstName, result.readinessScore)}
         </h1>
         <p className="text-muted text-base font-medium">
-          Chaque notion renforcée te rapproche de la maîtrise et de la réussite au BEPC.
+          Chaque notion renforcée te rapproche de la maîtrise de ce chapitre.
         </p>
       </div>
 
@@ -133,12 +143,12 @@ export function DiagnosticCompleteScreen({
         <ReadinessScoreRing score={result.readinessScore} />
         <p className="text-foreground text-sm font-bold">{PROGRESSION_GLOBALE_LABEL}</p>
         <p className="text-muted text-xs font-semibold">
-          Préparation au BEPC — {result.totalEarnedPoints} points sur {result.totalMaxPoints}
+          {chapterLabel} — {result.totalEarnedPoints} points sur {result.totalMaxPoints}
         </p>
       </section>
 
       <BottomCTA>
-        <PrimaryButton onClick={onContinue}>Accéder à mon espace</PrimaryButton>
+        <PrimaryButton onClick={onContinue}>{getResultsContinueLabel(branch)}</PrimaryButton>
       </BottomCTA>
     </ScreenContainer>
   );

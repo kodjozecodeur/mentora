@@ -79,8 +79,3 @@ export function getCompetencyStatuses(plan: Pick<RevisionPlan, 'sessions'>): Com
   const orderedSessions = [...plan.sessions].sort((left, right) => left.order - right.order);
   return orderedSessions.map((_, index) => getCompetencyStatus(orderedSessions, index));
 }
-
-/** The journey's "ready for exam" trigger: every competency validated (vacuously true with none). */
-export function isReadyForExam(plan: Pick<RevisionPlan, 'sessions'>): boolean {
-  return plan.sessions.every(isSessionValidated);
-}
