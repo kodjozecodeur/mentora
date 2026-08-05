@@ -148,10 +148,7 @@ export function OnboardingFlow() {
       return <PreparingScreen onComplete={() => setStep('diagnostic-intro')} />;
     case 'diagnostic-intro':
       return (
-        <DiagnosticIntroScreen
-          chapterLabel={chapterLabel}
-          onContinue={() => setStep('diagnostic-question')}
-        />
+        <DiagnosticIntroScreen onContinue={() => setStep('diagnostic-question')} />
       );
     case 'diagnostic-question': {
       if (!diagnostic.currentQuestion) return null;

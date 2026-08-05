@@ -1,38 +1,39 @@
+import { AppLogo } from '@/components/ui/AppLogo';
 import { BottomCTA } from '@/components/ui/BottomCTA';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { ProgressIndicator } from '@/components/ui/ProgressIndicator';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
+import { SpeechBubble } from '@/components/ui/SpeechBubble';
 
 interface DiagnosticIntroScreenProps {
-  chapterLabel: string;
   onContinue: () => void;
 }
 
-export function DiagnosticIntroScreen({ chapterLabel, onContinue }: DiagnosticIntroScreenProps) {
+export function DiagnosticIntroScreen({ onContinue }: DiagnosticIntroScreenProps) {
   return (
     <ScreenContainer className="onboarding-reveal">
       <ProgressIndicator step={5} totalSteps={5} />
 
-      <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
-        <div className="flex size-24 shrink-0 items-center justify-center" aria-hidden="true">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo/logo-math.svg"
-            alt=""
-            width={96}
-            height={96}
-            className="size-full object-contain"
-          />
+      <div className="flex flex-1 flex-col items-center justify-center gap-6 py-8 text-center">
+        <div className="flex w-full">
+          <SpeechBubble>
+            Parfait ! Faisons un petit point pour découvrir ce que tu maîtrises déjà et construire
+            ton parcours personnalisé.
+          </SpeechBubble>
         </div>
-        <h1 className="text-foreground text-2xl font-bold">Vérifions ensemble</h1>
-        <p className="text-muted text-base font-medium">
-          Réponds à quelques questions sur le chapitre {chapterLabel.toLowerCase()} pour permettre à
-          Mentora d&apos;identifier ce que tu maîtrises déjà et ce que tu dois encore renforcer.
-        </p>
+
+        <div className="flex flex-col items-center gap-2">
+          <AppLogo size="lg" />
+          <p className="text-foreground text-base font-bold">Ton premier diagnostic</p>
+        </div>
       </div>
 
+      <p className="text-muted pb-4 text-center text-sm font-medium">
+        ⏱ Environ 3 minutes • 11 questions
+      </p>
+
       <BottomCTA>
-        <PrimaryButton onClick={onContinue}>Commencer</PrimaryButton>
+        <PrimaryButton onClick={onContinue}>Commencer mon diagnostic</PrimaryButton>
       </BottomCTA>
     </ScreenContainer>
   );
