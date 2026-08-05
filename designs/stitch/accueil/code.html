@@ -1,0 +1,382 @@
+<!doctype html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Mentora - Accueil</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'on-primary-fixed-variant': '#544600',
+              tertiary: '#605f51',
+              'on-tertiary-container': '#5b5a4c',
+              'surface-container-low': '#f6f3f2',
+              'tertiary-fixed-dim': '#cac7b6',
+              'surface-dim': '#dcd9d9',
+              surface: '#fcf9f8',
+              'error-container': '#ffdad6',
+              'on-tertiary-fixed-variant': '#48473a',
+              'surface-container': '#f0eded',
+              'on-secondary-fixed-variant': '#722180',
+              'inverse-on-surface': '#f3f0ef',
+              'primary-container': '#f4ce1a',
+              'on-tertiary': '#ffffff',
+              'primary-fixed-dim': '#e9c403',
+              'on-primary-fixed': '#221b00',
+              'surface-container-highest': '#e5e2e1',
+              'inverse-primary': '#e9c403',
+              'outline-variant': '#d0c6ac',
+              'inverse-surface': '#313030',
+              outline: '#7e7760',
+              'on-tertiary-fixed': '#1d1c11',
+              'surface-bright': '#fcf9f8',
+              'on-secondary': '#ffffff',
+              'on-error': '#ffffff',
+              'tertiary-fixed': '#e6e3d1',
+              background: '#fcf9f8',
+              secondary: '#8d3c9a',
+              'on-surface-variant': '#4d4632',
+              primary: '#705d00',
+              'on-error-container': '#93000a',
+              'secondary-fixed-dim': '#f9acff',
+              'surface-container-lowest': '#ffffff',
+              'on-background': '#1c1b1b',
+              'tertiary-container': '#d4d1c0',
+              error: '#ba1a1a',
+              'surface-tint': '#705d00',
+              'primary-fixed': '#ffe16f',
+              'secondary-fixed': '#ffd6fe',
+              'on-secondary-fixed': '#35003f',
+              'secondary-container': '#f59aff',
+              'surface-container-high': '#eae7e7',
+              'on-primary': '#ffffff',
+              'on-surface': '#1c1b1b',
+              'on-secondary-container': '#772685',
+              'on-primary-container': '#6a5800',
+              'surface-variant': '#e5e2e1',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              'container-padding': '20px',
+              md: '24px',
+              lg: '40px',
+              sm: '12px',
+              'stack-gap': '16px',
+              base: '8px',
+              xl: '64px',
+              xs: '4px',
+            },
+            fontFamily: {
+              'headline-lg-mobile': ['Lexend'],
+              'body-lg': ['Lexend'],
+              'label-lg': ['Lexend'],
+              'body-md': ['Lexend'],
+              'headline-xl': ['Lexend'],
+              'headline-lg': ['Lexend'],
+              'label-sm': ['Lexend'],
+            },
+            fontSize: {
+              'headline-lg-mobile': ['20px', { lineHeight: '28px', fontWeight: '600' }],
+              'body-lg': ['18px', { lineHeight: '28px', fontWeight: '500' }],
+              'label-lg': [
+                '14px',
+                { lineHeight: '20px', letterSpacing: '0.02em', fontWeight: '600' },
+              ],
+              'body-md': ['16px', { lineHeight: '24px', fontWeight: '400' }],
+              'headline-xl': [
+                '32px',
+                { lineHeight: '40px', letterSpacing: '-0.02em', fontWeight: '700' },
+              ],
+              'headline-lg': [
+                '24px',
+                { lineHeight: '32px', letterSpacing: '-0.01em', fontWeight: '600' },
+              ],
+              'label-sm': ['12px', { lineHeight: '16px', fontWeight: '500' }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .tactile-card {
+        border: 2px solid #e5e2e1;
+        box-shadow: 0 4px 0 #e5e2e1;
+        transition: all 0.15s ease-in-out;
+      }
+      .tactile-card:active {
+        box-shadow: 0 0 0 #e5e2e1;
+        transform: translateY(4px);
+      }
+      .tactile-button-primary {
+        border-bottom: 4px solid #6a5800;
+        transition: all 0.1s ease-in-out;
+      }
+      .tactile-button-primary:active {
+        border-bottom: 0px solid #6a5800;
+        transform: translateY(4px);
+        margin-bottom: 4px; /* to compensate for layout shift */
+      }
+      .gauge-circle {
+        transition: stroke-dasharray 1s ease-out;
+      }
+
+      /* Safe area handling for bottom nav */
+      @supports (padding-bottom: env(safe-area-inset-bottom)) {
+        .pb-safe {
+          padding-bottom: env(safe-area-inset-bottom);
+        }
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background text-on-background font-body-md flex min-h-screen flex-col pb-24 md:pb-0"
+  >
+    <!-- TopAppBar -->
+    <header
+      class="bg-background dark:bg-background docked full-width flat no shadows px-container-padding fixed top-0 left-0 z-50 mx-auto flex hidden h-16 w-full max-w-[720px] items-center justify-between md:flex"
+    >
+      <button
+        class="text-on-surface-variant hover:bg-surface-container flex items-center justify-center rounded-full p-2 transition-colors"
+      >
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0"
+          >menu</span
+        >
+      </button>
+      <h1 class="font-headline-xl text-headline-xl text-primary dark:text-primary-fixed font-bold">
+        Mentora
+      </h1>
+      <div class="bg-surface-container h-10 w-10 overflow-hidden rounded-full">
+        <img
+          alt="User profile photo"
+          class="h-full w-full object-cover"
+          data-alt="A small, circular avatar portrait of a friendly student, bright lighting, clean background, minimal illustration style."
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHSzeKyf47Wo6WWkkZ7HVICojrXknRolzQQSciiGgvjGJsiR2yOo1LbONGSuuRIprf5P6nPSEH5TgtnY6x1MtAjrZ-xyS7EQ9FwMJuiuNyGfKs2OZ9xtoAjF85DF_vcCqRX7QKd_IcSZVPP7TRlJBwweSXEMCOrSppojf-vXTxrna5E18yDD9z1hRw3Lm8pxsyIjJtnAeLfou02zUeiVEvZxJT1o_PvTmFxWeYzaRDr-GIE1NpV44"
+        />
+      </div>
+    </header>
+    <!-- Mobile Top Header (fallback since full app bar is hidden on mobile in this setup based on shell rules, but we need some header) -->
+    <div class="px-container-padding flex items-center justify-between pt-6 pb-4 md:hidden">
+      <div class="flex items-center gap-3">
+        <div
+          class="bg-surface-container border-outline-variant h-12 w-12 overflow-hidden rounded-full border-2"
+        >
+          <img
+            alt="User profile photo"
+            class="h-full w-full object-cover"
+            data-alt="A small, circular avatar portrait of a friendly student, bright lighting, clean background, minimal illustration style, focusing on a vibrant and clear aesthetic."
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIjscuhP4XvJSLlVLbi0Gpzw7qjmdXtkeXIXtNpGt5sg3T0yhNNH-9YcoJlaqOgm0UwkgsRYYN7JE83I-RaDgRH8GrVs749_t1WWxp_NU8v76LEVuEIfBh_GJpSu_kUTNOexqpbq5LSgFz2gob0-tIrgRMSS4oLoe8L0QPHsI2fbqLRKO_MhgEb1xEMOFOnpFDjWlO5Rx1kNRk8-IWbpS7VEd5eLuFwXa8cPw6yWRDT-Zpmpn61m4"
+          />
+        </div>
+        <div>
+          <h2 class="font-body-lg text-on-surface-variant">Bonjour, Léo 👋</h2>
+          <p class="font-label-sm text-outline">Prêt pour aujourd'hui ?</p>
+        </div>
+      </div>
+    </div>
+    <!-- Main Content Canvas -->
+    <main class="px-container-padding space-y-lg mx-auto w-full max-w-[720px] flex-1 md:pt-24">
+      <!-- Readiness Score Bento Block -->
+      <section
+        class="bg-surface tactile-card relative flex flex-col items-center justify-center overflow-hidden rounded-xl p-6"
+      >
+        <h2
+          class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-6 w-full text-center"
+        >
+          Ton Readiness Score
+        </h2>
+        <div class="relative flex h-48 w-48 items-center justify-center">
+          <!-- SVG Gauge -->
+          <svg class="h-full w-full -rotate-90 transform" viewbox="0 0 100 100">
+            <circle
+              cx="50"
+              cy="50"
+              fill="transparent"
+              r="45"
+              stroke="#f0eded"
+              stroke-width="10"
+            ></circle>
+            <!-- Stroke dasharray: circumference = 2*pi*r = 2 * 3.14 * 45 = 282.6 -->
+            <!-- 72% of 282.6 = 203.47 -->
+            <circle
+              class="gauge-circle text-primary-container"
+              cx="50"
+              cy="50"
+              fill="transparent"
+              r="45"
+              stroke="currentColor"
+              stroke-dasharray="203.47 282.6"
+              stroke-linecap="round"
+              stroke-width="10"
+            ></circle>
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <span class="font-headline-xl text-headline-xl text-primary">72%</span>
+            <span class="font-label-sm text-on-surface-variant">Optimal</span>
+          </div>
+        </div>
+        <p class="font-body-md text-on-surface-variant mt-6 text-center">
+          Tu es en excellente condition pour apprendre de nouveaux concepts aujourd'hui.
+        </p>
+      </section>
+      <!-- Two Column Grid for secondary items on larger screens, stack on mobile -->
+      <div class="gap-stack-gap grid grid-cols-1 md:grid-cols-2">
+        <!-- Objectif du jour -->
+        <section
+          class="border-primary-container p-md flex flex-col justify-between rounded-xl border-2 bg-[#FDF9E7] shadow-[0_4px_12px_rgba(244,206,26,0.15)]"
+        >
+          <div>
+            <div class="mb-4 flex items-center gap-2">
+              <span
+                class="material-symbols-outlined text-primary"
+                style="font-variation-settings: 'FILL' 1"
+                >flag</span
+              >
+              <h3 class="font-label-lg text-label-lg text-primary">Objectif du jour</h3>
+            </div>
+            <h4 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-2">
+              Réviser les Fonctions
+            </h4>
+            <p class="font-body-md text-on-surface-variant">
+              Concentre-toi sur les dérivées et les variations.
+            </p>
+          </div>
+          <button
+            class="bg-surface text-on-surface border-outline-variant font-label-lg text-label-lg hover:bg-surface-container mt-6 flex w-full items-center justify-center gap-2 rounded-lg border-2 px-4 py-2 transition-colors"
+          >
+            Voir les détails
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </button>
+        </section>
+        <!-- Ma progression -->
+        <section class="bg-surface tactile-card p-md rounded-xl">
+          <div class="mb-6 flex items-center gap-2">
+            <span
+              class="material-symbols-outlined text-secondary"
+              style="font-variation-settings: 'FILL' 1"
+              >trending_up</span
+            >
+            <h3 class="font-label-lg text-label-lg text-on-surface">Ma progression</h3>
+          </div>
+          <div class="space-y-4">
+            <!-- Maths -->
+            <div>
+              <div class="mb-1 flex items-end justify-between">
+                <span class="font-label-lg text-label-lg text-on-surface">Maths</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant">80%</span>
+              </div>
+              <div class="bg-surface-container-highest h-3 w-full overflow-hidden rounded-full">
+                <div class="bg-primary-container h-full rounded-full" style="width: 80%"></div>
+              </div>
+            </div>
+            <!-- Physique -->
+            <div>
+              <div class="mb-1 flex items-end justify-between">
+                <span class="font-label-lg text-label-lg text-on-surface">Physique</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant">60%</span>
+              </div>
+              <div class="bg-surface-container-highest h-3 w-full overflow-hidden rounded-full">
+                <div class="bg-secondary h-full rounded-full" style="width: 60%"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- Call to Action -->
+      <section class="pt-4 pb-8">
+        <button
+          class="bg-primary-container tactile-button-primary font-headline-lg-mobile text-headline-lg-mobile flex w-full items-center justify-center gap-3 rounded-xl px-6 py-4 text-[#1A1A1A]"
+        >
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1"
+            >play_arrow</span
+          >
+          Reprendre ma révision
+        </button>
+      </section>
+    </main>
+    <!-- BottomNavBar -->
+    <nav
+      class="pb-safe bg-surface dark:bg-surface-container border-surface-container-highest dark:border-outline-variant docked full-width fixed bottom-0 left-0 z-50 flex h-20 w-full items-center justify-around rounded-t-xl border-t-2 px-2 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] md:hidden"
+    >
+      <!-- Active Tab: Accueil -->
+      <a
+        class="bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary Active: flex translate-y-0.5 scale-95 flex-col items-center justify-center rounded-xl px-4 py-1.5 transition-all duration-150"
+        href="#"
+      >
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1"
+          >home</span
+        >
+        <span class="font-label-sm text-label-sm mt-1">Accueil</span>
+      </a>
+      <!-- Inactive Tab: Diagnostic -->
+      <a
+        class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-dim flex flex-col items-center justify-center px-4 py-1.5 transition-all"
+        href="#"
+      >
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0"
+          >analytics</span
+        >
+        <span class="font-label-sm text-label-sm mt-1">Diagnostic</span>
+      </a>
+      <!-- Inactive Tab: Révision -->
+      <a
+        class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-dim flex flex-col items-center justify-center px-4 py-1.5 transition-all"
+        href="#"
+      >
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0"
+          >auto_stories</span
+        >
+        <span class="font-label-sm text-label-sm mt-1">Révision</span>
+      </a>
+      <!-- Inactive Tab: Profil -->
+      <a
+        class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-dim flex flex-col items-center justify-center px-4 py-1.5 transition-all"
+        href="#"
+      >
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0"
+          >person</span
+        >
+        <span class="font-label-sm text-label-sm mt-1">Profil</span>
+      </a>
+    </nav>
+    <script>
+      // Simple script to animate gauge on load
+      document.addEventListener('DOMContentLoaded', () => {
+        const gauge = document.querySelector('.gauge-circle');
+        if (gauge) {
+          // reset for animation
+          gauge.style.strokeDasharray = '0 282.6';
+          setTimeout(() => {
+            gauge.style.strokeDasharray = '203.47 282.6';
+          }, 100);
+        }
+      });
+    </script>
+  </body>
+</html>

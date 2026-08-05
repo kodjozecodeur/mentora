@@ -1,0 +1,274 @@
+<!doctype html>
+
+<html class="light" lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Mentora - Succès</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'secondary-fixed': '#ffd6fe',
+              'tertiary-fixed': '#e6e3d1',
+              tertiary: '#605f51',
+              'on-tertiary-container': '#5b5a4c',
+              background: '#fcf9f8',
+              outline: '#7e7760',
+              'surface-container-low': '#f6f3f2',
+              'on-tertiary-fixed': '#1d1c11',
+              primary: '#705d00',
+              'secondary-fixed-dim': '#f9acff',
+              'on-tertiary': '#ffffff',
+              'inverse-surface': '#313030',
+              'surface-variant': '#e5e2e1',
+              'surface-container-highest': '#e5e2e1',
+              secondary: '#8d3c9a',
+              'outline-variant': '#d0c6ac',
+              'on-tertiary-fixed-variant': '#48473a',
+              'on-primary': '#ffffff',
+              'surface-container-lowest': '#ffffff',
+              'on-error': '#ffffff',
+              'inverse-on-surface': '#f3f0ef',
+              'primary-fixed': '#ffe16f',
+              error: '#ba1a1a',
+              'tertiary-container': '#d4d1c0',
+              'surface-bright': '#fcf9f8',
+              'on-secondary': '#ffffff',
+              'surface-tint': '#705d00',
+              'on-primary-container': '#6a5800',
+              'surface-container-high': '#eae7e7',
+              'on-surface-variant': '#4d4632',
+              'error-container': '#ffdad6',
+              'on-secondary-container': '#772685',
+              'on-background': '#1c1b1b',
+              'secondary-container': '#f59aff',
+              'inverse-primary': '#e9c403',
+              'primary-container': '#f4ce1a',
+              'primary-fixed-dim': '#e9c403',
+              'on-error-container': '#93000a',
+              'on-primary-fixed-variant': '#544600',
+              'tertiary-fixed-dim': '#cac7b6',
+              'surface-container': '#f0eded',
+              surface: '#fcf9f8',
+              'surface-dim': '#dcd9d9',
+              'on-secondary-fixed-variant': '#722180',
+              'on-secondary-fixed': '#35003f',
+              'on-surface': '#1c1b1b',
+              'on-primary-fixed': '#221b00',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              base: '8px',
+              xs: '4px',
+              xl: '64px',
+              sm: '12px',
+              lg: '40px',
+              'container-padding': '20px',
+              md: '24px',
+              'stack-gap': '16px',
+            },
+            fontFamily: {
+              'label-sm': ['Lexend'],
+              'body-lg': ['Lexend'],
+              'headline-lg-mobile': ['Lexend'],
+              'headline-lg': ['Lexend'],
+              'headline-xl': ['Lexend'],
+              'body-md': ['Lexend'],
+              'label-lg': ['Lexend'],
+            },
+            fontSize: {
+              'label-sm': [
+                '12px',
+                {
+                  lineHeight: '16px',
+                  fontWeight: '500',
+                },
+              ],
+              'body-lg': [
+                '18px',
+                {
+                  lineHeight: '28px',
+                  fontWeight: '500',
+                },
+              ],
+              'headline-lg-mobile': [
+                '20px',
+                {
+                  lineHeight: '28px',
+                  fontWeight: '600',
+                },
+              ],
+              'headline-lg': [
+                '24px',
+                {
+                  lineHeight: '32px',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600',
+                },
+              ],
+              'headline-xl': [
+                '32px',
+                {
+                  lineHeight: '40px',
+                  letterSpacing: '-0.02em',
+                  fontWeight: '700',
+                },
+              ],
+              'body-md': [
+                '16px',
+                {
+                  lineHeight: '24px',
+                  fontWeight: '400',
+                },
+              ],
+              'label-lg': [
+                '14px',
+                {
+                  lineHeight: '20px',
+                  letterSpacing: '0.02em',
+                  fontWeight: '600',
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #f4ce1a;
+        opacity: 0;
+      }
+      @keyframes fall {
+        0% {
+          opacity: 1;
+          transform: translateY(-100px) rotate(0deg);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(100vh) rotate(360deg);
+        }
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background text-on-background font-body-md px-container-padding py-lg relative flex min-h-screen flex-col items-center justify-center overflow-hidden antialiased"
+  >
+    <!-- Confetti Container -->
+    <div class="pointer-events-none absolute inset-0 z-0" id="confetti-container"></div>
+    <main
+      class="gap-lg z-10 flex w-full max-w-[720px] flex-col items-center justify-center text-center"
+    >
+      <!-- Illustration -->
+      <div class="mb-stack-gap relative h-48 w-48 sm:h-64 sm:w-64">
+        <div
+          class="bg-primary-fixed absolute inset-0 animate-pulse rounded-full opacity-20 blur-2xl"
+        ></div>
+        <img
+          class="border-surface relative z-10 h-full w-full rounded-full border-4 object-contain shadow-[0_8px_16px_-4px_rgba(112,93,0,0.1)]"
+          data-alt="A vibrant, modern 3D illustration of a friendly, intellectual robot mascot character for an educational app. The robot is celebrating enthusiastically, arms raised, surrounded by stylized sparkles and geometric math symbols like parabolas and graphs. The style is tactile modernism with soft lighting, warm yellow accents on a clean white background, evoking encouragement and clarity."
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0RqriTzPoFhZoaRd7GKbTwPBQR38GYmMFv5rRaV-B4aDUz4ZG1h5y6jVn6HUfO-m0EZQkUqzKryI45EICa7LtnQbkUJi3WaAH5T1KjgA8bE5zBUgPYbahhcR2_B6qfpmvtW3szEqYyJ_F0fWi5WrVywmURR2q-SRlB_c2OJu0-NQtdZxslGSjGqWd6p-DyvWn_Hqjflez7yM-zlo9WfIcIK8sw5FKcfhlk1dFN1dhydwCX02BVzI"
+        />
+        <!-- Floating Checkmark Badge -->
+        <div
+          class="bg-primary-container text-on-primary-container p-sm border-surface absolute -right-4 -bottom-4 z-20 flex items-center justify-center rounded-full border-2 shadow-[0_4px_0_0_#d1b016]"
+        >
+          <span
+            class="material-symbols-outlined text-[32px]"
+            style="font-variation-settings: 'FILL' 1"
+            >check_circle</span
+          >
+        </div>
+      </div>
+      <!-- Typography -->
+      <div class="gap-sm flex flex-col items-center">
+        <h1 class="font-headline-xl text-headline-xl text-primary">Félicitations ! 🎉</h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-sm">
+          Tu as parfaitement maîtrisé les fonctions polynômes de degré 2.
+        </p>
+      </div>
+      <!-- Competence Badge -->
+      <div
+        class="bg-surface-container-low border-surface-container-highest px-md py-sm gap-sm mt-stack-gap flex items-center rounded-xl border-2 shadow-sm"
+      >
+        <div
+          class="bg-secondary-fixed text-on-secondary-fixed flex h-10 w-10 items-center justify-center rounded-full"
+        >
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1"
+            >functions</span
+          >
+        </div>
+        <div class="flex flex-col items-start text-left">
+          <span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase"
+            >Compétence Validée</span
+          >
+          <span class="font-label-lg text-label-lg text-on-surface">Polynômes de degré 2</span>
+        </div>
+      </div>
+      <!-- Actions -->
+      <div class="gap-stack-gap mt-lg flex w-full flex-col">
+        <button
+          class="bg-primary-container text-on-primary-container font-label-lg text-label-lg py-md gap-sm flex w-full items-center justify-center rounded-xl border-b-[4px] border-[#d1b016] shadow-sm transition-all active:translate-y-[4px] active:border-b-0"
+        >
+          <span>Continuer mon plan</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+        <button
+          class="text-secondary font-label-lg text-label-lg py-sm hover:bg-surface-container-low active:bg-surface-container gap-xs flex w-full items-center justify-center rounded-xl bg-transparent transition-colors"
+        >
+          <span class="material-symbols-outlined text-[20px]">menu_book</span>
+          <span>Voir le corrigé détaillé</span>
+        </button>
+      </div>
+    </main>
+    <script>
+      // Simple confetti effect
+      const colors = ['#f4ce1a', '#8d3c9a', '#ffd6fe', '#e9c403'];
+      const container = document.getElementById('confetti-container');
+
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animation = `fall ${Math.random() * 2 + 1}s linear ${Math.random() * 0.5}s forwards`;
+
+        // Random shapes
+        if (Math.random() > 0.5) {
+          confetti.style.borderRadius = '50%';
+        }
+
+        container.appendChild(confetti);
+      }
+    </script>
+  </body>
+</html>

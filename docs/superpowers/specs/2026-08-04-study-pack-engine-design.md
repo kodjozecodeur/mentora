@@ -168,7 +168,7 @@ re-declared.
 - **Page breaks** (per your approval): cover is always its own page
   (`pageBreakBefore` on the section right after it); each fiche gets its own page
   (`pageBreakBefore: true` per fiche); the corrections section is `pageBreakBefore:
-  true`. Cards (e.g. a single mini-exercise, a single common-mistake box) get
+true`. Cards (e.g. a single mini-exercise, a single common-mistake box) get
   `break-inside: avoid` so a card never splits across a page boundary.
 - **Design**: white background, Mentora's existing palette used sparingly (borders/
   headings only, no big color fills), legible in black-and-white printing, Satoshi font
@@ -179,7 +179,7 @@ re-declared.
 ## `downloadStudyPack`
 
 ```ts
-function downloadStudyPack(html: string, options?: { windowName?: string }): void
+function downloadStudyPack(html: string, options?: { windowName?: string }): void;
 ```
 
 Opens a new window (`window.open`), writes the HTML string into it
@@ -199,7 +199,7 @@ Each pure layer gets deterministic tests with a fixed `generatedAt`/input fixtur
   re-running with the same input and same `generatedAt` produces a deep-equal result
   (determinism); mutating the returned object (or the caller's input after the call)
   does not change a second call's output (frozen snapshot — verified via `Object.freeze`
-  + a mutation attempt in a test, not just by convention).
+  - a mutation attempt in a test, not just by convention).
 - `studyPackToDocumentModel`: stable output for a fixed `StudyPack` fixture; cover section
   has `pageBreakBefore` on the following section; each fiche section has
   `pageBreakBefore: true`; corrections section has `pageBreakBefore: true`; mini-exercise

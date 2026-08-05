@@ -1,0 +1,359 @@
+<!doctype html>
+
+<html class="light" lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+      name="viewport"
+    />
+    <title>Mentora - Diagnostic</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'on-primary-fixed-variant': '#544600',
+              tertiary: '#605f51',
+              'on-tertiary-container': '#5b5a4c',
+              'surface-container-low': '#f6f3f2',
+              'tertiary-fixed-dim': '#cac7b6',
+              'surface-dim': '#dcd9d9',
+              surface: '#fcf9f8',
+              'error-container': '#ffdad6',
+              'on-tertiary-fixed-variant': '#48473a',
+              'surface-container': '#f0eded',
+              'on-secondary-fixed-variant': '#722180',
+              'inverse-on-surface': '#f3f0ef',
+              'primary-container': '#f4ce1a',
+              'on-tertiary': '#ffffff',
+              'primary-fixed-dim': '#e9c403',
+              'on-primary-fixed': '#221b00',
+              'surface-container-highest': '#e5e2e1',
+              'inverse-primary': '#e9c403',
+              'outline-variant': '#d0c6ac',
+              'inverse-surface': '#313030',
+              outline: '#7e7760',
+              'on-tertiary-fixed': '#1d1c11',
+              'surface-bright': '#fcf9f8',
+              'on-secondary': '#ffffff',
+              'on-error': '#ffffff',
+              'tertiary-fixed': '#e6e3d1',
+              background: '#fcf9f8',
+              secondary: '#8d3c9a',
+              'on-surface-variant': '#4d4632',
+              primary: '#705d00',
+              'on-error-container': '#93000a',
+              'secondary-fixed-dim': '#f9acff',
+              'surface-container-lowest': '#ffffff',
+              'on-background': '#1c1b1b',
+              'tertiary-container': '#d4d1c0',
+              error: '#ba1a1a',
+              'surface-tint': '#705d00',
+              'primary-fixed': '#ffe16f',
+              'secondary-fixed': '#ffd6fe',
+              'on-secondary-fixed': '#35003f',
+              'secondary-container': '#f59aff',
+              'surface-container-high': '#eae7e7',
+              'on-primary': '#ffffff',
+              'on-surface': '#1c1b1b',
+              'on-secondary-container': '#772685',
+              'on-primary-container': '#6a5800',
+              'surface-variant': '#e5e2e1',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              'container-padding': '20px',
+              md: '24px',
+              lg: '40px',
+              sm: '12px',
+              'stack-gap': '16px',
+              base: '8px',
+              xl: '64px',
+              xs: '4px',
+            },
+            fontFamily: {
+              'headline-lg-mobile': ['Lexend'],
+              'body-lg': ['Lexend'],
+              'label-lg': ['Lexend'],
+              'body-md': ['Lexend'],
+              'headline-xl': ['Lexend'],
+              'headline-lg': ['Lexend'],
+              'label-sm': ['Lexend'],
+            },
+            fontSize: {
+              'headline-lg-mobile': ['20px', { lineHeight: '28px', fontWeight: '600' }],
+              'body-lg': ['18px', { lineHeight: '28px', fontWeight: '500' }],
+              'label-lg': [
+                '14px',
+                { lineHeight: '20px', letterSpacing: '0.02em', fontWeight: '600' },
+              ],
+              'body-md': ['16px', { lineHeight: '24px', fontWeight: '400' }],
+              'headline-xl': [
+                '32px',
+                { lineHeight: '40px', letterSpacing: '-0.02em', fontWeight: '700' },
+              ],
+              'headline-lg': [
+                '24px',
+                { lineHeight: '32px', letterSpacing: '-0.01em', fontWeight: '600' },
+              ],
+              'label-sm': ['12px', { lineHeight: '16px', fontWeight: '500' }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #fcf9f8;
+        color: #1c1b1b;
+        font-family: 'Lexend', sans-serif;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      /* Tactile Option Cards */
+      .option-card {
+        border: 2px solid #d0c6ac;
+        box-shadow: 0 4px 0 #d0c6ac;
+        transition: all 0.15s ease;
+        transform: translateY(0);
+      }
+      .option-card:active,
+      .option-card.selected {
+        border-color: #8d3c9a;
+        box-shadow: 0 0px 0 #8d3c9a;
+        transform: translateY(4px);
+        background-color: #f59aff;
+      }
+
+      /* Primary Button */
+      .btn-primary {
+        background-color: #f4ce1a;
+        color: #1c1b1b;
+        border-bottom: 4px solid #705d00;
+        transition: all 0.1s ease;
+      }
+      .btn-primary:active {
+        border-bottom-width: 0px;
+        transform: translateY(4px);
+        margin-bottom: 4px;
+      }
+
+      /* Safe area padding for bottom nav */
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <!-- TopAppBar -->
+    <header
+      class="px-container-padding bg-background dark:bg-background flat no shadows fixed top-0 left-0 z-50 mx-auto flex h-16 w-full max-w-[720px] items-center justify-between"
+    >
+      <button
+        class="hover:bg-surface-container dark:hover:bg-surface-container-high text-primary dark:text-primary-fixed flex h-10 w-10 items-center justify-center rounded-full transition-colors"
+      >
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <h1
+        class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed font-bold"
+      >
+        Mentora
+      </h1>
+      <div
+        class="bg-surface-container border-surface-container-highest flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2"
+      >
+        <img
+          class="h-full w-full object-cover"
+          data-alt="A small circular avatar placeholder image for a user profile photo, simple minimalist style, light background."
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3v346ovRLvPgJp3vYILbSNb7xbQ-USjdKTpcMy7-N8phlVkstGeoHroa5HZRlPNnlZAEBAPdQBhu9Y71pHsbXXu-wetaxdXewSR2vnbZpHtO4byUaiPo4uv_oRnZhoaXWBCfQfVgf5N4A1MXwtZWIgvYZaFc0r4cRq2tL0GjNLDCBgXIhjB-HRZ5PXdKGgsMkuX5vmJZxVi8LjbQUdgqvK4hsmoqAnIeRzVM8Hq2zOw9MHT8SMVo"
+        />
+      </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main
+      class="px-container-padding gap-lg mx-auto flex w-full max-w-[720px] flex-grow flex-col pt-24 pb-32"
+    >
+      <!-- Progress Bar Area -->
+      <div class="gap-base flex w-full flex-col">
+        <div class="flex items-end justify-between">
+          <span class="font-label-lg text-label-lg text-on-surface-variant"
+            >Question 15 sur 20</span
+          >
+          <span class="font-label-sm text-label-sm text-tertiary">75%</span>
+        </div>
+        <div class="bg-surface-container-highest relative h-3 w-full overflow-hidden rounded-full">
+          <div
+            class="bg-primary-container absolute top-0 left-0 h-full rounded-full"
+            style="width: 75%"
+          ></div>
+        </div>
+      </div>
+      <!-- Diagnostic Prompt -->
+      <div class="gap-md mt-stack-gap relative z-10 flex items-start">
+        <!-- Bot Avatar -->
+        <div
+          class="bg-surface-container-highest border-surface-container relative z-20 flex h-16 w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-full border-2 shadow-sm"
+        >
+          <img
+            class="h-full w-full object-cover"
+            data-alt="A friendly, slightly geometric minimalist robot face avatar, bright colors, light mode aesthetic, encouraging expression, solid clean lines."
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpgwL6KmTF3_l-JgaixM33L-_MVepVaIj1b9tmH_OzwGs3qDylJQfNPk2zwcGqchW6E9KqL7YQA9wJZFS54B9mRGODSzzEXLVvY5_Xijc1I5RxjQeQgJO1m9dMLEAWuupqdTQOyb0W3oomUK0Xpd_-pGMlHwarkvCttDgQnae-A25nWMvYqBm1Rww3sESxyWYVSnmlleNiUvO7nnGTelgSYbO4bpsFcupnikXo8g4nvX3u9rk1WJw"
+          />
+        </div>
+        <!-- Speech Bubble -->
+        <div
+          class="border-primary-container p-stack-gap relative flex-grow rounded-xl rounded-tl-none border-2 bg-[#FDF9E7] shadow-sm"
+        >
+          <p class="font-body-lg text-body-lg text-on-surface text-center md:text-left">
+            Quelle est la dérivée de
+            <span class="font-headline-lg text-headline-lg font-bold">f(x) = x²</span> ?
+          </p>
+        </div>
+      </div>
+      <!-- Options Grid -->
+      <div class="gap-stack-gap mt-sm flex flex-col">
+        <!-- Option A -->
+        <button
+          class="option-card bg-surface-container-lowest p-md gap-stack-gap flex w-full items-center rounded-xl text-left"
+          onclick="selectOption(this)"
+        >
+          <div
+            class="border-outline-variant font-label-lg text-label-lg text-on-surface-variant flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2"
+          >
+            A
+          </div>
+          <div class="font-body-md text-body-md text-on-surface flex-grow font-semibold">
+            f'(x) = 2x
+          </div>
+        </button>
+        <!-- Option B -->
+        <button
+          class="option-card bg-surface-container-lowest p-md gap-stack-gap flex w-full items-center rounded-xl text-left"
+          onclick="selectOption(this)"
+        >
+          <div
+            class="border-outline-variant font-label-lg text-label-lg text-on-surface-variant flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2"
+          >
+            B
+          </div>
+          <div class="font-body-md text-body-md text-on-surface flex-grow font-semibold">
+            f'(x) = x
+          </div>
+        </button>
+        <!-- Option C -->
+        <button
+          class="option-card bg-surface-container-lowest p-md gap-stack-gap flex w-full items-center rounded-xl text-left"
+          onclick="selectOption(this)"
+        >
+          <div
+            class="border-outline-variant font-label-lg text-label-lg text-on-surface-variant flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2"
+          >
+            C
+          </div>
+          <div class="font-body-md text-body-md text-on-surface flex-grow font-semibold">
+            f'(x) = 2
+          </div>
+        </button>
+        <!-- Option D -->
+        <button
+          class="option-card bg-surface-container-lowest p-md gap-stack-gap flex w-full items-center rounded-xl text-left"
+          onclick="selectOption(this)"
+        >
+          <div
+            class="border-outline-variant font-label-lg text-label-lg text-on-surface-variant flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border-2"
+          >
+            D
+          </div>
+          <div class="font-body-md text-body-md text-on-surface flex-grow font-semibold">
+            f'(x) = x²
+          </div>
+        </button>
+      </div>
+    </main>
+    <!-- Bottom Action Area -->
+    <div
+      class="px-container-padding pb-md pt-sm from-background fixed bottom-20 left-0 left-1/2 z-40 mx-auto w-full max-w-[720px] -translate-x-1/2 bg-gradient-to-t to-transparent"
+    >
+      <button
+        class="btn-primary font-headline-lg-mobile text-headline-lg-mobile gap-sm flex w-full items-center justify-center rounded-xl py-4"
+      >
+        <span>Valider</span>
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </button>
+    </div>
+    <!-- BottomNavBar -->
+    <nav
+      class="pb-safe bg-surface dark:bg-surface-container border-surface-container-highest dark:border-outline-variant fixed bottom-0 left-0 z-50 flex h-20 w-full items-center justify-around rounded-t-xl border-t-2 px-2 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] md:hidden"
+    >
+      <button
+        class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-dim flex flex-col items-center justify-center px-4 py-1.5 transition-all"
+      >
+        <span class="material-symbols-outlined mb-1">home</span>
+        <span class="font-label-sm text-label-sm">Accueil</span>
+      </button>
+      <button
+        class="bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary hover:bg-surface-container-high dark:hover:bg-surface-dim flex translate-y-0.5 scale-95 transform flex-col items-center justify-center rounded-xl px-4 py-1.5 transition-all duration-150"
+      >
+        <span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1"
+          >analytics</span
+        >
+        <span class="font-label-sm text-label-sm">Diagnostic</span>
+      </button>
+      <button
+        class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-dim flex flex-col items-center justify-center px-4 py-1.5 transition-all"
+      >
+        <span class="material-symbols-outlined mb-1">auto_stories</span>
+        <span class="font-label-sm text-label-sm">Révision</span>
+      </button>
+      <button
+        class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-dim flex flex-col items-center justify-center px-4 py-1.5 transition-all"
+      >
+        <span class="material-symbols-outlined mb-1">person</span>
+        <span class="font-label-sm text-label-sm">Profil</span>
+      </button>
+    </nav>
+    <script>
+      function selectOption(clickedElement) {
+        // Remove selected class from all options
+        const options = document.querySelectorAll('.option-card');
+        options.forEach((opt) => {
+          opt.classList.remove('selected');
+          opt
+            .querySelector('div:first-child')
+            .classList.remove('bg-surface-bright', 'text-on-secondary-container');
+        });
+
+        // Add selected class to clicked option
+        clickedElement.classList.add('selected');
+        clickedElement
+          .querySelector('div:first-child')
+          .classList.add('bg-surface-bright', 'text-on-secondary-container');
+      }
+    </script>
+  </body>
+</html>

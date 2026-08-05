@@ -1,29 +1,37 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import diagnosticQuestions from '@/data/diagnostic-questions.json';
-import exams from '@/data/exams.json';
 import subjects from '@/data/subjects.json';
+import chapters from '@/data/chapters.json';
 import { ConfirmationDialog } from '@/components/ui/ConfirmationDialog';
 import { AppShell } from '@/features/app-shell/AppShell';
 import { DiagnosticAnalysisScreen } from '@/features/diagnostic/DiagnosticAnalysisScreen';
 import { DiagnosticCompleteScreen } from '@/features/diagnostic/DiagnosticCompleteScreen';
 import { DiagnosticQuestionScreen } from '@/features/diagnostic/DiagnosticQuestionScreen';
+import { resolveResultsBranch } from '@/features/diagnostic/resultCopy';
 import { useDiagnosticSession } from '@/hooks/useDiagnosticSession';
+import { selectChapterQuestions } from '@/services/diagnostic/chapterScope';
 import { useRevisionPlan } from '@/services/revision/useRevisionPlan';
 import type { DiagnosticQuestion } from '@/types/diagnostic';
-import type { ExamOption, SubjectOption } from '@/types/onboarding';
+import type { ChapterOption, SubjectOption } from '@/types/onboarding';
+import { SplashScreen } from './SplashScreen';
 import { WelcomeScreen } from './WelcomeScreen';
-import { ExamSelectionScreen } from './ExamSelectionScreen';
+import { ClassSelectionScreen } from './ClassSelectionScreen';
 import { SubjectSelectionScreen } from './SubjectSelectionScreen';
+import { ChapterSelectionScreen } from './ChapterSelectionScreen';
 import { DiagnosticIntroScreen } from './DiagnosticIntroScreen';
 import { PreparingScreen } from './PreparingScreen';
+import { isMvpClassAvailable } from './classAvailability';
 import { isMvpSubjectAvailable } from './subjectAvailability';
+import { isMvpChapterAvailable } from './chapterAvailability';
 
 type Step =
+  | 'splash'
   | 'welcome'
-  | 'exam'
+  | 'class'
   | 'subject'
+  | 'chapter'
   | 'preparing'
   | 'diagnostic-intro'
   | 'diagnostic-question'
@@ -33,22 +41,31 @@ type Step =
 
 const DIAGNOSTIC_QUESTIONS = diagnosticQuestions as DiagnosticQuestion[];
 
-interface OnboardingFlowProps {
-  onDownloadStudyPack?: () => void;
-}
+/** Steps reachable only once the initial diagnostic has produced a result (spec §12 deep-link fallback). */
+const STEPS_REQUIRING_INITIAL_RESULT: Step[] = [
+  'diagnostic-analysis',
+  'diagnostic-result',
+  'app-shell',
+];
 
-export function OnboardingFlow({ onDownloadStudyPack }: OnboardingFlowProps) {
-  const [step, setStep] = useState<Step>('welcome');
+export function OnboardingFlow() {
+  const [step, setStep] = useState<Step>('splash');
   const [name, setName] = useState('');
-  const [examId, setExamId] = useState<string | null>(null);
+  const [classId, setClassId] = useState<string | null>(null);
   const [subjectId, setSubjectId] = useState<string | null>(null);
+  const [chapterId, setChapterId] = useState<string | null>(null);
   const [isRestartDialogOpen, setIsRestartDialogOpen] = useState(false);
-  const diagnostic = useDiagnosticSession(DIAGNOSTIC_QUESTIONS);
+  const chapterQuestions = useMemo(
+    () => selectChapterQuestions(DIAGNOSTIC_QUESTIONS, chapterId),
+    [chapterId],
+  );
+  const diagnostic = useDiagnosticSession(chapterQuestions, 'initial');
   const revision = useRevisionPlan(diagnostic.result, name);
 
   const subjectLabel =
     (subjects as SubjectOption[]).find((subject) => subject.id === subjectId)?.label ?? '';
-  const examLabel = (exams as ExamOption[]).find((exam) => exam.id === examId)?.label ?? '';
+  const chapterLabel =
+    (chapters as ChapterOption[]).find((chapter) => chapter.id === chapterId)?.label ?? '';
 
   function restartDiagnostic() {
     revision.clearPlan();
@@ -74,32 +91,35 @@ export function OnboardingFlow({ onDownloadStudyPack }: OnboardingFlowProps) {
 
   // A restored diagnostic result resumes in the post-diagnostic app shell.
   useEffect(() => {
-    if (step === 'welcome' && diagnostic.result) {
+    if ((step === 'splash' || step === 'welcome') && diagnostic.result) {
       setStep('app-shell');
     }
   }, [step, diagnostic.result]);
 
-  // Defensive fallback: analysis/result steps require a saved result (e.g. direct access, stale state).
+  // Defensive fallback: every post-diagnostic step requires a saved initial result (e.g. direct
+  // access, stale state) — spec §12 deep-link fallback.
   useEffect(() => {
-    if (
-      (step === 'diagnostic-analysis' || step === 'diagnostic-result' || step === 'app-shell') &&
-      !diagnostic.result
-    ) {
+    if (STEPS_REQUIRING_INITIAL_RESULT.includes(step) && !diagnostic.result) {
       setStep('diagnostic-question');
     }
   }, [step, diagnostic.result]);
 
   switch (step) {
+    case 'splash':
+      return <SplashScreen onContinue={() => setStep('welcome')} />;
     case 'welcome':
       return (
-        <WelcomeScreen name={name} onNameChange={setName} onContinue={() => setStep('exam')} />
+        <WelcomeScreen name={name} onNameChange={setName} onContinue={() => setStep('class')} />
       );
-    case 'exam':
+    case 'class':
       return (
-        <ExamSelectionScreen
-          selectedExamId={examId}
-          onSelectExam={setExamId}
-          onContinue={() => setStep('subject')}
+        <ClassSelectionScreen
+          selectedClassId={classId}
+          onSelectClass={setClassId}
+          onContinue={() => {
+            if (!isMvpClassAvailable(classId)) return;
+            setStep('subject');
+          }}
         />
       );
     case 'subject':
@@ -109,6 +129,17 @@ export function OnboardingFlow({ onDownloadStudyPack }: OnboardingFlowProps) {
           onSelectSubject={setSubjectId}
           onContinue={() => {
             if (!isMvpSubjectAvailable(subjectId)) return;
+            setStep('chapter');
+          }}
+        />
+      );
+    case 'chapter':
+      return (
+        <ChapterSelectionScreen
+          selectedChapterId={chapterId}
+          onSelectChapter={setChapterId}
+          onContinue={() => {
+            if (!isMvpChapterAvailable(chapterId)) return;
             setStep('preparing');
           }}
         />
@@ -117,10 +148,7 @@ export function OnboardingFlow({ onDownloadStudyPack }: OnboardingFlowProps) {
       return <PreparingScreen onComplete={() => setStep('diagnostic-intro')} />;
     case 'diagnostic-intro':
       return (
-        <DiagnosticIntroScreen
-          subjectLabel={subjectLabel}
-          onContinue={() => setStep('diagnostic-question')}
-        />
+        <DiagnosticIntroScreen onContinue={() => setStep('diagnostic-question')} />
       );
     case 'diagnostic-question': {
       if (!diagnostic.currentQuestion) return null;
@@ -153,6 +181,7 @@ export function OnboardingFlow({ onDownloadStudyPack }: OnboardingFlowProps) {
       return (
         <DiagnosticCompleteScreen
           result={diagnostic.result}
+          chapterLabel={chapterLabel}
           firstName={name}
           onContinue={() => setStep('app-shell')}
         />
@@ -166,13 +195,13 @@ export function OnboardingFlow({ onDownloadStudyPack }: OnboardingFlowProps) {
           <AppShell
             diagnosticResult={diagnostic.result}
             revisionPlan={revision.plan}
+            diagnosticQuestions={DIAGNOSTIC_QUESTIONS}
             firstName={name}
-            examLabel={examLabel || 'BEPC'}
             subjectLabel={subjectLabel || 'Mathématiques'}
+            resultsBranch={resolveResultsBranch(diagnostic.result.competencyMastery)}
             onRestartDiagnostic={requestRestartDiagnostic}
             onStartRevisionSession={revision.startSession}
-            onCompleteRevisionSession={revision.completeSession}
-            onDownloadStudyPack={onDownloadStudyPack}
+            onSubmitValidationAttempt={revision.submitValidationAttempt}
           />
           <ConfirmationDialog
             open={isRestartDialogOpen}

@@ -7,7 +7,12 @@ import {
   loadDiagnosticProgress,
   saveDiagnosticProgress,
 } from '@/services/diagnostic/storage';
-import type { DiagnosticQuestion, DiagnosticResponse, DiagnosticResult } from '@/types/diagnostic';
+import type {
+  DiagnosticPhase,
+  DiagnosticQuestion,
+  DiagnosticResponse,
+  DiagnosticResult,
+} from '@/types/diagnostic';
 
 interface UseDiagnosticSessionResult {
   currentQuestion: DiagnosticQuestion | null;
@@ -21,15 +26,18 @@ interface UseDiagnosticSessionResult {
 }
 
 /** Restores in-progress state so a page refresh mid-diagnostic doesn't lose answers (spec: state = localStorage only). */
-function restoreState(questions: DiagnosticQuestion[]) {
-  const saved = loadDiagnosticProgress();
+function restoreState(phase: DiagnosticPhase, questions: DiagnosticQuestion[]) {
+  const saved = loadDiagnosticProgress(phase);
   if (!saved) return { questionIndex: 0, responses: {}, result: null };
 
   const questionIndex = Math.min(saved.questionIndex, questions.length - 1);
   return { questionIndex, responses: saved.responses, result: saved.result };
 }
 
-export function useDiagnosticSession(questions: DiagnosticQuestion[]): UseDiagnosticSessionResult {
+export function useDiagnosticSession(
+  questions: DiagnosticQuestion[],
+  phase: DiagnosticPhase = 'initial',
+): UseDiagnosticSessionResult {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [responses, setResponses] = useState<Record<string, DiagnosticResponse>>({});
   const [result, setResult] = useState<DiagnosticResult | null>(null);
@@ -37,7 +45,7 @@ export function useDiagnosticSession(questions: DiagnosticQuestion[]): UseDiagno
   const [isRestored, setIsRestored] = useState(false);
 
   useEffect(() => {
-    const restored = restoreState(questions);
+    const restored = restoreState(phase, questions);
     setQuestionIndex(restored.questionIndex);
     setResponses(restored.responses);
     setResult(restored.result);
@@ -48,8 +56,8 @@ export function useDiagnosticSession(questions: DiagnosticQuestion[]): UseDiagno
 
   useEffect(() => {
     if (!isRestored) return;
-    saveDiagnosticProgress({ questionIndex, responses, result });
-  }, [isRestored, questionIndex, responses, result]);
+    saveDiagnosticProgress(phase, { questionIndex, responses, result, phase });
+  }, [isRestored, phase, questionIndex, responses, result]);
 
   const currentQuestion = questions[questionIndex] ?? null;
 
@@ -79,11 +87,11 @@ export function useDiagnosticSession(questions: DiagnosticQuestion[]): UseDiagno
       return;
     }
 
-    setResult(runDiagnosticEngine(questions, Object.values(nextResponses)));
+    setResult(runDiagnosticEngine(questions, Object.values(nextResponses), phase));
   }
 
   function restart() {
-    clearDiagnosticProgress();
+    clearDiagnosticProgress(phase);
     setQuestionIndex(0);
     setResponses({});
     setResult(null);

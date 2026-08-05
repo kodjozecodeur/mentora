@@ -1,20 +1,28 @@
-import type { DiagnosticSessionState } from '@/types/diagnostic';
+import type { DiagnosticPhase, DiagnosticSessionState } from '@/types/diagnostic';
 
-const STORAGE_KEY = 'mentora.diagnostic.bepc-mathematiques.v2';
+/** Initial and final diagnostics are stored under separate keys/versions (spec §9, §10 Decision) —
+ * a final result must never overwrite the initial one, so before/after comparison stays derivable. */
+const STORAGE_KEYS: Record<DiagnosticPhase, string> = {
+  initial: 'mentora.diagnostic.bepc-mathematiques.initial.v3',
+  final: 'mentora.diagnostic.bepc-mathematiques.final.v1',
+};
 
 function hasLocalStorage(): boolean {
   return typeof localStorage !== 'undefined';
 }
 
-export function saveDiagnosticProgress(state: DiagnosticSessionState): void {
+export function saveDiagnosticProgress(
+  phase: DiagnosticPhase,
+  state: DiagnosticSessionState,
+): void {
   if (!hasLocalStorage()) return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  localStorage.setItem(STORAGE_KEYS[phase], JSON.stringify(state));
 }
 
-export function loadDiagnosticProgress(): DiagnosticSessionState | null {
+export function loadDiagnosticProgress(phase: DiagnosticPhase): DiagnosticSessionState | null {
   if (!hasLocalStorage()) return null;
 
-  const raw = localStorage.getItem(STORAGE_KEY);
+  const raw = localStorage.getItem(STORAGE_KEYS[phase]);
   if (!raw) return null;
 
   try {
@@ -24,7 +32,7 @@ export function loadDiagnosticProgress(): DiagnosticSessionState | null {
   }
 }
 
-export function clearDiagnosticProgress(): void {
+export function clearDiagnosticProgress(phase: DiagnosticPhase): void {
   if (!hasLocalStorage()) return;
-  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(STORAGE_KEYS[phase]);
 }

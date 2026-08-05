@@ -2,15 +2,18 @@
 @import 'katex/dist/katex.min.css';
 
 :root {
-  --background: #fdf2ff;
-  --foreground: #24152a;
+  --background: #fcf9f8;
+  --foreground: #1c1b1b;
   --primary: #f4ce1a;
-  --primary-foreground: #24152a;
+  --primary-foreground: #1c1b1b;
+  --primary-border: #705d00;
   --highlight: #873694;
   --highlight-foreground: #ffffff;
   --surface: #ffffff;
-  --muted: #6f6273;
-  --border: #ebddec;
+  --muted: #4d4632;
+  --border: #e5e2e1;
+  --selected-surface: #ffd6fe;
+  --speech-bubble: #fdf9e7;
 }
 
 @theme inline {
@@ -18,12 +21,15 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-border: var(--primary-border);
   --color-highlight: var(--highlight);
   --color-highlight-foreground: var(--highlight-foreground);
   --color-surface: var(--surface);
   --color-muted: var(--muted);
   --color-border: var(--border);
-  --font-sans: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
+  --color-selected-surface: var(--selected-surface);
+  --color-speech-bubble: var(--speech-bubble);
+  --font-sans: 'Lexend', ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
@@ -55,11 +61,11 @@ body {
 }
 
 .math-content-container .katex {
-  font-size: clamp(1rem, 5vw, 1.5rem);
+  font-size: clamp(0.875rem, 4vw, 1.125rem);
 }
 
 .math-content-container[data-display-mode='true'] .katex {
-  font-size: clamp(1.5rem, 8vw, 2.25rem);
+  font-size: clamp(1.25rem, 6vw, 1.75rem);
 }
 
 .progress-fill::after {
@@ -111,6 +117,21 @@ body {
 
 .diagnostic-question-reveal {
   animation: diagnostic-question-reveal 360ms ease-out both;
+}
+
+.note-accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 220ms ease-out;
+}
+
+.note-accordion-content.is-open {
+  grid-template-rows: 1fr;
+}
+
+.note-accordion-content-inner {
+  overflow: hidden;
+  min-height: 0;
 }
 
 @keyframes progress-shimmer {
@@ -179,6 +200,10 @@ body {
   }
 
   .math-content {
+    transition: none;
+  }
+
+  .note-accordion-content {
     transition: none;
   }
 }

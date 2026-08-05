@@ -34,7 +34,7 @@ DOM/testing-library available), existing `@/components/ui/*` atoms.
 - Exact copy strings (French) are part of the contract — reproduce them verbatim,
   including the two empty-state strings decided in the design spec:
   - Strengths empty: `Aucune compétence n'est encore totalement maîtrisée, mais ton plan
-    va t'aider à progresser.`
+va t'aider à progresser.`
   - Weaknesses empty: `Bravo, aucune faiblesse identifiée pour l'instant.`
   - Priorities empty: `Tu as maîtrisé toutes les compétences évaluées.`
 - No secondary "Revoir mes résultats" CTA (dropped per design spec — see
@@ -48,11 +48,13 @@ DOM/testing-library available), existing `@/components/ui/*` atoms.
 ### Task 1: Add `totalEarnedPoints`/`totalMaxPoints` to `DiagnosticResult`
 
 **Files:**
+
 - Modify: `src/types/diagnostic.ts:54-63` (the `DiagnosticResult` interface)
 - Modify: `src/services/diagnostic/engine.ts:22-51` (`runDiagnosticEngine`)
 - Test: `src/services/diagnostic/engine.test.ts:37-74` (existing test, extended)
 
 **Interfaces:**
+
 - Consumes: existing `CompetencyMastery` shape (`pointsEarned: number`,
   `pointsPossible: number`), already computed by `computeCompetencyMastery` (untouched).
 - Produces: `DiagnosticResult.totalEarnedPoints: number`,
@@ -65,8 +67,8 @@ Edit `src/services/diagnostic/engine.test.ts`, adding these two lines right afte
 before the `expect(result.responses)` line:
 
 ```ts
-    expect(result.totalEarnedPoints).toBe(2); // q1 correct (1pt) + q3 correct (1pt)
-    expect(result.totalMaxPoints).toBe(3); // 3 questions, 1 point each
+expect(result.totalEarnedPoints).toBe(2); // q1 correct (1pt) + q3 correct (1pt)
+expect(result.totalMaxPoints).toBe(3); // 3 questions, 1 point each
 ```
 
 - [ ] **Step 2: Run the test to verify it fails**
@@ -150,13 +152,15 @@ git commit -m "feat(diagnostic): add totalEarnedPoints/totalMaxPoints to Diagnos
 ### Task 2: Result copy helpers (`resultCopy.ts`)
 
 **Files:**
+
 - Create: `src/features/diagnostic/resultCopy.ts`
 - Test: `src/features/diagnostic/resultCopy.test.ts`
 
 **Interfaces:**
+
 - Consumes: `ReadinessLevel` from `@/types/diagnostic`.
 - Produces: `getGreeting(firstName?: string): string`, `getReadinessMessage(score:
-  number): string`, `getWeaknessBadgeLabel(level: ReadinessLevel): string` — all
+number): string`, `getWeaknessBadgeLabel(level: ReadinessLevel): string` — all
   consumed by Task 3's component.
 
 - [ ] **Step 1: Write the failing test file**
@@ -196,8 +200,12 @@ describe('getReadinessMessage', () => {
   });
 
   it('returns the high-score message for 70-100', () => {
-    expect(getReadinessMessage(70)).toBe('Tu maîtrises déjà une bonne partie des compétences évaluées.');
-    expect(getReadinessMessage(100)).toBe('Tu maîtrises déjà une bonne partie des compétences évaluées.');
+    expect(getReadinessMessage(70)).toBe(
+      'Tu maîtrises déjà une bonne partie des compétences évaluées.',
+    );
+    expect(getReadinessMessage(100)).toBe(
+      'Tu maîtrises déjà une bonne partie des compétences évaluées.',
+    );
   });
 });
 
@@ -230,7 +238,7 @@ export function getGreeting(firstName?: string): string {
 }
 
 export function getReadinessMessage(score: number): string {
-  if (score < 40) return "Tu as encore plusieurs notions importantes à renforcer.";
+  if (score < 40) return 'Tu as encore plusieurs notions importantes à renforcer.';
   if (score < 70) {
     return 'Tu progresses bien, mais certaines notions doivent encore être consolidées.';
   }
@@ -259,17 +267,19 @@ git commit -m "feat(diagnostic): add result screen copy helpers"
 ### Task 3: Rewrite `DiagnosticCompleteScreen`
 
 **Files:**
+
 - Modify: `src/features/diagnostic/DiagnosticCompleteScreen.tsx` (full rewrite of the
   stub)
 
 **Interfaces:**
+
 - Consumes: `DiagnosticResult` (`@/types/diagnostic`, now including
   `totalEarnedPoints`/`totalMaxPoints` from Task 1); `getGreeting`,
   `getReadinessMessage`, `getWeaknessBadgeLabel` from `./resultCopy` (Task 2);
   `ScreenContainer`, `BottomCTA`, `PrimaryButton`, `AppLogo` from `@/components/ui/*`;
   `cn` from `@/lib/utils`.
 - Produces: `DiagnosticCompleteScreen(props: { result: DiagnosticResult; firstName?:
-  string; onContinue: () => void })` — the new `firstName` prop is consumed by Task 4.
+string; onContinue: () => void })` — the new `firstName` prop is consumed by Task 4.
 
 No automated render test for this step: the project has no component-testing
 infrastructure (`vitest.config.ts` runs `environment: 'node'`, no
@@ -362,8 +372,8 @@ export function DiagnosticCompleteScreen({
           </ul>
         ) : (
           <p className="text-muted border-border bg-surface rounded-2xl border-2 px-4 py-3 text-sm font-medium">
-            Aucune compétence n&apos;est encore totalement maîtrisée, mais ton plan va
-            t&apos;aider à progresser.
+            Aucune compétence n&apos;est encore totalement maîtrisée, mais ton plan va t&apos;aider
+            à progresser.
           </p>
         )}
       </section>
@@ -481,10 +491,12 @@ git commit -m "feat(diagnostic): implement real results screen"
 ### Task 4: Forward `firstName` from `OnboardingFlow`
 
 **Files:**
+
 - Modify: `src/features/onboarding/OnboardingFlow.tsx:111-123` (the
   `'diagnostic-result'` case)
 
 **Interfaces:**
+
 - Consumes: `DiagnosticCompleteScreen`'s new `firstName?: string` prop (Task 3); the
   existing `name` state (`OnboardingFlow.tsx:32`, already collected by `WelcomeScreen`
   but currently unused after the `welcome` step).

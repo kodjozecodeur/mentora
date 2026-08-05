@@ -1,86 +1,168 @@
-import { ArrowLeft, BookOpen, Check, Clock3 } from 'lucide-react';
-import type { ReactNode } from 'react';
-import { BottomCTA } from '@/components/ui/BottomCTA';
+import { ArrowLeft, BookOpen, Check, CheckCircle2, Flag, Sparkles } from 'lucide-react';
+import { AppLogo } from '@/components/ui/AppLogo';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
-import { ScreenContainer } from '@/components/ui/ScreenContainer';
+import { SpeechBubble } from '@/components/ui/SpeechBubble';
+import { MathContent } from '@/components/diagnostic/MathContent';
 import type { RevisionSessionContent } from '@/services/revision/experience';
-import { getNoteSummary, getUnderstandingContent, stripInlineMarkdown } from './notePresentation';
+import {
+  extractMathExpressions,
+  getUnderstandingParagraphs,
+  splitStepContent,
+  stripInlineMarkdown,
+} from './notePresentation';
 
 interface RevisionNoteScreenProps {
   content: RevisionSessionContent;
+  subjectLabel: string;
+  chapterLabel: string;
   onBack: () => void;
   onComplete: () => void;
-  embedded?: boolean;
 }
 
 export function RevisionNoteScreen({
   content,
+  subjectLabel,
+  chapterLabel,
   onBack,
   onComplete,
-  embedded = false,
 }: RevisionNoteScreenProps) {
-  const { note, session } = content;
-  const understanding = getUnderstandingContent(note);
+  const { note, unit } = content;
+  const [explanation, ...bubbleParagraphs] = getUnderstandingParagraphs(note);
+  const bubbleText = bubbleParagraphs.join(' ') || explanation;
+  const exampleExpression = extractMathExpressions(note.workedExample.problem)[0] ?? null;
+  const conclusionExpression = extractMathExpressions(note.workedExample.conclusion)[0] ?? null;
 
-  const screenContent = (
-    <>
-      <button
-        type="button"
-        onClick={onBack}
-        aria-label="Retourner à mon plan de révision"
-        className="text-highlight focus-visible:ring-highlight/40 -ml-2 flex min-h-11 w-fit items-center gap-2 rounded-full px-2 text-sm font-bold focus-visible:ring-4 focus-visible:outline-none"
-      >
-        <ArrowLeft className="size-5" aria-hidden="true" />
-        Mon plan
-      </button>
-
-      <header className="flex flex-col gap-3 pt-4 pb-6">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="bg-highlight/10 text-highlight rounded-full px-3 py-1 text-xs font-bold">
-            Jour {session.dayNumber}
-          </span>
-          <span className="text-muted flex items-center gap-1 text-xs font-bold">
-            <Clock3 className="size-4" aria-hidden="true" />
-            {note.estimatedReadingMinutes} min de lecture
-          </span>
-        </div>
-        <h1 className="text-foreground text-2xl font-bold">{note.title}</h1>
-        <p className="text-muted text-sm font-medium">Version du contenu : {note.contentVersion}</p>
-      </header>
-
-      <main className="flex flex-col gap-6 pb-8">
-        <NoteSection title="Résumé" icon={<BookOpen className="size-5" aria-hidden="true" />}>
-          <p className="text-foreground text-base leading-7 font-medium">{getNoteSummary(note)}</p>
-        </NoteSection>
-
-        <NoteSection title="Comprendre simplement">
-          <p className="text-foreground text-base leading-7 font-medium whitespace-pre-line">
-            {understanding}
-          </p>
-        </NoteSection>
-
-        <NoteSection title="Exemple">
-          <div className="bg-surface border-border flex flex-col gap-3 rounded-2xl border-2 p-4">
-            <p className="text-foreground text-sm leading-6 font-semibold">
-              {stripInlineMarkdown(note.workedExample.problem)}
-            </p>
-            <ol className="flex flex-col gap-3">
-              {note.workedExample.steps.map((step, index) => (
-                <li key={`${note.id}-step-${index + 1}`} className="flex gap-3 text-sm leading-6">
-                  <span className="bg-highlight/10 text-highlight flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-extrabold">
-                    {index + 1}
-                  </span>
-                  <span className="text-foreground font-medium">{stripInlineMarkdown(step)}</span>
-                </li>
-              ))}
-            </ol>
-            <p className="border-highlight text-foreground border-l-4 pl-3 text-sm leading-6 font-bold">
-              {stripInlineMarkdown(note.workedExample.conclusion)}
-            </p>
+  return (
+    <div className="pb-28" style={{ paddingTop: 'calc(4rem + env(safe-area-inset-top))' }}>
+      <div className="fixed inset-x-0 top-0 z-40 flex justify-center">
+        <div
+          className="bg-background border-border w-full max-w-[430px] border-b-2"
+          style={{ paddingTop: 'env(safe-area-inset-top)' }}
+        >
+          <div className="flex h-16 items-center justify-between px-4">
+            <button
+              type="button"
+              onClick={onBack}
+              aria-label="Retourner à mon plan de révision"
+              className="focus-visible:ring-highlight/40 text-foreground flex size-10 shrink-0 items-center justify-center rounded-full focus-visible:ring-4 focus-visible:outline-none"
+            >
+              <ArrowLeft className="size-5" aria-hidden="true" />
+            </button>
+            <span className="text-primary-border text-base font-bold">{subjectLabel}</span>
+            <div className="size-10" />
           </div>
-        </NoteSection>
+        </div>
+      </div>
 
-        <NoteSection title="Erreurs fréquentes">
+      <main className="flex flex-col gap-6 pt-6">
+        <div className="flex flex-col gap-3">
+          <div className="text-highlight flex items-center gap-2 text-sm font-bold">
+            <BookOpen className="size-4" aria-hidden="true" />
+            <span>Chapitre : {chapterLabel}</span>
+          </div>
+          <h1 className="text-foreground text-3xl leading-tight font-bold">{note.title}</h1>
+          <div className="bg-highlight/10 border-highlight/30 flex items-start gap-3 rounded-xl border-2 p-4">
+            <Flag className="text-highlight mt-0.5 size-5 shrink-0" aria-hidden="true" />
+            <div>
+              <h2 className="text-highlight mb-1 text-sm font-bold">Objectif de la leçon</h2>
+              <p className="text-foreground text-sm font-medium">{unit.objective}</p>
+            </div>
+          </div>
+        </div>
+
+        <section className="flex flex-col gap-4">
+          <h2 className="text-foreground text-xl font-bold">Comprendre simplement</h2>
+          <p className="text-foreground text-base leading-7 font-medium">{explanation}</p>
+          {bubbleText && (
+            <div className="flex items-start gap-3">
+              <AppLogo size="sm" />
+              <SpeechBubble>{bubbleText}</SpeechBubble>
+            </div>
+          )}
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <h2 className="text-foreground text-xl font-bold">Exemple concret</h2>
+          <div className="bg-border/20 border-border flex flex-col gap-3 rounded-2xl border-2 p-4">
+            {exampleExpression && (
+              <div className="flex justify-center py-2">
+                <div
+                  className="bg-primary border-primary-border inline-block rounded-lg border-2 px-4 py-2 font-bold"
+                  style={{ boxShadow: '0 3px 0 var(--primary-border)' }}
+                >
+                  <MathContent
+                    content={exampleExpression}
+                    contentFormat="latex"
+                    displayMode
+                    className="text-primary-foreground"
+                  />
+                </div>
+              </div>
+            )}
+
+            <ol className="flex flex-col gap-3">
+              {note.workedExample.steps.map((step, index) => {
+                const { explanation: stepExplanation, expression } = splitStepContent(step);
+                return (
+                  <li
+                    key={`${note.id}-step-${index + 1}`}
+                    className="bg-surface border-border flex items-start gap-3 rounded-xl border-2 p-3"
+                  >
+                    <span className="bg-highlight text-highlight-foreground flex size-7 shrink-0 items-center justify-center rounded-full text-sm font-bold">
+                      {index + 1}
+                    </span>
+                    <div className="flex min-w-0 flex-1 flex-col gap-1">
+                      <p className="text-foreground text-sm leading-6 font-medium">
+                        {stepExplanation}
+                      </p>
+                      {expression && (
+                        <MathContent
+                          content={expression}
+                          contentFormat="latex"
+                          className="text-highlight w-fit text-sm font-bold"
+                        />
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+
+            {conclusionExpression && (
+              <div className="border-highlight flex flex-col gap-1 border-l-4 pl-3">
+                <span className="text-highlight text-xs font-bold">Conclusion</span>
+                <MathContent
+                  content={conclusionExpression}
+                  contentFormat="latex"
+                  className="text-foreground w-fit text-sm font-bold"
+                />
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <h2 className="text-foreground flex items-center gap-2 text-xl font-bold">
+            <Sparkles className="text-highlight size-5" aria-hidden="true" />
+            Points clés
+          </h2>
+          <div className="flex flex-col gap-3">
+            {note.keyTakeaways.map((takeaway) => (
+              <div
+                key={takeaway}
+                className="bg-surface border-border flex items-start gap-3 rounded-2xl border-2 p-4"
+              >
+                <Check className="text-highlight mt-0.5 size-5 shrink-0" aria-hidden="true" />
+                <p className="text-foreground text-sm leading-6 font-medium">
+                  {stripInlineMarkdown(takeaway)}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <h2 className="text-foreground text-xl font-bold">Erreurs fréquentes</h2>
           <div className="flex flex-col gap-3">
             {note.commonMistakes.map((mistake) => (
               <article
@@ -105,23 +187,10 @@ export function RevisionNoteScreen({
               </article>
             ))}
           </div>
-        </NoteSection>
+        </section>
 
-        <NoteSection title="À retenir">
-          <ul className="flex flex-col gap-2">
-            {note.keyTakeaways.map((takeaway) => (
-              <li
-                key={takeaway}
-                className="text-foreground flex gap-2 text-sm leading-6 font-semibold"
-              >
-                <Check className="text-highlight mt-1 size-4 shrink-0" aria-hidden="true" />
-                <span>{stripInlineMarkdown(takeaway)}</span>
-              </li>
-            ))}
-          </ul>
-        </NoteSection>
-
-        <NoteSection title="Mini exercices">
+        <section className="flex flex-col gap-4">
+          <h2 className="text-foreground text-xl font-bold">Mini exercices</h2>
           <div className="flex flex-col gap-3">
             {note.miniExercises.map((exercise) => (
               <article
@@ -146,46 +215,25 @@ export function RevisionNoteScreen({
               </article>
             ))}
           </div>
-        </NoteSection>
+        </section>
       </main>
 
-      <BottomCTA>
-        <PrimaryButton
-          onClick={onComplete}
-          className="focus-visible:ring-highlight/40 focus-visible:ring-4 focus-visible:outline-none"
+      <div className="fixed inset-x-0 bottom-0 z-40 flex justify-center">
+        <div
+          className="bg-background/90 border-border w-full max-w-[430px] border-t-2 px-4 pt-4 backdrop-blur-sm"
+          style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}
         >
-          Terminer cette session
-        </PrimaryButton>
-      </BottomCTA>
-    </>
-  );
-
-  return embedded ? (
-    screenContent
-  ) : (
-    <ScreenContainer className="diagnostic-question-reveal">{screenContent}</ScreenContainer>
-  );
-}
-
-function NoteSection({
-  title,
-  icon,
-  children,
-}: {
-  title: string;
-  icon?: ReactNode;
-  children: ReactNode;
-}) {
-  return (
-    <section aria-labelledby={`note-section-${title}`} className="flex flex-col gap-3">
-      <h2
-        id={`note-section-${title}`}
-        className="text-foreground flex items-center gap-2 text-lg font-bold"
-      >
-        {icon}
-        {title}
-      </h2>
-      {children}
-    </section>
+          <PrimaryButton
+            onClick={onComplete}
+            className="focus-visible:ring-highlight/40 focus-visible:ring-4 focus-visible:outline-none"
+          >
+            <span className="inline-flex items-center justify-center gap-2">
+              J&apos;ai compris
+              <CheckCircle2 className="size-5" aria-hidden="true" />
+            </span>
+          </PrimaryButton>
+        </div>
+      </div>
+    </div>
   );
 }

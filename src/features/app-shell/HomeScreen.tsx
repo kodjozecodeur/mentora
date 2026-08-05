@@ -1,10 +1,9 @@
-import { ArrowRight, CheckCircle2, Clock3, Target } from 'lucide-react';
-import { ReadinessScoreRing } from '@/components/diagnostic/ReadinessScoreRing';
+import { ArrowRight, Bot, BookOpen, ClipboardCheck, Flame, Sigma, SquarePen } from 'lucide-react';
+import { AppLogo } from '@/components/ui/AppLogo';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
-import { ProgressIndicator } from '@/components/ui/ProgressIndicator';
+import { SpeechBubble } from '@/components/ui/SpeechBubble';
 import type { DiagnosticResult } from '@/types/diagnostic';
 import type { RevisionSession, RevisionUnit } from '@/types/revision';
-import { getReadinessMessage } from '@/features/diagnostic/resultCopy';
 import { getRevisionProgress } from './appShellData';
 
 interface HomeScreenProps {
@@ -15,119 +14,212 @@ interface HomeScreenProps {
   };
   nextSession: RevisionSession | null;
   nextUnit: RevisionUnit | null;
+  subjectLabel: string;
   onOpenRevision: () => void;
   onRestartDiagnostic: () => void;
 }
 
+/** Demo-only, no mastery model behind this yet — see Home Screen implementation prompt. */
+const MASTERY_CHIPS = [
+  { label: 'Fractions', tone: 'done' as const },
+  { label: 'Équations', tone: 'in-progress' as const },
+  { label: 'Géométrie', tone: 'priority' as const },
+];
+
+/** Demo-only static cards — no recommendation engine wiring yet. */
+const RECOMMENDATION_CARDS = [
+  {
+    title: 'Revoir la leçon',
+    subtitle: 'Consolider les bases théoriques.',
+    icon: BookOpen,
+    iconClassName: 'bg-border text-muted',
+  },
+  {
+    title: 'Faire un exercice',
+    subtitle: 'Mettre en pratique les concepts.',
+    icon: SquarePen,
+    iconClassName: 'bg-selected-surface text-highlight',
+  },
+  {
+    title: 'Vérifier ma compréhension',
+    subtitle: 'Test rapide de 5 questions.',
+    icon: ClipboardCheck,
+    iconClassName: 'bg-red-100 text-red-600',
+  },
+  {
+    title: 'Demander une explication à Mentora AI',
+    subtitle: "Besoin d'aide sur un point précis ?",
+    icon: Bot,
+    iconClassName: 'bg-primary text-primary-foreground',
+    outlined: true,
+  },
+];
+
+/** Demo-only static visualization — no streak/analytics service yet. */
+const WEEKLY_STREAK = [
+  { day: 'L', heightPercent: 30, active: false },
+  { day: 'M', heightPercent: 50, active: false },
+  { day: 'M', heightPercent: 20, active: false },
+  { day: 'J', heightPercent: 80, active: false },
+  { day: 'V', heightPercent: 60, active: true },
+  { day: 'S', heightPercent: 0, active: false },
+  { day: 'D', heightPercent: 0, active: false },
+];
+
 export function HomeScreen({
   firstName,
-  diagnosticResult,
   revisionPlan,
   nextSession,
-  nextUnit,
+  subjectLabel,
   onOpenRevision,
   onRestartDiagnostic,
 }: HomeScreenProps) {
   const progress = getRevisionProgress(revisionPlan);
-  const hasRemainingSession = nextSession !== null;
+  const progressPercent = Math.min(100, Math.max(0, progress.completionPercent));
+  const isPlanComplete = progress.totalSessions > 0 && progress.completionPercent === 100;
+  const revisionCtaLabel = isPlanComplete ? 'Refaire un diagnostic' : 'Continuer';
 
   return (
     <div className="flex flex-col gap-5 pb-6">
-      <header className="flex flex-col gap-1">
-        <h1 className="text-foreground text-2xl font-bold">Bonjour, {firstName}</h1>
-        <p className="text-muted text-base font-medium">Prêt pour aujourd&apos;hui ?</p>
-      </header>
+      <div className="flex items-start gap-3">
+        <AppLogo size="sm" />
+        <SpeechBubble>
+          Tu progresses chaque jour, {firstName} ! Prêt pour de nouvelles découvertes ?
+        </SpeechBubble>
+      </div>
 
-      <section
-        aria-labelledby="home-readiness-title"
-        className="bg-surface border-border flex items-center gap-4 rounded-3xl border-2 p-4"
-      >
-        <ReadinessScoreRing score={diagnosticResult.readinessScore} />
-        <div className="flex min-w-0 flex-col gap-2">
-          <h2 id="home-readiness-title" className="text-foreground text-base font-bold">
-            Niveau de préparation
-          </h2>
-          <p className="text-muted text-sm font-medium">
-            {getReadinessMessage(diagnosticResult.readinessScore)}
-          </p>
-        </div>
-      </section>
+      <section aria-labelledby="continue-learning-title" className="flex flex-col gap-3">
+        <h2 id="continue-learning-title" className="text-foreground text-lg font-bold">
+          Continuer mon apprentissage
+        </h2>
 
-      <section aria-labelledby="daily-goal-title" className="flex flex-col gap-3">
-        <div className="flex items-center justify-between gap-3">
-          <h2 id="daily-goal-title" className="text-foreground text-lg font-bold">
-            Objectif du jour
-          </h2>
-          {hasRemainingSession && (
-            <span className="text-muted text-sm font-semibold">Jour {nextSession.dayNumber}</span>
-          )}
-        </div>
-
-        {nextSession && nextUnit ? (
-          <article className="border-highlight bg-highlight/10 flex flex-col gap-4 rounded-3xl border-2 p-4">
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex min-w-0 flex-col gap-1">
-                <h3 className="text-foreground text-lg font-bold">{nextSession.competencyLabel}</h3>
-                <p className="text-foreground text-sm font-medium">{nextUnit.objective}</p>
-              </div>
-              <span className="text-muted flex shrink-0 items-center gap-1 text-sm font-semibold">
-                <Clock3 className="size-4" aria-hidden="true" />
-                {nextSession.estimatedMinutes} min
+        <div className="bg-surface border-border flex flex-col gap-4 rounded-3xl border-2 p-4 shadow-[0_4px_0_var(--border)]">
+          <div className="flex items-center gap-3">
+            <div className="bg-border text-highlight flex size-12 shrink-0 items-center justify-center rounded-xl">
+              <Sigma className="size-7" aria-hidden="true" />
+            </div>
+            <div className="flex min-w-0 flex-col">
+              <span className="text-muted text-xs font-semibold tracking-wider uppercase">
+                {subjectLabel}
+              </span>
+              <span className="text-foreground min-w-0 truncate text-base font-bold">
+                {nextSession?.competencyLabel ?? 'Parcours terminé'}
               </span>
             </div>
-            <button
-              type="button"
-              onClick={onOpenRevision}
-              className="text-highlight focus-visible:ring-highlight/40 flex min-h-11 w-fit items-center gap-2 rounded-full text-sm font-bold focus-visible:ring-4 focus-visible:outline-none"
-            >
-              Voir les détails
-              <ArrowRight className="size-4" aria-hidden="true" />
-            </button>
-          </article>
-        ) : (
-          <div className="bg-highlight/10 border-highlight flex items-center gap-3 rounded-3xl border-2 p-4">
-            <CheckCircle2 className="text-highlight size-6 shrink-0" aria-hidden="true" />
-            <p className="text-foreground text-sm font-semibold">
-              Tu as terminé toutes les sessions de ton plan.
-            </p>
           </div>
-        )}
+
+          <div className="flex flex-col gap-1.5">
+            <div className="flex items-center justify-between gap-2 text-xs font-semibold">
+              <span className="text-muted">Progression</span>
+              <span className="text-foreground">{progressPercent}%</span>
+            </div>
+            <div
+              role="progressbar"
+              aria-valuenow={progressPercent}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label={`Progression en ${subjectLabel}`}
+              className="bg-border h-3 w-full overflow-hidden rounded-full"
+            >
+              <div
+                className="bg-primary h-full rounded-full transition-[width] duration-500 ease-out motion-reduce:transition-none"
+                style={{ width: `${progressPercent}%` }}
+              />
+            </div>
+          </div>
+
+          <PrimaryButton
+            onClick={isPlanComplete ? onRestartDiagnostic : onOpenRevision}
+            className="flex items-center justify-center gap-2 py-3 text-base"
+          >
+            {revisionCtaLabel}
+            <ArrowRight className="size-5" aria-hidden="true" />
+          </PrimaryButton>
+        </div>
+      </section>
+
+      <section aria-labelledby="mastery-title" className="flex flex-col gap-3">
+        <h2 id="mastery-title" className="text-foreground text-lg font-bold">
+          Ce que je maîtrise
+        </h2>
+        <div className="flex flex-wrap gap-2">
+          {MASTERY_CHIPS.map((chip) => (
+            <div
+              key={chip.label}
+              className="bg-surface border-border flex items-center gap-2 rounded-full border-2 px-4 py-2 shadow-sm"
+            >
+              <span
+                aria-hidden="true"
+                className={`size-3 shrink-0 rounded-full ${
+                  chip.tone === 'done'
+                    ? 'bg-emerald-500'
+                    : chip.tone === 'in-progress'
+                      ? 'bg-yellow-400'
+                      : 'bg-red-500'
+                }`}
+              />
+              <span className="text-foreground text-sm font-medium">{chip.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="recommendations-title" className="flex flex-col gap-3">
+        <h2 id="recommendations-title" className="text-foreground text-lg font-bold">
+          Recommandé pour moi
+        </h2>
+        <div className="grid grid-cols-1 gap-3">
+          {RECOMMENDATION_CARDS.map((card) => (
+            <div
+              key={card.title}
+              className={`bg-surface flex items-start gap-3 rounded-3xl border-2 p-4 ${
+                card.outlined ? 'border-primary' : 'border-border'
+              }`}
+            >
+              <div
+                className={`flex size-10 shrink-0 items-center justify-center rounded-full ${card.iconClassName}`}
+              >
+                <card.icon className="size-5" aria-hidden="true" />
+              </div>
+              <div className="flex min-w-0 flex-col">
+                <span className="text-foreground text-base font-bold">{card.title}</span>
+                <span className="text-muted text-sm font-medium">{card.subtitle}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section
-        aria-labelledby="progress-title"
-        className="bg-surface border-border flex flex-col gap-4 rounded-3xl border-2 p-4"
+        aria-labelledby="streak-title"
+        className="border-border flex flex-col gap-4 rounded-3xl border p-4"
       >
-        <div className="flex items-center justify-between gap-3">
-          <h2 id="progress-title" className="text-foreground text-lg font-bold">
-            Ma progression
-          </h2>
-          <span className="text-highlight text-sm font-extrabold">
-            {progress.completedSessions}/{progress.totalSessions}
-          </span>
+        <div className="flex items-center gap-2">
+          <Flame className="size-7 shrink-0 fill-orange-500 text-orange-500" aria-hidden="true" />
+          <div className="flex flex-col">
+            <h2 id="streak-title" className="text-foreground text-base font-bold">
+              5 jours d&apos;affilée !
+            </h2>
+            <p className="text-muted text-xs font-semibold">Continue comme ça !</p>
+          </div>
         </div>
-        <ProgressIndicator
-          step={progress.completedSessions}
-          totalSteps={Math.max(progress.totalSessions, 1)}
-        />
-        <div className="flex items-center justify-between gap-3 text-sm font-semibold">
-          <span className="text-muted">Sessions terminées</span>
-          <span className="text-foreground">{progress.completionPercent}%</span>
-        </div>
-        <div className="flex items-center justify-between gap-3 text-sm font-semibold">
-          <span className="text-muted">Temps restant</span>
-          <span className="text-foreground">{progress.remainingMinutes} min</span>
+
+        <div className="flex h-24 items-end justify-between gap-2 px-1">
+          {WEEKLY_STREAK.map((entry, index) => (
+            <div key={index} className="flex w-full flex-col items-center gap-2">
+              <div
+                className={`w-full rounded-t-sm ${entry.active ? 'bg-primary' : 'bg-border'}`}
+                style={{ height: `${entry.heightPercent}%` }}
+              />
+              <span
+                className={`text-xs ${entry.active ? 'text-foreground font-bold' : 'text-muted font-medium'}`}
+              >
+                {entry.day}
+              </span>
+            </div>
+          ))}
         </div>
       </section>
-
-      <PrimaryButton onClick={hasRemainingSession ? onOpenRevision : onRestartDiagnostic}>
-        {hasRemainingSession ? 'Reprendre ma révision' : 'Refaire un diagnostic'}
-      </PrimaryButton>
-
-      <div className="text-muted flex items-center justify-center gap-2 text-xs font-semibold">
-        <Target className="size-4" aria-hidden="true" />
-        Un petit pas chaque jour fait la différence.
-      </div>
     </div>
   );
 }

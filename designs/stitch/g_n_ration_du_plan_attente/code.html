@@ -1,0 +1,378 @@
+<!doctype html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Génération de ton plan...</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'outline-variant': '#d0c6ac',
+              error: '#ba1a1a',
+              'surface-container-lowest': '#ffffff',
+              'secondary-fixed-dim': '#f9acff',
+              'surface-container-high': '#eae7e7',
+              'surface-container-highest': '#e5e2e1',
+              'inverse-primary': '#e9c403',
+              'on-tertiary-container': '#5b5a4c',
+              'error-container': '#ffdad6',
+              'on-secondary': '#ffffff',
+              'on-surface': '#1c1b1b',
+              surface: '#fcf9f8',
+              'on-tertiary-fixed-variant': '#48473a',
+              'surface-container-low': '#f6f3f2',
+              'primary-fixed': '#ffe16f',
+              'on-secondary-container': '#772685',
+              'surface-dim': '#dcd9d9',
+              'primary-fixed-dim': '#e9c403',
+              'on-error': '#ffffff',
+              'surface-variant': '#e5e2e1',
+              'on-primary-fixed': '#221b00',
+              'tertiary-fixed-dim': '#cac7b6',
+              'on-error-container': '#93000a',
+              'on-secondary-fixed-variant': '#722180',
+              'surface-tint': '#705d00',
+              secondary: '#8d3c9a',
+              'on-surface-variant': '#4d4632',
+              outline: '#7e7760',
+              'on-secondary-fixed': '#35003f',
+              'inverse-surface': '#313030',
+              'tertiary-container': '#d4d1c0',
+              'on-primary-container': '#6a5800',
+              'on-tertiary-fixed': '#1d1c11',
+              'surface-container': '#f0eded',
+              'secondary-fixed': '#ffd6fe',
+              'primary-container': '#f4ce1a',
+              'tertiary-fixed': '#e6e3d1',
+              'on-primary-fixed-variant': '#544600',
+              tertiary: '#605f51',
+              primary: '#705d00',
+              'on-background': '#1c1b1b',
+              'on-tertiary': '#ffffff',
+              'inverse-on-surface': '#f3f0ef',
+              'surface-bright': '#fcf9f8',
+              'secondary-container': '#f59aff',
+              'on-primary': '#ffffff',
+              background: '#fcf9f8',
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+            spacing: {
+              sm: '12px',
+              xl: '64px',
+              xs: '4px',
+              'stack-gap': '16px',
+              md: '24px',
+              lg: '40px',
+              'container-padding': '20px',
+              base: '8px',
+            },
+            fontFamily: {
+              'label-sm': ['Lexend'],
+              'label-lg': ['Lexend'],
+              'headline-lg-mobile': ['Lexend'],
+              'body-md': ['Lexend'],
+              'headline-xl': ['Lexend'],
+              'body-lg': ['Lexend'],
+              'headline-lg': ['Lexend'],
+            },
+            fontSize: {
+              'label-sm': [
+                '12px',
+                {
+                  lineHeight: '16px',
+                  fontWeight: '500',
+                },
+              ],
+              'label-lg': [
+                '14px',
+                {
+                  lineHeight: '20px',
+                  letterSpacing: '0.02em',
+                  fontWeight: '600',
+                },
+              ],
+              'headline-lg-mobile': [
+                '20px',
+                {
+                  lineHeight: '28px',
+                  fontWeight: '600',
+                },
+              ],
+              'body-md': [
+                '16px',
+                {
+                  lineHeight: '24px',
+                  fontWeight: '400',
+                },
+              ],
+              'headline-xl': [
+                '32px',
+                {
+                  lineHeight: '40px',
+                  letterSpacing: '-0.02em',
+                  fontWeight: '700',
+                },
+              ],
+              'body-lg': [
+                '18px',
+                {
+                  lineHeight: '28px',
+                  fontWeight: '500',
+                },
+              ],
+              'headline-lg': [
+                '24px',
+                {
+                  lineHeight: '32px',
+                  letterSpacing: '-0.01em',
+                  fontWeight: '600',
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .animate-spin-slow {
+        animation: spin 3s linear infinite;
+      }
+      .pulse-subtle {
+        animation: pulse-op 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      @keyframes pulse-op {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+      .bounce-slight {
+        animation: bounce-sl 2s infinite ease-in-out;
+      }
+      @keyframes bounce-sl {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background text-on-background font-body-md flex min-h-screen flex-col overflow-hidden"
+  >
+    <!-- Content Canvas (Loading Screen) -->
+    <main class="p-container-padding relative flex flex-grow flex-col items-center justify-center">
+      <!-- Background decorative elements -->
+      <div
+        class="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden opacity-20"
+      >
+        <div
+          class="max-h-lg bg-primary-container absolute -top-1/4 -right-1/4 h-[80vw] w-[80vw] max-w-lg rounded-full blur-3xl"
+        ></div>
+        <div
+          class="max-h-md bg-secondary absolute -bottom-1/4 -left-1/4 h-[60vw] w-[60vw] max-w-md rounded-full blur-3xl"
+        ></div>
+      </div>
+      <div class="space-y-lg z-10 flex w-full max-w-[500px] flex-col items-center text-center">
+        <!-- Mentora Robot Avatar Area -->
+        <div class="bounce-slight relative flex h-48 w-48 items-center justify-center">
+          <!-- Inner glow -->
+          <div
+            class="bg-primary-container/20 pulse-subtle absolute inset-0 rounded-full blur-xl"
+          ></div>
+          <!-- Circular Loader (Outer Ring) -->
+          <svg
+            class="animate-spin-slow text-secondary absolute inset-0 h-full w-full"
+            viewbox="0 0 100 100"
+          >
+            <circle
+              class="opacity-30"
+              cx="50"
+              cy="50"
+              fill="none"
+              r="45"
+              stroke="currentColor"
+              stroke-dasharray="200"
+              stroke-dashoffset="100"
+              stroke-linecap="round"
+              stroke-width="4"
+            ></circle>
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="45"
+              stroke="currentColor"
+              stroke-dasharray="283"
+              stroke-dashoffset="200"
+              stroke-linecap="round"
+              stroke-width="4"
+            ></circle>
+          </svg>
+          <!-- Inner Dashed Ring -->
+          <svg
+            class="animate-spin-slow text-primary-container absolute inset-4 h-[calc(100%-32px)] w-[calc(100%-32px)]"
+            style="animation-direction: reverse; animation-duration: 4s"
+            viewbox="0 0 100 100"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              fill="none"
+              r="45"
+              stroke="currentColor"
+              stroke-dasharray="10 15"
+              stroke-linecap="round"
+              stroke-width="3"
+            ></circle>
+          </svg>
+          <!-- Avatar Image Placeholder -->
+          <div
+            class="bg-surface-container-high border-surface relative flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border-4 shadow-md"
+          >
+            <img
+              class="h-full w-full object-cover"
+              data-alt="A friendly, modern 3D rendered educational robot avatar with a vibrant yellow and soft purple color scheme. The robot is looking thoughtful, perhaps holding a digital clipboard or with small glowing calculation symbols floating around its head. Minimalist light background, soft studio lighting."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtj7iJBd6Gw9e2KQL97X-EqLuyXvCJajlbZLOSFZqSprU1GWmxE9nVtN6B2Qe0QDC_LbATDmtFK1iolKpN5cExEsrMKaHJ-XZe6J1jnPoxiy45u3B7pJqk3ZiYvTx9lYWEURvvTxMaBrD9vYvJ9Pb7czCYKzNrz0sOLhIVqli3LNxR6s202ynt2r77KeN-ZCbi8pWmuqYkDf9MRa0RcleZRYzCk3VPqcl_-uQATpZLu1edeuQC8-c"
+            />
+          </div>
+          <!-- Small status badge -->
+          <div
+            class="bg-primary-container text-on-primary-container border-surface absolute right-2 bottom-2 rounded-full border-2 p-2 shadow-sm"
+          >
+            <span class="material-symbols-outlined block text-[18px]">psychology</span>
+          </div>
+        </div>
+        <!-- Typography Area -->
+        <div class="space-y-sm">
+          <h1 class="font-headline-xl text-headline-xl text-on-background">
+            Génération de ton plan...
+          </h1>
+          <p class="font-body-lg text-body-lg text-on-surface-variant mx-auto max-w-sm">
+            Notre IA analyse tes forces et tes faiblesses pour créer le parcours parfait.
+          </p>
+        </div>
+        <!-- Processing Steps (Simulated) -->
+        <div
+          class="bg-surface p-md border-surface-container-highest mt-lg w-full rounded-xl border-2 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)]"
+        >
+          <div class="space-y-stack-gap">
+            <!-- Step 1 (Done) -->
+            <div class="space-x-sm flex items-center opacity-60">
+              <span class="material-symbols-outlined text-secondary">check_circle</span>
+              <span class="font-label-lg text-label-lg text-on-surface"
+                >Analyse des résultats du diagnostic</span
+              >
+            </div>
+            <!-- Step 2 (Active) -->
+            <div class="space-x-sm flex items-center">
+              <span
+                class="material-symbols-outlined text-primary-container animate-spin"
+                style="animation-duration: 2s"
+                >sync</span
+              >
+              <span class="font-label-lg text-label-lg text-on-surface pulse-subtle font-semibold"
+                >Identification des lacunes clés</span
+              >
+            </div>
+            <!-- Step 3 (Pending) -->
+            <div class="space-x-sm flex items-center opacity-30">
+              <span class="material-symbols-outlined text-outline">schedule</span>
+              <span class="font-label-lg text-label-lg text-on-surface"
+                >Création du planning de révision</span
+              >
+            </div>
+          </div>
+          <!-- Linear Progress Bar -->
+          <div
+            class="bg-surface-container-high mt-md relative h-3 w-full overflow-hidden rounded-full"
+          >
+            <div
+              class="bg-primary-container absolute top-0 left-0 h-full rounded-full"
+              style="width: 60%; transition: width 0.5s ease"
+            ></div>
+            <!-- Shine effect on progress bar -->
+            <div
+              class="absolute top-0 left-0 h-full w-10 -skew-x-12 transform animate-[slide_2s_infinite] bg-white/40 blur-sm"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <style>
+      @keyframes slide {
+        0% {
+          transform: translateX(-100%) skewX(-12deg);
+        }
+        100% {
+          transform: translateX(500px) skewX(-12deg);
+        }
+      }
+    </style>
+    <script>
+      // Simple script to simulate progression and redirect (optional/visual only)
+      document.addEventListener('DOMContentLoaded', () => {
+        const progressBar = document.querySelector('.bg-primary-container.rounded-full');
+        const steps = document.querySelectorAll('.space-y-stack-gap > div');
+
+        setTimeout(() => {
+          // Update Step 2 to done
+          steps[1].classList.remove('pulse-subtle');
+          steps[1].classList.add('opacity-60');
+          steps[1].querySelector('span.material-symbols-outlined').textContent = 'check_circle';
+          steps[1]
+            .querySelector('span.material-symbols-outlined')
+            .classList.remove('animate-spin', 'text-primary-container');
+          steps[1].querySelector('span.material-symbols-outlined').classList.add('text-secondary');
+          steps[1].querySelector('span.font-label-lg').classList.remove('font-semibold');
+
+          // Update Step 3 to active
+          steps[2].classList.remove('opacity-30');
+          steps[2].classList.add('pulse-subtle');
+          steps[2].querySelector('span.material-symbols-outlined').textContent = 'sync';
+          steps[2].querySelector('span.material-symbols-outlined').classList.remove('text-outline');
+          steps[2]
+            .querySelector('span.material-symbols-outlined')
+            .classList.add('text-primary-container', 'animate-spin');
+          steps[2].querySelector('span.font-label-lg').classList.add('font-semibold');
+
+          // Advance progress bar
+          progressBar.style.width = '90%';
+        }, 3000);
+      });
+    </script>
+  </body>
+</html>

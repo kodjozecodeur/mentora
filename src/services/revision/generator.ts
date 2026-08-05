@@ -71,6 +71,7 @@ function createSession(
     revisionUnitId: unit.id,
     exitCriteria: unit.exitCriteria.map((criterion) => ({ ...criterion })),
     status: 'not-started',
+    validationAttempts: [],
   };
 }
 

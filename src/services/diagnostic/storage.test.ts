@@ -36,37 +36,69 @@ describe('diagnostic storage', () => {
         },
       },
       result: null,
+      phase: 'initial',
     };
 
-    saveDiagnosticProgress(state);
+    saveDiagnosticProgress('initial', state);
 
-    expect(loadDiagnosticProgress()).toEqual(state);
+    expect(loadDiagnosticProgress('initial')).toEqual(state);
   });
 
   it('returns null when nothing has been saved', () => {
     stubLocalStorage();
-    expect(loadDiagnosticProgress()).toBeNull();
+    expect(loadDiagnosticProgress('initial')).toBeNull();
   });
 
   it('returns null when the stored value is corrupted JSON', () => {
     const stub = stubLocalStorage();
-    stub.setItem('mentora.diagnostic.bepc-mathematiques.v2', '{not json');
-    expect(loadDiagnosticProgress()).toBeNull();
+    stub.setItem('mentora.diagnostic.bepc-mathematiques.initial.v3', '{not json');
+    expect(loadDiagnosticProgress('initial')).toBeNull();
   });
 
   it('clears the saved progress', () => {
     stubLocalStorage();
-    saveDiagnosticProgress({ questionIndex: 0, responses: {}, result: null });
-    clearDiagnosticProgress();
-    expect(loadDiagnosticProgress()).toBeNull();
+    saveDiagnosticProgress('initial', {
+      questionIndex: 0,
+      responses: {},
+      result: null,
+      phase: 'initial',
+    });
+    clearDiagnosticProgress('initial');
+    expect(loadDiagnosticProgress('initial')).toBeNull();
   });
 
   it('ignores progress saved under a previous storage version', () => {
     const stub = stubLocalStorage();
     stub.setItem(
-      'mentora.diagnostic.bepc-mathematiques.v1',
+      'mentora.diagnostic.bepc-mathematiques.v2',
       JSON.stringify({ questionIndex: 5, responses: {}, result: null }),
     );
-    expect(loadDiagnosticProgress()).toBeNull();
+    expect(loadDiagnosticProgress('initial')).toBeNull();
+  });
+
+  it('keeps the initial and final phases in separate storage slots', () => {
+    stubLocalStorage();
+    const initialState: DiagnosticSessionState = {
+      questionIndex: 0,
+      responses: {},
+      result: null,
+      phase: 'initial',
+    };
+    const finalState: DiagnosticSessionState = {
+      questionIndex: 3,
+      responses: {},
+      result: null,
+      phase: 'final',
+    };
+
+    saveDiagnosticProgress('initial', initialState);
+    saveDiagnosticProgress('final', finalState);
+
+    expect(loadDiagnosticProgress('initial')).toEqual(initialState);
+    expect(loadDiagnosticProgress('final')).toEqual(finalState);
+
+    clearDiagnosticProgress('final');
+    expect(loadDiagnosticProgress('final')).toBeNull();
+    expect(loadDiagnosticProgress('initial')).toEqual(initialState);
   });
 });

@@ -47,6 +47,7 @@ const diagnostic = (overrides: Partial<DiagnosticResult> = {}): DiagnosticResult
   totalEarnedPoints: 0,
   totalMaxPoints: 0,
   completedAt: '2026-08-04T10:00:00.000Z',
+  phase: 'initial',
   ...overrides,
 });
 

@@ -128,11 +128,15 @@ describe('createRevisionNoteRepository', () => {
       'calcul-litteral',
       'equations',
       'fonctions-lineaires',
+      'polynomes-developpement',
+      'polynomes-factorisation',
+      'polynomes-identites-remarquables',
+      'polynomes-reduction',
       'statistiques',
       'theoreme-pythagore',
       'theoreme-thales',
     ]);
-    expect(result.notes).toHaveLength(6);
+    expect(result.notes).toHaveLength(10);
     expect(result.notes.every((note) => note.contentVersion === '1.0.0')).toBe(true);
   });
 });

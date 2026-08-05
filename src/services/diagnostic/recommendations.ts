@@ -4,5 +4,7 @@ import type { CompetencyMastery } from '@/types/diagnostic';
 export function rankRevisionPriorities(mastery: CompetencyMastery[]): CompetencyMastery[] {
   return mastery
     .filter((m) => m.readinessLevel !== 'mastered')
-    .sort((a, b) => a.masteryPercent - b.masteryPercent || a.competencyId.localeCompare(b.competencyId));
+    .sort(
+      (a, b) => a.masteryPercent - b.masteryPercent || a.competencyId.localeCompare(b.competencyId),
+    );
 }

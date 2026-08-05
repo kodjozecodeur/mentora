@@ -8,7 +8,7 @@ export function SecondaryButton({ className, ...props }: SecondaryButtonProps) {
     <button
       type="button"
       className={cn(
-        'w-full rounded-full border-2 border-highlight px-6 py-4 text-lg font-bold text-highlight transition-colors',
+        'border-highlight text-highlight w-full rounded-full border-2 px-6 py-4 text-lg font-bold transition-colors',
         className,
       )}
       {...props}

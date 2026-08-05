@@ -1,4 +1,5 @@
 import type {
+  DiagnosticPhase,
   DiagnosticQuestion,
   DiagnosticResponse,
   DiagnosticResult,
@@ -22,6 +23,7 @@ function findRevisionSource(
 export function runDiagnosticEngine(
   questions: DiagnosticQuestion[],
   responses: DiagnosticResponse[],
+  phase: DiagnosticPhase = 'initial',
 ): DiagnosticResult {
   const competencyMastery = computeCompetencyMastery(questions, responses);
   const readinessScore = computeReadinessScore(competencyMastery);
@@ -56,5 +58,6 @@ export function runDiagnosticEngine(
     totalEarnedPoints,
     totalMaxPoints,
     completedAt: new Date().toISOString(),
+    phase,
   };
 }

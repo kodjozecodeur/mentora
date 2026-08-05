@@ -13,12 +13,6 @@ export function AppLogo({ size = 'lg', className }: AppLogoProps) {
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src="/logo/mentora-icon.svg"
-      alt="Mentora"
-      width={px}
-      height={px}
-      className={className}
-    />
+    <img src="/logo/mentora-icon.svg" alt="Mentora" width={px} height={px} className={className} />
   );
 }

@@ -1,28 +1,39 @@
+import { AppLogo } from '@/components/ui/AppLogo';
 import { BottomCTA } from '@/components/ui/BottomCTA';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { ProgressIndicator } from '@/components/ui/ProgressIndicator';
 import { ScreenContainer } from '@/components/ui/ScreenContainer';
+import { SpeechBubble } from '@/components/ui/SpeechBubble';
 
 interface DiagnosticIntroScreenProps {
-  subjectLabel: string;
   onContinue: () => void;
 }
 
-export function DiagnosticIntroScreen({ subjectLabel, onContinue }: DiagnosticIntroScreenProps) {
+export function DiagnosticIntroScreen({ onContinue }: DiagnosticIntroScreenProps) {
   return (
     <ScreenContainer className="onboarding-reveal">
-      <ProgressIndicator step={4} totalSteps={4} />
+      <ProgressIndicator step={5} totalSteps={5} />
 
-      <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
-        <h1 className="text-foreground text-2xl font-bold">{subjectLabel} !!</h1>
-        <p className="text-muted text-base font-medium">
-          Nous allons commencer par un diagnostic pour comprendre ton niveau actuel en{' '}
-          {subjectLabel.toLowerCase()}.
-        </p>
+      <div className="flex flex-1 flex-col items-center justify-center gap-6 py-8 text-center">
+        <div className="flex w-full">
+          <SpeechBubble>
+            Parfait ! Faisons un petit point pour découvrir ce que tu maîtrises déjà et construire
+            ton parcours personnalisé.
+          </SpeechBubble>
+        </div>
+
+        <div className="flex flex-col items-center gap-2">
+          <AppLogo size="lg" />
+          <p className="text-foreground text-base font-bold">Ton premier diagnostic</p>
+        </div>
       </div>
 
+      <p className="text-muted pb-4 text-center text-sm font-medium">
+        ⏱ Environ 3 minutes • 11 questions
+      </p>
+
       <BottomCTA>
-        <PrimaryButton onClick={onContinue}>Commencer</PrimaryButton>
+        <PrimaryButton onClick={onContinue}>Commencer mon diagnostic</PrimaryButton>
       </BottomCTA>
     </ScreenContainer>
   );

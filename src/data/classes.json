@@ -1,0 +1,37 @@
+[
+  {
+    "id": "6e",
+    "label": "6e",
+    "category": "Collège"
+  },
+  {
+    "id": "5e",
+    "label": "5e",
+    "category": "Collège"
+  },
+  {
+    "id": "4e",
+    "label": "4e",
+    "category": "Collège"
+  },
+  {
+    "id": "3e",
+    "label": "3e",
+    "category": "Collège"
+  },
+  {
+    "id": "2nde",
+    "label": "2nde",
+    "category": "Lycée"
+  },
+  {
+    "id": "1ere",
+    "label": "1ère",
+    "category": "Lycée"
+  },
+  {
+    "id": "terminale",
+    "label": "Terminale",
+    "category": "Lycée"
+  }
+]

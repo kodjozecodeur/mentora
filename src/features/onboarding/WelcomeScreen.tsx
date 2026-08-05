@@ -33,11 +33,16 @@ export function WelcomeScreen({ name, onNameChange, onContinue }: WelcomeScreenP
 
   return (
     <ScreenContainer>
-      <ProgressIndicator step={1} totalSteps={4} />
+      <ProgressIndicator step={1} totalSteps={5} />
 
       <div className="flex flex-1 flex-col items-center justify-center gap-8 py-12">
         <AppLogo size="lg" />
-        <h1 className="text-center text-2xl font-bold text-foreground">Quel est ton nom ?</h1>
+        <div className="flex flex-col items-center gap-2 text-center">
+          <h1 className="text-foreground text-2xl font-bold">Comment t&apos;appelles-tu ?</h1>
+          <p className="text-muted max-w-[280px] text-sm font-medium">
+            J&apos;utiliserai ton prénom pendant ton parcours.
+          </p>
+        </div>
         <TextField
           type="text"
           value={name}

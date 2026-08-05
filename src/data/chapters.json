@@ -1,0 +1,30 @@
+[
+  {
+    "id": "nombres-relatifs",
+    "label": "Nombres relatifs et calcul numérique"
+  },
+  {
+    "id": "calcul-litteral",
+    "label": "Calcul littéral et équations"
+  },
+  {
+    "id": "polynomes-second-degre",
+    "label": "Polynômes du second degré"
+  },
+  {
+    "id": "fonctions",
+    "label": "Fonctions et représentations graphiques"
+  },
+  {
+    "id": "thales",
+    "label": "Théorème de Thalès"
+  },
+  {
+    "id": "trigonometrie",
+    "label": "Trigonométrie"
+  },
+  {
+    "id": "statistiques-probabilites",
+    "label": "Statistiques et probabilités"
+  }
+]

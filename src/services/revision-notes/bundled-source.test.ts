@@ -6,12 +6,16 @@ describe('bundled revision note catalog', () => {
     const pack = bundledRevisionNotesEngine.getRevisionPack();
 
     expect(pack.id).toBe('bepc-mathematics-2026');
-    expect(pack.notes).toHaveLength(6);
+    expect(pack.notes).toHaveLength(10);
     expect(pack.notes.every((note) => note.contentVersion === '1.0.0')).toBe(true);
     expect(pack.notes.map((note) => note.competencyId)).toEqual([
       'calcul-litteral',
       'equations',
       'fonctions-lineaires',
+      'polynomes-developpement',
+      'polynomes-factorisation',
+      'polynomes-identites-remarquables',
+      'polynomes-reduction',
       'statistiques',
       'theoreme-pythagore',
       'theoreme-thales',

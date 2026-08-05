@@ -2,15 +2,24 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { DiagnosticResult } from '@/types/diagnostic';
-import type { RevisionPlan, RevisionSession } from '@/types/revision';
+import type {
+  RevisionPlan,
+  RevisionSession,
+  ValidationAttempt,
+  ValidationResponse,
+} from '@/types/revision';
 import { createPlanForDiagnostic } from './experience';
-import { updateRevisionSessionStatus } from './progress';
+import { recordValidationAttempt, updateRevisionSessionStatus } from './progress';
 import { clearRevisionPlan, loadRevisionPlan, saveRevisionPlan } from './storage';
+import { createValidationAttempt } from './validation';
 
 interface UseRevisionPlanResult {
   plan: RevisionPlan | null;
   startSession: (revisionUnitId: string) => void;
-  completeSession: (revisionUnitId: string) => void;
+  submitValidationAttempt: (
+    revisionUnitId: string,
+    responses: ValidationResponse[],
+  ) => ValidationAttempt | null;
   clearPlan: () => void;
 }
 
@@ -49,14 +58,33 @@ export function useRevisionPlan(
     (revisionUnitId: string) => changeStatus(revisionUnitId, 'in-progress'),
     [changeStatus],
   );
-  const completeSession = useCallback(
-    (revisionUnitId: string) => changeStatus(revisionUnitId, 'completed'),
-    [changeStatus],
+
+  const submitValidationAttempt = useCallback(
+    (revisionUnitId: string, responses: ValidationResponse[]) => {
+      if (!plan) return null;
+
+      const session = plan.sessions.find(
+        (candidate) => candidate.revisionUnitId === revisionUnitId,
+      );
+      if (!session) return null;
+
+      const now = new Date().toISOString();
+      const attempt = createValidationAttempt(session, responses, {
+        startedAt: now,
+        completedAt: now,
+      });
+      const updated = recordValidationAttempt(plan, revisionUnitId, attempt);
+      setPlan(updated);
+      saveRevisionPlan(updated);
+      return attempt;
+    },
+    [plan],
   );
+
   const clearPlan = useCallback(() => {
     clearRevisionPlan();
     setPlan(null);
   }, []);
 
-  return { plan, startSession, completeSession, clearPlan };
+  return { plan, startSession, submitValidationAttempt, clearPlan };
 }

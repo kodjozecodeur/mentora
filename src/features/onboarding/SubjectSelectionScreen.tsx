@@ -7,7 +7,7 @@ import { SelectionCard } from '@/components/ui/SelectionCard';
 import { SpeechBubble } from '@/components/ui/SpeechBubble';
 import subjects from '@/data/subjects.json';
 import type { SubjectOption } from '@/types/onboarding';
-import { isMvpSubjectAvailable, MVP_UNAVAILABLE_SUBJECT_MESSAGE } from './subjectAvailability';
+import { isMvpSubjectAvailable } from './subjectAvailability';
 
 interface SubjectSelectionScreenProps {
   selectedSubjectId: string | null;
@@ -20,16 +20,18 @@ export function SubjectSelectionScreen({
   onSelectSubject,
   onContinue,
 }: SubjectSelectionScreenProps) {
-  const hasUnavailableSubject =
-    selectedSubjectId !== null && !isMvpSubjectAvailable(selectedSubjectId);
-
   return (
     <ScreenContainer>
-      <ProgressIndicator step={3} totalSteps={4} />
+      <ProgressIndicator step={3} totalSteps={5} />
 
       <div className="flex items-start gap-3 py-8">
         <AppLogo size="sm" />
-        <SpeechBubble>Quelle matière souhaites-tu travailler ?</SpeechBubble>
+        <SpeechBubble>
+          <p>Quelle matière veux-tu travailler ?</p>
+          <p className="text-muted text-sm font-medium">
+            Choisis la matière que nous allons travailler ensemble.
+          </p>
+        </SpeechBubble>
       </div>
 
       <div className="flex flex-col gap-4">
@@ -39,22 +41,14 @@ export function SubjectSelectionScreen({
             label={subject.label}
             selected={selectedSubjectId === subject.id}
             showIcon
+            disabled={!isMvpSubjectAvailable(subject.id)}
             onClick={() => onSelectSubject(subject.id)}
           />
         ))}
       </div>
 
-      {hasUnavailableSubject && (
-        <p
-          role="alert"
-          className="border-highlight bg-highlight/10 text-foreground mt-4 rounded-2xl border-2 px-4 py-3 text-sm font-semibold"
-        >
-          {MVP_UNAVAILABLE_SUBJECT_MESSAGE}
-        </p>
-      )}
-
       <BottomCTA>
-        <PrimaryButton disabled={!selectedSubjectId || hasUnavailableSubject} onClick={onContinue}>
+        <PrimaryButton disabled={!selectedSubjectId} onClick={onContinue}>
           Continuer
         </PrimaryButton>
       </BottomCTA>

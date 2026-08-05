@@ -1,27 +1,20 @@
-import { BookOpenText, ClipboardCheck, House, UserRound } from 'lucide-react';
 import type { AppTab } from '@/features/app-shell/types';
 import { cn } from '@/lib/utils';
+import { BOTTOM_NAVIGATION_TABS } from './bottomNavigationTabs';
 
 interface BottomNavigationProps {
   activeTab: AppTab;
   onChange: (tab: AppTab) => void;
 }
 
-const ITEMS: Array<{ id: AppTab; label: string; icon: typeof House }> = [
-  { id: 'home', label: 'Accueil', icon: House },
-  { id: 'diagnostic', label: 'Diagnostic', icon: ClipboardCheck },
-  { id: 'revision', label: 'Révision', icon: BookOpenText },
-  { id: 'profile', label: 'Profil', icon: UserRound },
-];
-
 export function BottomNavigation({ activeTab, onChange }: BottomNavigationProps) {
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-50">
       <nav
         aria-label="Navigation principale"
-        className="bg-surface/95 border-border pointer-events-auto mx-auto grid w-full max-w-[430px] grid-cols-4 border-t px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(36,21,42,0.08)] backdrop-blur"
+        className="bg-surface/95 border-border pointer-events-auto mx-auto grid w-full max-w-[430px] grid-cols-3 border-t px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(36,21,42,0.08)] backdrop-blur"
       >
-        {ITEMS.map(({ id, label, icon: Icon }) => {
+        {BOTTOM_NAVIGATION_TABS.map(({ id, label, icon: Icon }) => {
           const isActive = activeTab === id;
 
           return (
