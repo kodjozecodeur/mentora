@@ -36,8 +36,8 @@ import type { AppTab, RevisionShellView } from './types';
 const STUDY_PACK_EXPORT_ERROR_MESSAGE =
   "Le Study Pack n'a pas pu s'ouvrir. Autorise les fenêtres pop-up dans ton navigateur, puis réessaie.";
 
-/** Study-pack PDF cover copy only — no exam concept survives in AppShell's own state/nav. */
-const STUDY_PACK_EXAM_LABEL = 'BEPC';
+/** Study-pack PDF cover copy only — chapter-scoped, no exam concept survives in AppShell's own state/nav. */
+const STUDY_PACK_CHAPTER_LABEL = 'Polynômes du second degré';
 
 interface AppShellProps {
   diagnosticResult: DiagnosticResult;
@@ -151,7 +151,7 @@ export function AppShell({
         allRevisionNotes: bundledRevisionNotesEngine.getRevisionNotes(),
         studentName: firstName,
         subjectLabel,
-        examLabel: STUDY_PACK_EXAM_LABEL,
+        examLabel: STUDY_PACK_CHAPTER_LABEL,
       });
     } catch {
       window.alert(STUDY_PACK_EXPORT_ERROR_MESSAGE);

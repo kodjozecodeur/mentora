@@ -89,7 +89,7 @@ function buildCoverDocSection(
         { label: 'Élève', value: section.studentName ?? '—' },
         { label: 'Date', value: formatDate(section.date) },
         { label: 'Matière', value: section.subjectLabel },
-        { label: 'Examen', value: section.examLabel },
+        { label: 'Chapitre', value: section.examLabel },
       ]),
       heading(2, `Score de préparation : ${section.readinessScore} %`),
       paragraph(section.diagnosticSummary),

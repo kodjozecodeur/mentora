@@ -13,8 +13,8 @@ const SAMPLE_DIAGNOSTIC_RESULT: DiagnosticResult = {
   responses: [],
   competencyMastery: [
     {
-      competencyId: 'calcul-litteral',
-      competencyLabel: 'Calcul littéral',
+      competencyId: 'polynomes-reduction',
+      competencyLabel: 'Réduire une expression',
       pointsEarned: 1,
       pointsPossible: 3,
       masteryPercent: 33,
@@ -22,8 +22,8 @@ const SAMPLE_DIAGNOSTIC_RESULT: DiagnosticResult = {
       confidence: 'low',
     },
     {
-      competencyId: 'equations',
-      competencyLabel: 'Équations',
+      competencyId: 'polynomes-developpement',
+      competencyLabel: 'Développer une expression',
       pointsEarned: 2,
       pointsPossible: 3,
       masteryPercent: 55,
@@ -31,8 +31,8 @@ const SAMPLE_DIAGNOSTIC_RESULT: DiagnosticResult = {
       confidence: 'medium',
     },
     {
-      competencyId: 'fonctions-lineaires',
-      competencyLabel: 'Fonctions linéaires',
+      competencyId: 'polynomes-factorisation',
+      competencyLabel: 'Factoriser une expression',
       pointsEarned: 3,
       pointsPossible: 3,
       masteryPercent: 85,
@@ -44,8 +44,8 @@ const SAMPLE_DIAGNOSTIC_RESULT: DiagnosticResult = {
   readinessLevel: 'in-progress',
   strengths: [
     {
-      competencyId: 'fonctions-lineaires',
-      competencyLabel: 'Fonctions linéaires',
+      competencyId: 'polynomes-factorisation',
+      competencyLabel: 'Factoriser une expression',
       pointsEarned: 3,
       pointsPossible: 3,
       masteryPercent: 85,
@@ -55,8 +55,8 @@ const SAMPLE_DIAGNOSTIC_RESULT: DiagnosticResult = {
   ],
   weaknesses: [
     {
-      competencyId: 'calcul-litteral',
-      competencyLabel: 'Calcul littéral',
+      competencyId: 'polynomes-reduction',
+      competencyLabel: 'Réduire une expression',
       pointsEarned: 1,
       pointsPossible: 3,
       masteryPercent: 33,
@@ -64,8 +64,8 @@ const SAMPLE_DIAGNOSTIC_RESULT: DiagnosticResult = {
       confidence: 'low',
     },
     {
-      competencyId: 'equations',
-      competencyLabel: 'Équations',
+      competencyId: 'polynomes-developpement',
+      competencyLabel: 'Développer une expression',
       pointsEarned: 2,
       pointsPossible: 3,
       masteryPercent: 55,
@@ -75,20 +75,20 @@ const SAMPLE_DIAGNOSTIC_RESULT: DiagnosticResult = {
   ],
   revisionPriorities: [
     {
-      competencyId: 'calcul-litteral',
-      competencyLabel: 'Calcul littéral',
+      competencyId: 'polynomes-reduction',
+      competencyLabel: 'Réduire une expression',
       masteryPercent: 33,
       readinessLevel: 'priority',
       explanation: 'Maîtrise estimée à 33 % : reprendre les bases avant la pratique autonome.',
       revisionExample: 'Développer et réduire 3(2x - 1) - 4(x + 2).',
     },
     {
-      competencyId: 'equations',
-      competencyLabel: 'Équations',
+      competencyId: 'polynomes-developpement',
+      competencyLabel: 'Développer une expression',
       masteryPercent: 55,
       readinessLevel: 'in-progress',
       explanation: 'Maîtrise estimée à 55 % : consolider la méthode.',
-      revisionExample: 'Résoudre 3x + 5 = 2x - 1.',
+      revisionExample: 'Développer (x+2)(x+5).',
     },
   ],
   totalEarnedPoints: 6,
@@ -117,7 +117,7 @@ export default function StudyPackPreviewPage() {
     allRevisionNotes: bundledRevisionNotesEngine.getRevisionNotes(),
     studentName: 'Awa',
     subjectLabel: 'Mathématiques',
-    examLabel: "Brevet d'études du premier cycle (BEPC)",
+    examLabel: 'Polynômes du second degré',
     generatedAt: '2026-08-04T09:05:00.000Z',
   });
 
