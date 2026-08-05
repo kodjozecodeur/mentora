@@ -25,9 +25,19 @@ const FORBIDDEN_TOPIC_IDS = [
 ];
 
 describe('diagnostic-questions.json — Polynômes chapter coherence', () => {
-  it('has between 8 and 12 questions for the demo', () => {
-    expect(QUESTIONS.length).toBeGreaterThanOrEqual(8);
-    expect(QUESTIONS.length).toBeLessThanOrEqual(12);
+  it('has exactly 6 questions for the demo', () => {
+    expect(QUESTIONS.length).toBe(6);
+  });
+
+  it('distributes questions 2/2/1/1 across the four competencies', () => {
+    const counts = new Map<string, number>();
+    for (const question of QUESTIONS) {
+      counts.set(question.competencyId, (counts.get(question.competencyId) ?? 0) + 1);
+    }
+    expect(counts.get('polynomes-reduction')).toBe(2);
+    expect(counts.get('polynomes-developpement')).toBe(2);
+    expect(counts.get('polynomes-factorisation')).toBe(1);
+    expect(counts.get('polynomes-identites-remarquables')).toBe(1);
   });
 
   it('tags every question with the Polynômes chapter only', () => {

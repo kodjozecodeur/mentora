@@ -3,8 +3,8 @@ import type { DiagnosticPhase, DiagnosticSessionState } from '@/types/diagnostic
 /** Initial and final diagnostics are stored under separate keys/versions (spec §9, §10 Decision) —
  * a final result must never overwrite the initial one, so before/after comparison stays derivable. */
 const STORAGE_KEYS: Record<DiagnosticPhase, string> = {
-  initial: 'mentora.diagnostic.bepc-mathematiques.initial.v3',
-  final: 'mentora.diagnostic.bepc-mathematiques.final.v1',
+  initial: 'mentora.diagnostic.bepc-mathematiques.initial.v4',
+  final: 'mentora.diagnostic.bepc-mathematiques.final.v2',
 };
 
 function hasLocalStorage(): boolean {

@@ -29,7 +29,7 @@ export function DiagnosticIntroScreen({ onContinue }: DiagnosticIntroScreenProps
       </div>
 
       <p className="text-muted pb-4 text-center text-sm font-medium">
-        ⏱ Environ 3 minutes • 11 questions
+        ⏱ Environ 2 minutes • 6 questions
       </p>
 
       <BottomCTA>

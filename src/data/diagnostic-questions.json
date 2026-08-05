@@ -42,27 +42,6 @@
     "revisionExample": "Exemple : 4(x-2)-2(x-1) = 4x-8-2x+2 = 2x-6."
   },
   {
-    "id": "polynomes-reduction-03",
-    "chapterId": "polynomes-second-degre",
-    "competencyId": "polynomes-reduction",
-    "competencyLabel": "Réduire une expression",
-    "instruction": "Un vendeur propose des cahiers à x francs l'unité et des stylos à (x-50) francs l'unité. Un client achète 3 cahiers et 2 stylos. Quelle est l'expression réduite du prix total P(x) ?",
-    "content": "P(x) = 3x + 2(x-50)",
-    "contentFormat": "latex",
-    "type": "single-choice",
-    "options": [
-      { "id": "polynomes-reduction-03-a", "content": "5x-100", "contentFormat": "latex" },
-      { "id": "polynomes-reduction-03-b", "content": "5x-50", "contentFormat": "latex" },
-      { "id": "polynomes-reduction-03-c", "content": "5x+100", "contentFormat": "latex" },
-      { "id": "polynomes-reduction-03-d", "content": "x-100", "contentFormat": "latex" }
-    ],
-    "correctOptionId": "polynomes-reduction-03-a",
-    "points": 1,
-    "difficulty": "medium",
-    "explanation": "P(x)=3x+2(x-50)=3x+2x-100=5x-100. On développe 2(x-50) puis on regroupe les termes en x. Erreur fréquente : oublier de distribuer le 2 sur (x-50), ce qui donne 5x-50 au lieu de 5x-100.",
-    "revisionExample": "Pour x=200 francs : P(200)=5×200-100=900 francs."
-  },
-  {
     "id": "polynomes-developpement-01",
     "chapterId": "polynomes-second-degre",
     "competencyId": "polynomes-developpement",
@@ -105,27 +84,6 @@
     "revisionExample": "Exemple : (3x-2)(x+1) = 3x²+3x-2x-2 = 3x²+x-2."
   },
   {
-    "id": "polynomes-developpement-03",
-    "chapterId": "polynomes-second-degre",
-    "competencyId": "polynomes-developpement",
-    "competencyLabel": "Développer une expression",
-    "instruction": "Développe et réduis",
-    "content": "(x+2)(x+3) + (x-1)(x+4)",
-    "contentFormat": "latex",
-    "type": "single-choice",
-    "options": [
-      { "id": "polynomes-developpement-03-a", "content": "2x²+8x+2", "contentFormat": "latex" },
-      { "id": "polynomes-developpement-03-b", "content": "2x²+2x+2", "contentFormat": "latex" },
-      { "id": "polynomes-developpement-03-c", "content": "x²+8x+2", "contentFormat": "latex" },
-      { "id": "polynomes-developpement-03-d", "content": "2x²+8x-2", "contentFormat": "latex" }
-    ],
-    "correctOptionId": "polynomes-developpement-03-a",
-    "points": 1,
-    "difficulty": "hard",
-    "explanation": "On développe chaque produit séparément puis on additionne : (x²+5x+6)+(x²+3x-4) = 2x²+8x+2. Erreur fréquente : additionner les facteurs avant de développer, ou ne développer qu'un seul des deux produits.",
-    "revisionExample": "Exemple : (x+1)(x+2)+(x-2)(x+3) = (x²+3x+2)+(x²+x-6) = 2x²+4x-4."
-  },
-  {
     "id": "polynomes-factorisation-01",
     "chapterId": "polynomes-second-degre",
     "competencyId": "polynomes-factorisation",
@@ -145,27 +103,6 @@
     "difficulty": "easy",
     "explanation": "6 et 9 ont pour facteur commun 3 : 6x+9 = 3×2x+3×3 = 3(2x+3). Erreur fréquente : sortir un facteur commun incorrect, par exemple 3(2x+9), en oubliant de diviser le second terme.",
     "revisionExample": "Exemple : 10x+15 = 5(2x+3)."
-  },
-  {
-    "id": "polynomes-factorisation-02",
-    "chapterId": "polynomes-second-degre",
-    "competencyId": "polynomes-factorisation",
-    "competencyLabel": "Factoriser une expression",
-    "instruction": "Factorise",
-    "content": "4x²-6x",
-    "contentFormat": "latex",
-    "type": "single-choice",
-    "options": [
-      { "id": "polynomes-factorisation-02-a", "content": "2x(2x-3)", "contentFormat": "latex" },
-      { "id": "polynomes-factorisation-02-b", "content": "2(2x²-3x)", "contentFormat": "latex" },
-      { "id": "polynomes-factorisation-02-c", "content": "2x(2x-6)", "contentFormat": "latex" },
-      { "id": "polynomes-factorisation-02-d", "content": "4x(x-6)", "contentFormat": "latex" }
-    ],
-    "correctOptionId": "polynomes-factorisation-02-a",
-    "points": 1,
-    "difficulty": "medium",
-    "explanation": "Facteur commun 2x : 4x² = 2x×2x et 6x = 2x×3, donc 4x²-6x = 2x(2x-3). Erreur fréquente : ne factoriser que par un nombre (2) sans repérer le x commun aux deux termes.",
-    "revisionExample": "Exemple : 6x²-9x = 3x(2x-3)."
   },
   {
     "id": "polynomes-identites-remarquables-01",
@@ -203,79 +140,5 @@
     "difficulty": "medium",
     "explanation": "(a+b)(a-b)=a²-b² avec a=3x, b=4 : (3x)²-4²=9x²-16. Erreur fréquente : développer terme à terme sans reconnaître l'identité, en gardant un terme en x (9x²-24x-16).",
     "revisionExample": "Exemple : (5x+3)(5x-3)=25x²-9."
-  },
-  {
-    "id": "polynomes-identites-remarquables-02",
-    "chapterId": "polynomes-second-degre",
-    "competencyId": "polynomes-identites-remarquables",
-    "competencyLabel": "Identités remarquables",
-    "instruction": "Quel est le développement de (5x+3)(5x-3) ?",
-    "content": "(5x+3)(5x-3)",
-    "contentFormat": "latex",
-    "type": "single-choice",
-    "options": [
-      {
-        "id": "polynomes-identites-remarquables-02-a",
-        "content": "25x²-9",
-        "contentFormat": "latex"
-      },
-      {
-        "id": "polynomes-identites-remarquables-02-b",
-        "content": "25x²+9",
-        "contentFormat": "latex"
-      },
-      {
-        "id": "polynomes-identites-remarquables-02-c",
-        "content": "25x²-30x-9",
-        "contentFormat": "latex"
-      },
-      {
-        "id": "polynomes-identites-remarquables-02-d",
-        "content": "5x²-9",
-        "contentFormat": "latex"
-      }
-    ],
-    "correctOptionId": "polynomes-identites-remarquables-02-a",
-    "points": 1,
-    "difficulty": "medium",
-    "explanation": "(5x)²-3²=25x²-9. Erreur fréquente : oublier d'élever 5x au carré, en écrivant 5x² au lieu de 25x².",
-    "revisionExample": "Exemple : (3x+4)(3x-4)=9x²-16."
-  },
-  {
-    "id": "polynomes-identites-remarquables-03",
-    "chapterId": "polynomes-second-degre",
-    "competencyId": "polynomes-identites-remarquables",
-    "competencyLabel": "Identités remarquables",
-    "instruction": "Complète : (4x+1)² = ...",
-    "content": "(4x+1)²",
-    "contentFormat": "latex",
-    "type": "single-choice",
-    "options": [
-      {
-        "id": "polynomes-identites-remarquables-03-a",
-        "content": "16x²+8x+1",
-        "contentFormat": "latex"
-      },
-      {
-        "id": "polynomes-identites-remarquables-03-b",
-        "content": "16x²+1",
-        "contentFormat": "latex"
-      },
-      {
-        "id": "polynomes-identites-remarquables-03-c",
-        "content": "16x²+4x+1",
-        "contentFormat": "latex"
-      },
-      {
-        "id": "polynomes-identites-remarquables-03-d",
-        "content": "8x²+8x+1",
-        "contentFormat": "latex"
-      }
-    ],
-    "correctOptionId": "polynomes-identites-remarquables-03-a",
-    "points": 1,
-    "difficulty": "medium",
-    "explanation": "(a+b)²=a²+2ab+b² avec a=4x, b=1 : 16x²+2×4x×1+1 = 16x²+8x+1. Erreur fréquente : oublier le double produit 2ab et répondre 16x²+1.",
-    "revisionExample": "Exemple : (2x+3)² = 4x²+12x+9."
   }
 ]

@@ -51,7 +51,7 @@ describe('diagnostic storage', () => {
 
   it('returns null when the stored value is corrupted JSON', () => {
     const stub = stubLocalStorage();
-    stub.setItem('mentora.diagnostic.bepc-mathematiques.initial.v3', '{not json');
+    stub.setItem('mentora.diagnostic.bepc-mathematiques.initial.v4', '{not json');
     expect(loadDiagnosticProgress('initial')).toBeNull();
   });
 
